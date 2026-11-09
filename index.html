@@ -3064,7 +3064,7 @@ function simulate(dep, asOf){
     if (closing){ if (P > 0){ credit(d, P); P = 0; } close = { date: d, amount: B }; }
     if (d === today) atToday = { B, P: P + (dep.accrual === "minMonth" && minM != null ? Math.max(0, minM) * rateSum : 0), credited: credited };
     if (monthEnd) months.push({ date: d, balance: B });
-    if (d <= today) daily.push([d, closing ? 0 : B]);
+    if (d <= today) daily.push([d, closing ? 0 : B, closing ? 0 : P + (dep.accrual === "minMonth" && minM != null ? Math.max(0, minM) * rateSum : 0)]);
     if (closing){ B = 0; break; }
   }
   /* manual close: the income the bank actually paid replaces the calculated one (early closure usually pays less) */
@@ -3093,6 +3093,42 @@ const anyData = () => allReports().length > 0 || S.deposits.length > 0;
 function depIncome(D){ const t = todayIso(), out = []; for (const x of D.deposits || []) for (const c of x.sim.credits) if (c.date <= t) out.push({ date: c.date, kind: "interest", amount: c.amount, ccy: "RUB", rub: c.amount, isin: "", name: x.dep.name }); return out; }
 
 /* ---- page ---- */
+/* growth of all deposits: balance with accrued interest, principal, and the principal grown at the weighted rate */
+function depGrowthPanel(list, wr){
+  const t = todayIso(), live = list.filter(x => x.sim.daily.length); if (!live.length) return "";
+  const first = live.reduce((m, x) => x.sim.daily[0][0] < m ? x.sim.daily[0][0] : m, t);
+  const dates = []; for (let ms = msOf(first), e = msOf(t); ms <= e; ms += 864e5) dates.push(isoUTC(ms));
+  const N = dates.length; if (N < 2) return "";
+  const idx = new Map(dates.map((d, i) => [d, i])), tot = new Float64Array(N), body = new Float64Array(N), inc = new Float64Array(N), flow = new Float64Array(N), rw = new Float64Array(N), bw = new Float64Array(N);
+  for (const { dep, sim } of live){
+    const ops = [...dep.ops].sort((a, b) => a.date.localeCompare(b.date)); let oi = 0, bd = 0, ci = 0, cum = 0;
+    const cr = sim.credits.filter(c => c.date <= t).sort((a, b) => a.date.localeCompare(b.date));
+    for (const [d, b, pend] of sim.daily){ const i = idx.get(d); if (i == null) continue;
+      while (oi < ops.length && ops[oi].date <= d){ bd += ops[oi].amount; flow[i] += ops[oi].amount; oi++; }
+      for (const c of cr) if (c.date === d && c.paid) flow[i] -= c.amount; // interest paid out to a card leaves the deposits
+      if (sim.close && d === sim.close.date) flow[i] -= sim.close.amount; // closing: everything goes back to the bank account
+      while (ci < cr.length && cr[ci].date <= d){ cum += cr[ci].amount; ci++; }
+      const closed = sim.close && d >= sim.close.date;
+      tot[i] += b + (pend || 0); body[i] += closed ? 0 : bd; inc[i] += cum + (pend || 0);
+      if (b > 0){ const rr = depRateOn(dep, d); rw[i] += b * (rr ? rr.rate : 0); bw[i] += b; } }
+    const last = idx.get(sim.daily[sim.daily.length - 1][0]); if (last != null) for (let i = last + 1; i < N; i++) inc[i] += cum; // a closed deposit keeps its earned interest
+  }
+  const per = S.hist.dg || "all", a = Math.max(0, idx.get(periodStart(per, first)) ?? 0), ds = dates.slice(a), sub = arr => Array.from(arr.slice(a));
+  /* weighted average rate over the chosen period: each day's rates weighted by that day's balances */
+  let sr = 0, sb = 0; for (let i = a; i < N; i++){ sr += rw[i]; sb += bw[i]; }
+  const pr = sb ? sr / sb : wr;
+  /* principal grown day by day at that rate, starting from the actual balance at the start of the period */
+  const exp = [tot[a]], r = pr / 100 / 365; for (let i = a + 1; i < N; i++) exp.push(Math.max(0, exp[exp.length - 1] * (1 + r) + flow[i]));
+  const dSum = tot[N - 1] - tot[a], dInc = inc[N - 1] - inc[a], dBody = body[N - 1] - body[a];
+  let dFlow = 0; for (let i = a + 1; i < N; i++) dFlow += flow[i];
+  const series = [{ k: "dt", n: "Сумма с процентами", c: "var(--accent)", v: sub(tot), area: true, w: 2 },
+    { k: "de", n: `Тело × средняя ставка ${pct(pr, 2)}`, c: "var(--c-offer)", v: exp, w: 1.5, dash: "4 3" },
+    { k: "db", n: "Тело (внесено)", c: "var(--c-amort)", v: sub(body), w: 1.5, dash: "5 4" }];
+  const hs = (n, v, c, cls) => `<span class="hsum"><i style="background:${c}"></i>${n} <b class="${cls || (v >= 0 ? "pos" : "neg")}">${sgn(v)}</b></span>`;
+  return `<div class="panel hist-p dep-growth"><div class="panel-head"><h2>Рост вкладов и счетов</h2><span class="hinfo" data-tip="Сумма с процентами — остатки по всем вкладам и счетам с начисленными, но ещё не выплаченными процентами. Тело — внесённые деньги минус снятия. Пунктир «Тело × средняя ставка» — как росла бы сумма под средневзвешенную ставку за выбранный период: ставка каждого дня взвешена по остаткам этого дня." tabindex="0">?</span></div>
+    <div class="hrow">${periodBtns("dg", per)}<span class="hdates">${fmtD(ds[0])} – ${fmtD(ds[ds.length - 1])}</span>${hs("Сумма", dSum, "var(--accent)")}${hs("Проценты", dInc, "var(--good)")}${Math.abs(dFlow) > 0.005 ? hs(dFlow >= 0 ? "Пополнения" : "Снято", dFlow, "var(--c-amort)", "") : ""}<span class="hsum"><i style="background:var(--c-offer)"></i>Средняя ставка <b>${pct(pr, 2)}</b>${Math.abs(pr - wr) >= 0.01 ? ` <small class="muted">сейчас ${pct(wr, 2)}</small>` : ""}</span></div>
+    ${lineChart("dg", ds, series, { h: 280, host: "#v-deposits" })}</div>`;
+}
 function renderDeposits(D){
   const el = $("#v-deposits"), list = [...(D.deposits || [])].sort((a, b) => (a.sim.closed ? 1 : 0) - (b.sim.closed ? 1 : 0));
   const nClosed = list.filter(x => x.sim.closed).length, shown = S.depShowClosed ? list : list.filter(x => !x.sim.closed);
@@ -3132,6 +3168,7 @@ function renderDeposits(D){
   </div>
   ${nClosed ? `<label class="chk dep-sc"><input type="checkbox" id="depShowClosed" ${S.depShowClosed ? "checked" : ""}> Показывать закрытые (${nClosed})</label>` : ""}
   ${shown.length ? `<div class="dep-grid">${shown.map(card).join("")}</div>` : `<div class="panel"><div class="empty"><b>Открытых вкладов и счетов нет</b><span>Закрытые сохранены: поставьте галку «Показывать закрытые», чтобы их увидеть.</span></div></div>`}
+  ${depGrowthPanel(list, wr)}
   <p class="note">Проценты считаются за каждый день по ставке на этот день, со дня после поступления денег. Налог на проценты не вычитается: он считается по всем банкам сразу и платится по уведомлению ФНС, если доход больше необлагаемой суммы за год.</p>`
   : `<div class="panel"><div class="empty"><b>Вкладов и накопительных счетов пока нет</b><span>Добавьте вклад или накопительный счёт: укажите ставки по периодам, капитализацию и способ начисления, и приложение посчитает проценты, прогноз и выплаты в календаре.</span><button class="btn primary" data-dnew style="margin-top:8px">Добавить вклад или счёт</button></div></div>`}`;
 }
@@ -4044,8 +4081,8 @@ function dietz(S0, a, b, val){ const v = val || S0.value; const Vs = v[a], Ve = 
 const HCH = {};
 function fmtAxis(v){ const a = Math.abs(v); return a >= 1e6 ? (v / 1e6).toLocaleString("ru-RU", { maximumFractionDigits: 2 }) + " млн" : a >= 1000 ? Math.round(v / 1000).toLocaleString("ru-RU") + " тыс." : Math.round(v).toLocaleString("ru-RU"); }
 const MON_S = ["янв", "фев", "мар", "апр", "май", "июн", "июл", "авг", "сен", "окт", "ноя", "дек"];
-function lineChart(id, dates, series, { h = 300, zero = false } = {}){
-  const host = $("#v-portfolio"), W = Math.max(320, Math.min(1400, ((host && host.clientWidth) || 940) - 40)), padL = 58, padR = 10, padT = 12, padB = 26, n = dates.length;
+function lineChart(id, dates, series, { h = 300, zero = false, host: hostSel = "#v-portfolio" } = {}){
+  const host = $(hostSel), W = Math.max(320, Math.min(1400, ((host && host.clientWidth) || 940) - 40)), padL = 58, padR = 10, padT = 12, padB = 26, n = dates.length;
   let mn = Infinity, mx = -Infinity; for (const s of series) for (const v of s.v){ if (v < mn) mn = v; if (v > mx) mx = v; }
   if (zero){ mn = Math.min(mn, 0); mx = Math.max(mx, 0); }
   if (!isFinite(mn)) { mn = 0; mx = 1; } if (mx - mn < 1e-6){ mx += 1; mn -= 1; }
