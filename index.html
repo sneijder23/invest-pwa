@@ -4011,18 +4011,18 @@ async function loadMmf(force){
   }
   MMF.data = data; MMF.at = Date.now(); MMF.busy = false;
   if (fails) MMF.err = `Мосбиржа не отдала цены по ${fails} ${plural(fails, "фонду", "фондам", "фондам")}. Нажмите «Обновить».`;
-  idbSet("mmf", { at: MMF.at, data }); render();
+  idbSet("mmf2", { at: MMF.at, data }); render();
 }
 function mmfRestore(){ if (MMF.tried) return; MMF.tried = true; MMF.busy = true;
-  idbGet("mmf").then(v => { MMF.busy = false; if (v && v.data){ MMF.data = v.data; MMF.at = v.at; } loadMmf(false); }); }
+  idbGet("mmf2").then(v => { MMF.busy = false; if (v && v.data){ MMF.data = v.data; MMF.at = v.at; } loadMmf(false); }); }
 /* simple annualised return over the last `days` days from daily closes */
-function mmfRet(px, days){
+function mmfRet(px, days, loose){
   if (!px || px.length < 2) return null; const last = px[px.length - 1], from = addDays(last[0], -days);
-  const base = [...px].reverse().find(p => p[0] <= from); if (!base) return null;
+  let base = [...px].reverse().find(p => p[0] <= addDays(from, 3)); if (!base && loose && (msOf(last[0]) - msOf(px[0][0])) / 864e5 >= 25) base = px[0]; if (!base) return null;
   const d = (msOf(last[0]) - msOf(base[0])) / 864e5; return d > 0 ? (last[1] / base[1] - 1) * 365 / d * 100 : null;
 }
 function mmfCalc(f, broker){
-  const P = S.mmf, px = MMF.data && MMF.data[f.t]; const y = mmfRet(px, P.per); if (y == null) return null;
+  const P = S.mmf, px = MMF.data && MMF.data[f.t]; const y = mmfRet(px, P.per, true); if (y == null) return null;
   const c = P.home && f.b === broker ? 0 : (+P.comm[broker] || 0);
   const amt = +P.amt || 0, days = +P.hz || 90;
   const commRub = amt * c / 100 * 2;               // buy + sell
@@ -4780,7 +4780,8 @@ function render(){
 }
 
 /* ======================= history: value, profit, benchmark ======================= */
-const HIST = { px: store.get("pf.hist.v1", {}), meta: store.get("pf.histmeta.v1", {}), busy: false, status: "", tried: false, ver: 0 };
+try { localStorage.removeItem("pf.hist.v1"); } catch {}
+const HIST = { px: store.get("pf.hist.v2", {}), meta: store.get("pf.histmeta.v1", {}), busy: false, status: "", tried: false, ver: 0 };
 const BENCH = { IMOEX: "Индекс Мосбиржи", MCFTR: "Индекс Мосбиржи полной доходности", RGBITR: "Индекс гособлигаций полной доходности" };
 S.hist = Object.assign({ bench: "IMOEX", vp: "1y", pp: "1y", mt: "12", ap: "all" }, store.get("pf.histui.v1", {}));
 const saveHistUi = () => store.set("pf.histui.v1", S.hist);
@@ -4793,13 +4794,20 @@ function periodStart(code, first){
 }
 /* ---- loading price history from Moscow Exchange ---- */
 async function candles(path, from){
-  const out = [];
-  for (let start = 0; start < 6000;){
-    const j = await iss(path, `from=${from}&interval=24&start=${start}&candles.columns=begin,close`);
-    const rows = tbl(j, "candles"); for (const r of rows) if (r.close != null) out.push([String(r.begin).slice(0, 10), +r.close]);
-    if (rows.length < 500) break; start += rows.length;
+  /* ISS pages are short and their size/order is not guaranteed: walk the range in ~4-month windows and page inside each */
+  const map = new Map(), today = todayIso();
+  for (let a = from; a <= today;){
+    const b = [addDays(a, 119), today].sort()[0];
+    for (let start = 0, guard = 0; guard < 20; guard++){
+      const j = await iss(path, `from=${a}&till=${b}&interval=24&start=${start}&candles.columns=begin,close`);
+      const rows = tbl(j, "candles"); if (!rows.length) break;
+      let fresh = 0; for (const r of rows) if (r.close != null){ const d = String(r.begin).slice(0, 10); if (!map.has(d)) fresh++; map.set(d, +r.close); }
+      if (!fresh) break; start += rows.length;
+      const dates = rows.map(r => String(r.begin).slice(0, 10)).sort(); if (dates[dates.length - 1] >= addDays(b, -5)) break;
+    }
+    a = addDays(b, 1);
   }
-  return out;
+  return [...map.entries()].sort((x, y) => x[0].localeCompare(y[0]));
 }
 function histNeed(){
   const D = derive("all"), isins = new Set([...D.trades.map(t => t.isin), ...D.holdings.map(h => h.isin)].filter(Boolean));
@@ -4831,7 +4839,7 @@ async function loadHistory(force){
       try { const rows = await candles(j.path, f); HIST.px[j.key] = { at: Date.now(), from: c && !force && c.from <= from ? c.from : from, rows: mergeRows(f === from ? [] : c.rows, rows) }; } catch { failed++; }
       done++; HIST.status = `Загружаю историю цен: ${done} из ${jobs.length}`; } };
     await Promise.all([work(), work(), work(), work()]);
-    try { store.set("pf.hist.v1", HIST.px); } catch {}
+    try { store.set("pf.hist.v2", HIST.px); } catch {}
     HIST.status = failed ? `Не удалось загрузить историю по ${failed} ${plural(failed, "бумаге", "бумагам", "бумагам")}: для них взяты цены сделок.` : "";
   } catch { HIST.status = "Мосбиржа не ответила: график построен по ценам сделок."; }
   HIST.busy = false; HIST.ver++; render();
