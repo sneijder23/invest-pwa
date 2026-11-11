@@ -565,6 +565,82 @@ th.sortable button:hover{color:var(--fg)}
 .g-need{display:grid;gap:3px;padding:10px 12px;border-radius:10px;background:var(--surface-2);border-left:3px solid var(--c-coupon);font-size:14px}
 .g-need.short{border-left-color:var(--warn)}
 .g-need small{color:var(--muted);font-size:12.5px;line-height:1.4}
+.scr-upd{white-space:nowrap}
+.scr-reload{display:inline-flex;align-items:center;gap:6px}
+.scr-reload svg{width:15px;height:15px}
+.lab-p{display:grid;gap:12px;grid-template-columns:minmax(0,1fr)}
+.lab-p>*{min-width:0}
+.lab-kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:8px}
+.lab-kpi>div{display:grid;gap:2px;padding:10px 12px;border-radius:10px;background:var(--surface-2);align-content:start}
+.lab-kpi span{font-size:12.5px;color:var(--muted)}
+.lab-kpi b{font:500 18px var(--f-mono)}
+.lab-kpi small{font-size:12px;color:var(--muted);line-height:1.35}
+.lab-kpi small b{font-size:12px}
+.lab-in{display:inline-flex;align-items:center;gap:4px;font:500 18px var(--f-mono)}
+.lab-in input{width:72px;font:inherit;padding:2px 6px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--fg)}
+.lab-t{width:100%;font-size:13.5px}
+.lab-t td.n,.lab-t th.n{text-align:right;white-space:nowrap;font-family:var(--f-mono)}
+.lab-t th.n{font-family:var(--f-body)}
+.lab-st tr[data-lab-st]{cursor:pointer}
+.lab-st tr[data-lab-st]:hover td{background:var(--surface-2)}
+.lab-st tr.on td{background:var(--accent-soft)}
+.lab-st .bar-c{width:28%;min-width:90px}
+.lab-bar{display:block;height:10px;border-radius:3px}
+.lab-bar.up{background:var(--good)}
+.lab-bar.down{background:var(--bad)}
+.lab-v{font-size:12.5px;white-space:nowrap}
+.lab-v.warn-c{color:var(--warn)}
+.lab-v.riskc{color:var(--bad);font-weight:600}
+.warn-t{color:var(--warn)}
+.lab-lead{margin:0;font-size:14px}
+.lab-h3{margin:4px 0 0;font:600 14px var(--f-display)}
+.lab-top{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:4px 16px}
+.lab-top>div{display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+.lab-top b{font-family:var(--f-mono);font-weight:500;white-space:nowrap}
+.lab-sort{margin:8px 0}
+.kr-path-set{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center}
+.kr-path-set .lab-in{font-size:13px;font-family:var(--f-body);color:var(--muted)}
+.kr-path-set .lab-in input{width:58px;font:500 13px var(--f-mono)}
+.kr-path{display:flex;flex-wrap:wrap;gap:6px}
+.kr-pt{display:grid;padding:5px 9px;border-radius:8px;background:var(--surface-2);text-align:center;min-width:62px}
+.kr-pt small{font-size:11px;color:var(--muted)}
+.kr-pt b{font:500 13px var(--f-mono)}
+.pk-lad{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;align-items:end}
+.pk-lad>div{display:grid;gap:3px;justify-items:center;text-align:center}
+.pk-bar{display:flex;align-items:flex-end;width:100%;max-width:70px;height:90px;border-radius:6px;background:var(--surface-2);overflow:hidden}
+.pk-bar i{display:block;width:100%;background:var(--c-coupon);border-radius:6px 6px 0 0}
+.pk-lad .gap .pk-bar{outline:1.5px dashed var(--warn);outline-offset:-1.5px}
+.pk-lad .gap small{color:var(--warn)}
+.pk-lad b{font:500 13px var(--f-mono)}
+.pk-lad small{font-size:11.5px;color:var(--muted)}
+.pk-f{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,170px),1fr));gap:10px}
+.pk-f select,.pk-f input{width:100%!important}
+.pk-c{display:flex;flex-wrap:wrap;gap:6px 16px}
+.sig-p{display:grid;gap:10px}
+.sig-p .panel-head{flex-wrap:wrap}
+.sig-list{display:grid;gap:2px}
+.sig{display:grid;grid-template-columns:10px 1fr;gap:10px;padding:8px 2px;border-bottom:1px solid var(--line)}
+.sig:last-child{border-bottom:0}
+.sig>i{width:9px;height:9px;border-radius:50%;margin-top:6px}
+.sig-t{font-size:14px;line-height:1.4}
+.sig-n{font-weight:600;cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px}
+.sig small{display:block;color:var(--muted);font-size:12.5px;line-height:1.4;margin-top:2px}
+.sig-high .sig-t{color:var(--bad)}
+.sig-high .sig-n{color:var(--fg)}
+.sig-ok{display:flex;gap:10px;align-items:center;padding:6px 2px;color:var(--muted);font-size:14px}
+.sig-ok i{width:9px;height:9px;border-radius:50%;background:var(--good)}
+.mmf-in{width:58px;font:500 13px var(--f-mono);padding:2px 5px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--fg);text-align:right}
+.mmf-add{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.mmf-add input{width:210px;font:inherit;font-size:14px;padding:6px 9px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--fg)}
+.mmf-m td.n small{display:block;font-size:11.5px;color:var(--muted)}
+.mmf-m td.mmf-best{background:color-mix(in srgb,var(--good) 12%,transparent)}
+.mmf-m td.mmf-top b{color:var(--good)}
+.cc-m{display:flex;gap:2px}
+.cc-m i{display:inline-grid;place-items:center;width:15px;height:18px;border-radius:3px;background:var(--surface-2);color:var(--faint);font:600 9.5px var(--f-body);font-style:normal}
+.cc-m i.on{background:color-mix(in srgb,var(--c-coupon) 25%,transparent);color:var(--fg)}
+.cc-m i.hit{background:var(--warn);color:#fff}
+.tx-acc h2 .acc-tag{font-size:15px}
+tr.pk-on td{background:color-mix(in srgb,var(--accent-soft) 60%,transparent)}
 .hist-p{display:grid;gap:12px}
 .hist-p .panel-head{align-items:center}
 .hinfo{display:inline-grid;place-items:center;width:16px;height:16px;border-radius:50%;border:1px solid var(--faint);color:var(--muted);font-size:10.5px;cursor:help;margin-left:-4px}
@@ -633,6 +709,7 @@ th.sortable button:hover{color:var(--fg)}
 .sy-info{display:grid;gap:8px;padding:12px 14px;border-radius:10px;background:var(--surface-2)}
 .sy-info>div{display:flex;gap:8px;flex-wrap:wrap;align-items:baseline;font-size:14px}
 .sy-info .k{color:var(--muted);min-width:190px}
+.sy-tabs{margin-bottom:2px}
 .sy-steps{margin:8px 0 12px;padding-left:20px;display:grid;gap:6px;font-size:13.5px}
 .sy-steps code{font-family:var(--f-mono);font-size:12.5px;background:var(--surface-2);padding:1px 5px;border-radius:4px}
 .tk-kr{font:inherit;color:inherit;text-align:left;cursor:pointer}
@@ -825,6 +902,11 @@ details.more summary{cursor:pointer;color:var(--muted);font-size:13px;margin-top
   <section class="view" id="v-deposits" hidden></section>
   <section class="view" id="v-bonds" hidden></section>
   <section class="view" id="v-divs" hidden></section>
+  <section class="view" id="v-bondlab" hidden></section>
+  <section class="view" id="v-bondpick" hidden></section>
+  <section class="view" id="v-mmf" hidden></section>
+  <section class="view" id="v-taxopt" hidden></section>
+  <section class="view" id="v-cpncal" hidden></section>
   <section class="view" id="v-calendar" hidden></section>
   <section class="view" id="v-taxes" hidden></section>
   <section class="view" id="v-deals" hidden></section>
@@ -840,6 +922,11 @@ details.more summary{cursor:pointer;color:var(--muted);font-size:13px;margin-top
 <div class="dd-menu" id="toolsMenu" hidden role="menu">
   <a role="menuitem" href="#bonds"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4.5h10v7H3z M5.5 8h5 M5.5 6.2h5 M5.5 9.8h3"/></svg>Скринер облигаций</a>
   <a role="menuitem" href="#divs"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12.5h11 M4 12V8.5 M7 12V5.5 M10 12V7 M13 12V3.5"/></svg>Топ дивидендных акций</a>
+  <a role="menuitem" href="#bondlab"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12.5h11 M3.5 10.5c2-4 4-6 9-7 M5 12V9.5 M8 12V8 M11 12V6.5"/></svg>Облигации: риски и потоки</a>
+  <a role="menuitem" href="#bondpick"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 3.5h11l-4.2 5v4l-2.6 1.2V8.5z"/></svg>Подбор облигаций</a>
+  <a role="menuitem" href="#mmf"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6.5c0-1.7 2.2-3 5-3s5 1.3 5 3v3.5c0 1.7-2.2 3-5 3s-5-1.3-5-3z M3 6.5c0 1.7 2.2 3 5 3s5-1.3 5-3 M6.5 2.5h3"/></svg>Фонды-копилки</a>
+  <a role="menuitem" href="#cpncal"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 4h11v9.5h-11z M2.5 7h11 M5.5 2.5v3 M10.5 2.5v3 M5 10.5h2 M9 10.5h2"/></svg>Ровный купонный доход</a>
+  <a role="menuitem" href="#taxopt"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2.5h8v11l-2-1.2-2 1.2-2-1.2-2 1.2z M6 6h4 M6 8.5h4"/></svg>Налоги до конца года</a>
 </div>
 <div class="dd-menu" id="addMenu" hidden role="menu">
   <span class="dd-title">Активы и сделки</span>
@@ -1657,7 +1744,7 @@ async function loadInstrument(isin, hint){
   }
   return out;
 }
-const MOEX_VIEWS = ["home", "portfolio", "calendar", "analytics", "goal"];
+const MOEX_VIEWS = ["home", "portfolio", "calendar", "analytics", "goal", "bondlab", "bondpick", "taxopt", "cpncal"];
 const PF_VIEWS = ["portfolio", "deals", "calendar", "goal", "reports"];
 async function refreshMoex(force){
   const D = derive("all");
@@ -2178,7 +2265,7 @@ function renderPortfolio(D){
   </div>`;
   el.innerHTML = `
   <div class="view-bar"><div><h1>${esc({ home: pfName(S.active), portfolio: "Активы", analytics: "Аналитика", goal: "Моя цель" }[S.view] || pfName(S.active))}</h1><span class="sub">${S.view !== "home" ? esc(pfName(S.active)) + " · " : ""}${[...new Set(D.reports.map(acctLabel))].length} ${plural([...new Set(D.reports.map(acctLabel))].length, "счёт", "счёта", "счетов")} · данные на ${fmtD(asOf)}</span></div>${S.view === "home" ? (dashOn("ticker") ? tickerStrip() : "") + `<button class="btn dash-cfg" id="dashCfg" type="button" data-tip="Настроить главную: скрыть блоки или поменять порядок"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2.5 4.5h7M12.5 4.5h1M2.5 11.5h1M6.5 11.5h7"/><circle cx="11" cy="4.5" r="1.5"/><circle cx="5" cy="11.5" r="1.5"/></svg><span>Настроить</span></button>` : ""}</div>
-  ${S.view === "home" ? overview : S.view === "analytics" ? anTabs() + (S.anTab === "report" ? reportView(D, H, total) : structure) : S.view === "goal" ? goalPanel(D, H, total) : assetsView(D, H, total)}`;
+  ${S.view === "home" ? overview : S.view === "analytics" ? anTabs() + (S.anTab === "report" ? reportView(D, H, total) : structure) : S.view === "goal" ? goalPanel(D, H, total) : assetsView(D, H, total) + floaterPanel(D, H, total)}`;
 }
 function topHoldings(H, total){
   const by = new Map(); for (const h of H){ if (!h.value) continue; const x = by.get(h.isin) || { name: h.name, kind: h.kind, v: 0 }; x.v += h.value; by.set(h.isin, x); }
@@ -2276,7 +2363,7 @@ function buildEvents(D){
       }
       else if (e.perUnit != null) amount = (e.perUnitRub != null && e.perUnitRub > 0 ? e.perUnitRub : e.perUnit * (fx || 0)) * g.qty || null;
       let est = false;
-      if (e.type === "coupon" && !amount && mx.face){ const ee = em(isin); if (ee && ee.ct === "I" && ee.b === "RREFKEYR" && ee.bs != null){ const freq = ee.cf || mx.couponFreq || 12; amount = mx.face * (keyRateNow() + ee.bs) / 100 / freq * g.qty * (fx || 1); est = true; } }
+      if (e.type === "coupon" && !amount && mx.face){ const ee = em(isin); if (ee && ee.ct === "I" && ee.b === "RREFKEYR" && ee.bs != null){ const freq = ee.cf || mx.couponFreq || 12; amount = mx.face * (keyRateAt(e.date) + ee.bs) / 100 / freq * g.qty * (fx || 1); est = true; } }
       if (amount && (e.type === "coupon" || e.type === "dividend") && S.edits.tax[isin] != null) amount *= 1 - S.edits.tax[isin] / 100;
       ev.push({ date: e.date, type: e.type, isin, name: g.h.name + (est ? " (оценка по КС)" : ""), qty: g.qty, brokers: [...g.brokers], amount, perUnit: e.perUnit, ccy: e.ccy || mx.faceUnit, future: true, offerType: e.offerType, rate: e.rate, start: e.start || null, end: e.end || null });
     }
@@ -2759,6 +2846,46 @@ S.ac = Object.assign({ cols: null, preset: "mine", ccy: "rub", sold: true, sort:
 S.ac.sel = []; S.ac.page = 0;
 function saveAc(){ const { sel, page, ...keep } = S.ac; store.set("pf.assets.v1", keep); }
 const BOND_TYPES = { ofz_bond: "ОФЗ", cb_bond: "Облигация ЦБ", subfederal_bond: "Региональная", municipal_bond: "Муниципальная", corporate_bond: "Корпоративная", exchange_bond: "Биржевая", euro_bond: "Еврооблигация", ifi_bond: "МФО", non_exchange_bond: "Внебиржевая" };
+/* ---- actual return (XIRR) and the yield locked in at purchase ---- */
+function xirr(flows){
+  if (flows.length < 2 || !flows.some(f => f[1] > 0) || !flows.some(f => f[1] < 0)) return null;
+  const t0 = msOf(flows[0][0]), fs = flows.map(([d, a]) => [(msOf(d) - t0) / (365 * 864e5), a]);
+  const f = r => { let s = 0; for (const [t, a] of fs) s += a / Math.pow(1 + r, t); return s; };
+  let lo = -0.99, hi = 20, flo = f(lo), fhi = f(hi); if (!isFinite(flo) || !isFinite(fhi) || flo * fhi > 0) return null;
+  for (let i = 0; i < 200; i++){ const m = (lo + hi) / 2, fm = f(m); if (Math.abs(fm) < 1e-8 || hi - lo < 1e-9) return m; if (flo * fm < 0){ hi = m; fhi = fm; } else { lo = m; flo = fm; } }
+  return (lo + hi) / 2;
+}
+function assetXirr(tr, cs, value, qty, noCost){
+  if (noCost || !tr.some(t => t.side === "buy")) return null;
+  const fx = c => fxRate(c || "RUB") || 1, fl = [];
+  for (const t of tr){ const amt = (t.amount + (t.nkd || 0)) * fx(t.ccy), c = ((t.commBroker || 0) + (t.commExchange || 0)) * fx(t.ccy); fl.push([t.date, t.side === "buy" ? -(amt + c) : amt - c]); }
+  for (const c of cs){ const a = c.amount * fx(c.ccy); if (["coupon", "dividend", "amortization", "redemption"].includes(c.kind) && a > 0) fl.push([c.date, a]); else if (c.kind === "tax" && a < 0) fl.push([c.date, a]); }
+  if (qty > 1e-9){ if (!(value > 0)) return null; fl.push([todayIso(), value]); }
+  fl.sort((a, b) => a[0].localeCompare(b[0]));
+  if ((msOf(fl[fl.length - 1][0]) - msOf(fl[0][0])) / 864e5 < 30) return null; // too short to annualise
+  const r = xirr(fl); return r == null ? null : r * 100;
+}
+function ytmAtBuy(D, isin, mx){
+  if (!mx || !mx.priceIsPct || !mx.face || !(mx.events || []).length || isFloater(isin, mx.name)) return null;
+  const t0 = todayIso(), e = em(isin), freq = (e && e.cf) || mx.couponFreq || 2; let sw = 0, sy = 0;
+  for (const t of D.trades){
+    if (t.isin !== isin || t.side !== "buy") continue; const left = D.lotLeft.get(t) || 0; if (left <= 0 || !(t.price > 0) || !t.qty) continue;
+    let face = mx.face + mx.events.filter(x => x.type === "amortization" && x.date > t.date && x.date <= t0 && x.perUnit > 0).reduce((s, x) => s + x.perUnit, 0);
+    const price = t.price < 300 ? t.price / 100 * face : t.amount / t.qty / (fxRate(t.ccy) && mx.faceUnit !== t.ccy ? fxRate(mx.faceUnit) / fxRate(t.ccy) : 1);
+    const fl = [[t.date, -(price + (t.nkd || 0) / t.qty)]];
+    const ev = mx.events.filter(x => x.date > t.date).sort((a, b) => a.date.localeCompare(b.date) || (a.type === "coupon" ? -1 : 1));
+    let end = false;
+    for (const x of ev){
+      if (x.type === "coupon"){ const v = x.perUnit > 0 ? x.perUnit : mx.couponPct ? face * mx.couponPct / 100 / freq : 0; if (v) fl.push([x.date, v]); }
+      else if (x.type === "amortization" && x.perUnit > 0){ fl.push([x.date, x.perUnit]); face = Math.max(0, face - x.perUnit); }
+      else if (x.type === "offer" || x.type === "maturity"){ if (face > 0) fl.push([x.date, face]); end = true; break; }
+    }
+    if (!end) continue;
+    const y = xirr(fl); if (y == null) continue;
+    const w = left * price; sw += w; sy += y * 100 * w;
+  }
+  return sw ? sy / sw : null;
+}
 function assetRows(D, H, total){
   const today = todayIso(), y1 = addDays(today, 365), y0 = addDays(today, -365);
   const rub = c => c.amount * (fxRate(c.ccy) || 1);
@@ -2805,7 +2932,8 @@ function assetRows(D, H, total){
       kind, mx, ccy, qty, sold: qty <= 1e-9, value, clean, accrued, invested, investedPartial: unknownQty > 1e-9, cost,
       income, fwd, rec12, next, div, profit, parts: { price: priceP, sales, income, nkd: nkdP, comm: -comm, redemp }, bought, day, accounts, offer,
       avgPct: mx.priceIsPct && mx.face && costQty ? cost / costQty / (mx.face * (fxRate(mx.faceUnit) || 1)) * 100 : null,
-      curYield: annualCpn && cleanPriceRub ? annualCpn / cleanPriceRub * 100 : null, tax: S.edits.tax[isin], note: S.edits.notes[isin] || "" });
+      curYield: annualCpn && cleanPriceRub ? annualCpn / cleanPriceRub * 100 : null, tax: S.edits.tax[isin], note: S.edits.notes[isin] || "",
+      xirr: assetXirr(tr, cs, value, qty, noCost), ytmBuy: kind === "bond" && qty > 1e-9 ? ytmAtBuy(D, isin, mx) : null });
   }
   const catTot = {}; for (const r of rows) catTot[r.kind] = (catTot[r.kind] || 0) + r.value;
   for (const r of rows){ r.share = total ? r.value / total : 0; r.catShare = catTot[r.kind] ? r.value / catTot[r.kind] : 0; }
@@ -2824,6 +2952,7 @@ const ACOLS = [
   { g: "Общее", id: "qty", n: "Кол-во", c: "n", s: r => r.qty, f: r => qtyFmt(r.qty), t: rs => qtyFmt(rs.reduce((s, r) => s + r.qty, 0)) },
   { g: "Общее", id: "invested", n: "Вложено", c: "n", tip: "Стоимость покупки бумаг, которые сейчас на счетах, с комиссиями. Под суммой: на одну бумагу", s: r => r.invested, f: r => two(acMoney(r, r.invested) + (r.investedPartial ? "*" : ""), r.qty ? acMoney(r, r.invested / r.qty, r.invested / r.qty < 10 ? 4 : 2) : acMoney(r, 0)), t: rs => money(rs.reduce((s, r) => s + r.invested, 0), 2) },
   { g: "Общее", id: "value", n: "Текущая стоимость", c: "n", tip: "Стоимость по цене Мосбиржи без НКД. Под суммой: цена одной бумаги", s: r => r.clean, f: r => two(acMoney(r, r.clean), r.qty ? acMoney(r, r.clean / r.qty, r.clean / r.qty < 10 ? 4 : 2) : (r.mx.price != null ? (r.mx.priceIsPct ? acMoney(r, r.mx.price / 100 * r.mx.face * (fxRate(r.mx.faceUnit) || 1)) : acMoney(r, r.mx.price, 2)) : "")), t: rs => money(rs.reduce((s, r) => s + r.clean, 0), 2) },
+  { g: "Общее", id: "xirr", n: "Факт. доходность", c: "n", tip: "Фактическая годовая доходность (XIRR): все покупки и продажи с НКД и комиссиями, полученные купоны, дивиденды и погашения, удержанный налог и текущая стоимость. Не считается, если бумага пришла переводом без цены покупки или держится меньше 30 дней", s: r => r.xirr, f: r => r.xirr != null ? `<b class="${r.xirr >= 0 ? "pos" : "neg"}">${(r.xirr >= 0 ? "" : "−") + pct(Math.abs(r.xirr), 2)}</b>${r.ytmBuy != null ? `<small class="faint" data-tip="Доходность при покупке">план ${pct(r.ytmBuy, 2)}</small>` : ""}` : dash },
   { g: "Общее", id: "share", n: "Доля в портфеле", c: "n", s: r => r.share, f: r => pct(r.share * 100, 2) },
   { g: "Общее", id: "category", n: "Категория", s: r => r.kind, f: r => `<span class="chip"><i class="dot" style="background:${KINDS[r.kind].c}"></i>${KINDS[r.kind].name}</span>` },
   { g: "Общее", id: "catShare", n: "Доля в категории", c: "n", s: r => r.catShare, f: r => pct(r.catShare * 100, 2) },
@@ -2842,6 +2971,7 @@ const ACOLS = [
   { g: "Облигации", id: "duration", n: "Дюрация", c: "n", tip: "Модифицированная дюрация Мосбиржи в днях: чем больше, тем сильнее цена реагирует на ставки", s: r => r.mx.duration, f: r => r.mx.duration ? Math.round(r.mx.duration) + " дн." : dash },
   { g: "Облигации", id: "cpnYield", n: "Купонная доходность", c: "n", tip: "Ставка купона к номиналу. У флоатеров на ключевую ставку: ставка из настроек плюс спред", s: r => cpnRateNow(r.isin, r.mx.couponPct), f: r => r.kind === "bond" && cpnRateNow(r.isin, r.mx.couponPct) ? pct(cpnRateNow(r.isin, r.mx.couponPct), 2) : dash },
   { g: "Облигации", id: "curYield", n: "Текущая доходность", c: "n", tip: "Годовой купон к текущей цене облигации", s: r => r.curYield, f: r => r.curYield != null ? pct(r.curYield, 2) : dash },
+  { g: "Облигации", id: "ytmBuy", n: "Доходность при покупке", c: "n", tip: "Доходность к погашению (или к ближайшей оферте), которую вы зафиксировали ценой покупки: по купонам, амортизациям и погашению из данных Мосбиржи. Средняя по лотам, которые сейчас на счетах. У флоатеров не считается", s: r => r.ytmBuy, f: r => r.ytmBuy != null ? two(pct(r.ytmBuy, 2), r.mx.yield ? "сейчас " + pct(r.mx.yield, 2) : "") : dash },
   { g: "Облигации", id: "ytm", n: "Доходность к погашению", c: "n", s: r => r.mx.yield, f: r => r.kind === "bond" && r.mx.yield ? pct(r.mx.yield, 2) : dash },
   { g: "Облигации", id: "matdate", n: "Погашение", s: r => r.mx.matdate || "9999", f: r => r.mx.matdate && r.mx.matdate !== "0000-00-00" ? fmtD(r.mx.matdate) : dash },
   { g: "Облигации", id: "offer", n: "Оферта", s: r => r.offer ? r.offer.date : "9999", f: r => r.offer ? fmtD(r.offer.date) : dash },
@@ -2861,7 +2991,7 @@ const ACOLS = [
     t: rs => { const v = rs.reduce((s, r) => s + (r.day && !r.sold ? r.day.v : 0), 0), base = rs.reduce((s, r) => s + (r.day && !r.sold ? r.clean - r.day.v : 0), 0); return `<span class="pnl ${v >= 0 ? "pos" : "neg"}">${signed(v)}${badge(base ? v / base : 0, 2)}</span>`; } },
   { g: "Прибыль", id: "ret", n: "Доходность", c: "n", tip: "Прибыль к сумме всех покупок бумаги", s: r => r.bought ? r.profit / r.bought : -1e9, f: r => r.bought ? `<span class="${r.profit >= 0 ? "pos" : "neg"}">${pct(r.profit / r.bought * 100, 2)}</span>` : dash },
 ];
-const APRESETS = { mine: ["Мои активы", ["qty", "invested", "value", "income", "incYield", "profit", "day"]], general: ["Общее", ["qty", "invested", "value", "share", "category", "account", "isin"]], div: ["Дивиденды", ["qty", "income", "incYield", "nextDate", "nextPay", "record", "received", "tax"]], profit: ["Прибыль", ["invested", "value", "pPrice", "pSales", "profit", "day", "ret"]], bonds: ["Облигации", ["qty", "rating", "ctype", "avgPct", "pricePct", "term", "nkd", "cpnYield", "curYield", "ytm", "offer"]] };
+const APRESETS = { mine: ["Мои активы", ["qty", "invested", "value", "income", "incYield", "profit", "day"]], general: ["Общее", ["qty", "invested", "value", "share", "category", "account", "isin"]], div: ["Дивиденды", ["qty", "income", "incYield", "nextDate", "nextPay", "record", "received", "tax"]], profit: ["Прибыль", ["invested", "value", "pPrice", "pSales", "profit", "day", "ret", "xirr"]], bonds: ["Облигации", ["qty", "rating", "ctype", "avgPct", "pricePct", "term", "nkd", "cpnYield", "curYield", "ytmBuy", "ytm", "xirr", "offer"]] };
 function acCols(){ const ids = S.ac.cols || APRESETS[S.ac.preset] && APRESETS[S.ac.preset][1] || APRESETS.mine[1]; return ACOLS.filter(c => ids.includes(c.id)); }
 function avatarFor(r){ const ini = String(r.short || r.name).replace(/[^A-Za-zА-Яа-яЁё0-9 ]/g, " ").trim().split(/\s+/).slice(0, 2).map(w => w[0]).join("").toUpperCase(); return `<button type="button" class="av sm" style="--ac:${KINDS[r.kind].c}" data-card="${esc(r.isin)}" data-card-sec="${esc(r.mx && r.mx.secid || "")}" data-tip="Карточка бумаги" aria-label="Карточка: ${esc(r.short || r.name)}">${esc(ini || "?")}</button>`; }
 
@@ -3404,6 +3534,703 @@ document.addEventListener("change", e => {
 });
 document.addEventListener("click", e => { if (e.target.closest("#emisReload")) loadEmissions(true); });
 
+
+/* ======================= bond lab: OFZ curve, key-rate stress test, cash-flow ladder ======================= */
+const CURVE = Object.assign({ pts: null, at: 0, date: "", src: "", busy: false, err: "" }, store.get("pf.zcyc.v1", {}));
+S.lab = Object.assign({ stress: -2, hz: "1y", reinv: null, sort: "gs" }, store.get("pf.lab.v1", {}));
+const saveLab = () => store.set("pf.lab.v1", { stress: S.lab.stress, hz: S.lab.hz, reinv: S.lab.reinv, sort: S.lab.sort });
+/* MOEX G-curve (Nelson–Siegel–Svensson with 9 bumps); parameters in basis points, result = effective annual yield, % */
+function nssYield(p, t){
+  const g = k => +(p[k] ?? p[k.toLowerCase()] ?? 0) || 0, b0 = g("B1"), b1 = g("B2"), b2 = g("B3"), tau = g("T1"); if (!tau || !t) return NaN;
+  const K = 1.6, a = [0, 0.6], b = [0.6]; for (let i = 1; i < 9; i++) b.push(b[i - 1] * K); for (let i = 2; i < 9; i++) a.push(a[i - 1] + 0.6 * Math.pow(K, i - 1));
+  let G = b0 + (b1 + b2) * (tau / t) * (1 - Math.exp(-t / tau)) - b2 * Math.exp(-t / tau);
+  for (let i = 0; i < 9; i++) G += g("G" + (i + 1)) * Math.exp(-((t - a[i]) ** 2) / (b[i] ** 2));
+  return 100 * (Math.exp(G / 10000) - 1);
+}
+async function loadCurve(force){
+  if (CURVE.busy || (!force && CURVE.pts && Date.now() - CURVE.at < 12 * 3600e3)) return;
+  CURVE.busy = true; CURVE.err = "";
+  try {
+    const j = await iss("engines/stock/zcyc.json", "iss.only=yearyields,params");
+    const yy = tbl(j, "yearyields");
+    let pts = yy.map(r => [+r.period, +r.value]).filter(p => isFinite(p[0]) && isFinite(p[1]) && p[0] > 0 && p[1] > 0), date = (yy[yy.length - 1] || {}).tradedate || "";
+    if (pts.length < 3){ const p = tbl(j, "params").slice(-1)[0];
+      if (p){ pts = [0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 5, 7, 10, 15, 20].map(t => [t, nssYield(p, t)]).filter(x => isFinite(x[1]) && x[1] > 0); date = p.tradedate || date; } }
+    if (pts.length < 3) throw new Error("no curve");
+    pts.sort((a, b) => a[0] - b[0]);
+    Object.assign(CURVE, { pts, at: Date.now(), date, src: "moex" }); store.set("pf.zcyc.v1", { pts, at: CURVE.at, date, src: "moex" });
+  } catch { CURVE.err = "Кривая ОФЗ с Мосбиржи не загрузилась — использую ОФЗ из скринера."; }
+  CURVE.busy = false; render();
+}
+/* fallback: OFZ with fixed coupon from the bond screener, smoothed by duration */
+function ofzCurveFromScreener(){
+  const b = (TOOL.bonds.data || []).filter(r => /^SU2[56]/.test(r.secid) && !r.anomal && r.dur > 0.15 && r.ytm > 0);
+  if (b.length < 5) return null;
+  const pts = []; for (const t of [0.25, 0.5, 1, 1.5, 2, 3, 4, 5, 7, 10, 15]){ let s = 0, w = 0; for (const r of b){ const k = Math.exp(-((r.dur - t) ** 2) / (2 * Math.max(0.35, t * 0.25) ** 2)); s += r.ytm * k; w += k; } if (w > 1e-3) pts.push([t, s / w]); }
+  return pts.length >= 3 ? pts : null;
+}
+function curvePts(){ return CURVE.pts || ofzCurveFromScreener(); }
+function curveAt(t, pts = curvePts()){
+  if (!pts || t == null || !isFinite(t)) return null;
+  if (t <= pts[0][0]) return pts[0][1]; if (t >= pts[pts.length - 1][0]) return pts[pts.length - 1][1];
+  for (let i = 1; i < pts.length; i++) if (t <= pts[i][0]){ const [x0, y0] = pts[i - 1], [x1, y1] = pts[i]; return y0 + (y1 - y0) * (t - x0) / (x1 - x0); }
+  return null;
+}
+const isFloater = (isin, name) => { const e = em(isin); return e ? e.ct === "I" : /флоат|плав|\bкс\b/i.test(name || ""); };
+/* market median G-spread by rating group (fixed-coupon RUB bonds from the screener) */
+function marketSpreads(){
+  const pts = curvePts(), data = TOOL.bonds.data; if (!pts || !data || !EMIS.map) return null;
+  if (marketSpreads.memo && marketSpreads.memo.k === TOOL.bonds.at + "|" + CURVE.at + "|" + EMIS.at) return marketSpreads.memo.v;
+  const by = {};
+  for (const r of data){ if (r.anomal || r.faceUnit !== "RUB" || !(r.dur > 0.2) || !(r.ytm > 0)) continue; const e = em(r.isin); if (!e || e.ct === "I" || itypeOf(r.isin, r.board, r.name) === "ofz") continue;
+    const g = ratingGroup(e.r), cy = curveAt(r.dur, pts); if (cy == null) continue; (by[g] || (by[g] = [])).push((r.ytm - cy) * 100); }
+  const v = {}; for (const [g, a] of Object.entries(by)) if (a.length >= 5){ a.sort((x, y) => x - y); v[g] = { med: a[Math.floor(a.length / 2)], q1: a[Math.floor(a.length * 0.25)], q3: a[Math.floor(a.length * 0.75)], n: a.length }; }
+  marketSpreads.memo = { k: TOOL.bonds.at + "|" + CURVE.at + "|" + EMIS.at, v };
+  return v;
+}
+function labRows(D, H, total){
+  const t = todayIso(), rows = assetRows(D, H, total).filter(r => r.kind === "bond" && !r.sold && r.qty > 0 && r.clean > 0);
+  const V = rows.reduce((s, r) => s + r.clean, 0), pts = curvePts();
+  return { V, list: rows.map(r => {
+    const mx = r.mx || {}, e = em(r.isin), fx = fxRate(mx.faceUnit || "RUB") || 1, floater = isFloater(r.isin, r.name);
+    const offer = r.offer ? r.offer.date : null, mat = mx.matdate && mx.matdate !== "0000-00-00" ? mx.matdate : null, near = [offer, mat].filter(Boolean).sort()[0] || null;
+    const yrs = near ? Math.max(0, yearsTo(near)) : null;
+    const durY = mx.duration > 0 ? mx.duration / 365.25 : null, ytm = +mx.yield > 0 ? +mx.yield : null, freq = (e && e.cf) || mx.couponFreq || 2;
+    const md = durY != null ? durY / (1 + (ytm || 0) / 100 / freq) : yrs != null ? yrs * 0.9 : null;
+    const cy = durY != null ? curveAt(durY, pts) : yrs != null ? curveAt(yrs, pts) : null;
+    const ofz = itypeOf(r.isin, mx.board, r.name) === "ofz";
+    const gs = !floater && ytm != null && cy != null && (mx.faceUnit || "RUB") === "RUB" ? (ytm - cy) * 100 : null;
+    return { r, e, isin: r.isin, short: r.short || r.name, name: r.name, value: r.clean, w: V ? r.clean / V : 0, floater, ofz, durY, mdApprox: durY == null, md, ytm, yrs, near, nearIsOffer: !!offer && near === offer,
+      rg: ratingGroup(e ? e.r : ""), rating: e ? e.r : "", gs, fx, face: mx.face || 0, qty: r.qty, freq, ccy: mx.faceUnit || "RUB", mx };
+  }) };
+}
+function labVerdict(x, ms){
+  if (x.ofz) return { t: "ОФЗ", c: "" };
+  if (x.floater) return { t: "Флоатер", c: "" };
+  if (x.gs == null) return { t: "Нет данных", c: "faint" };
+  const m = ms && ms[x.rg];
+  if (!m) return { t: x.rg === "none" ? "Без рейтинга" : "Мало данных по рынку", c: "faint" };
+  if (x.gs < m.q1 - 30) return { t: "Платят меньше рынка", c: "warn-c", tip: `Спред ниже, чем у 3/4 бумаг с рейтингом ${RGROUPS[x.rg].n} (медиана рынка ${Math.round(m.med)} б.п.): за этот риск платят мало` };
+  if (x.gs > m.q3 + 150) return { t: "Рынок видит риск", c: "riskc", tip: `Спред заметно выше, чем у бумаг с рейтингом ${RGROUPS[x.rg].n} (медиана ${Math.round(m.med)} б.п.): рынок закладывает повышенный риск эмитента или бумага неликвидна` };
+  return { t: "В рынке", c: "pos", tip: `Спред в обычном диапазоне для рейтинга ${RGROUPS[x.rg].n}: ${Math.round(m.q1)}–${Math.round(m.q3)} б.п., медиана ${Math.round(m.med)}` };
+}
+/* ---- A. yield vs OFZ curve ---- */
+function labCurvePanel(L){
+  const pts = curvePts(), ms = marketSpreads(), host = $("#v-bondlab");
+  const W = Math.max(320, Math.min(1100, ((host && host.clientWidth) || (document.querySelector("main") || document.body).clientWidth || 960) - 40)), H = 340, pL = 46, pR = 14, pT = 14, pB = 30;
+  const xs = L.list.filter(x => !x.floater && x.ytm != null && (x.durY != null || x.yrs != null) && x.ccy === "RUB");
+  const xv = x => x.durY != null ? x.durY : x.yrs;
+  const maxX = Math.max(1, ...xs.map(xv), pts ? Math.min(10, Math.max(...xs.map(xv), 3)) : 1) * 1.08;
+  const ys = xs.map(x => x.ytm).concat(pts ? pts.filter(p => p[0] <= maxX).map(p => p[1]) : []);
+  let y0 = Math.min(...ys, 99), y1 = Math.max(...ys, 0); if (!isFinite(y0)){ y0 = 0; y1 = 20; } const st = niceStep((y1 - y0) / 5 || 1); y0 = Math.floor((y0 - st * 0.3) / st) * st; y1 = Math.ceil((y1 + st * 0.3) / st) * st;
+  const X = v => pL + v / maxX * (W - pL - pR), Y = v => pT + (1 - (v - y0) / (y1 - y0)) * (H - pT - pB);
+  let g = "";
+  for (let v = y0; v <= y1 + st / 2; v += st) g += `<line class="gl" x1="${pL}" x2="${W - pR}" y1="${Y(v)}" y2="${Y(v)}" stroke-dasharray="3 4"/><text x="${pL - 6}" y="${Y(v) + 4}" text-anchor="end">${v.toLocaleString("ru-RU", { maximumFractionDigits: 1 })}%</text>`;
+  const xst = maxX > 6 ? 2 : maxX > 3 ? 1 : 0.5; for (let v = 0; v <= maxX; v += xst) g += `<text x="${X(v)}" y="${H - 10}" text-anchor="middle">${v.toLocaleString("ru-RU")}${v === 0 ? "" : " г"}</text>`;
+  if (pts){ const c = []; for (let v = Math.max(0.1, pts[0][0]); v <= maxX; v += maxX / 80) c.push([v, curveAt(v, pts)]);
+    g += `<path d="${c.map((p, i) => (i ? "L" : "M") + X(p[0]).toFixed(1) + " " + Y(p[1]).toFixed(1)).join("")}" fill="none" stroke="var(--fg)" stroke-width="1.6" opacity=".55"/>`;
+    const lp = c[c.length - 1]; g += `<text x="${X(lp[0]) - 4}" y="${Y(lp[1]) - 6}" text-anchor="end" style="font-weight:600">ОФЗ</text>`; }
+  const maxV = Math.max(...xs.map(x => x.value), 1);
+  for (const x of xs.sort((a, b) => b.value - a.value)){
+    const r = 4 + 9 * Math.sqrt(x.value / maxV), v = labVerdict(x, ms);
+    const tip = `${x.short}${x.rating ? " · " + ratingNorm(x.rating) : ""}\nДоходность ${pct(x.ytm, 2)}, ${x.durY != null ? "дюрация " : "до погашения "}${xv(x).toLocaleString("ru-RU", { maximumFractionDigits: 1 })} г.\n${x.gs != null ? "Спред к ОФЗ " + Math.round(x.gs) + " б.п." : ""}${v.t && !x.ofz ? "\n" + v.t : ""}\nДоля в облигациях ${pct(x.w * 100, 1)}`;
+    g += `<circle cx="${X(xv(x)).toFixed(1)}" cy="${Y(x.ytm).toFixed(1)}" r="${r.toFixed(1)}" fill="${(RGROUPS[x.rg] || RGROUPS.none).c}" fill-opacity=".75" stroke="var(--surface)" stroke-width="1.2" data-tip="${esc(tip)}" style="cursor:pointer" data-card="${esc(x.isin)}" data-card-sec="${esc(x.mx.secid || "")}"/>`;
+  }
+  const fixed = L.list.filter(x => x.gs != null && !x.ofz), wgs = fixed.reduce((s, x) => s + x.gs * x.value, 0) / (fixed.reduce((s, x) => s + x.value, 0) || 1);
+  const risky = L.list.filter(x => labVerdict(x, ms).c === "riskc"), cheap = L.list.filter(x => labVerdict(x, ms).c === "warn-c");
+  const usedG = [...new Set(xs.map(x => x.rg))];
+  const sortKey = S.lab.sort, list = [...L.list].sort((a, b) => sortKey === "w" ? b.value - a.value : (b.gs ?? -1e9) - (a.gs ?? -1e9));
+  return `<div class="panel lab-p"><div class="panel-head"><h2>Доходность против кривой ОФЗ</h2><span class="hinfo" data-tip="Каждая точка — облигация из портфеля: по горизонтали дюрация (или срок до оферты/погашения), по вертикали доходность Мосбиржи. Линия — кривая бескупонной доходности ОФЗ. Расстояние до линии — спред (G-spread): сколько платят сверх ОФЗ того же срока. Флоатеры и валютные бумаги на график не попадают." tabindex="0">?</span>
+      <span class="sub">${CURVE.pts ? "кривая ОФЗ Мосбиржи" + (CURVE.date ? " на " + fmtD(CURVE.date) : "") : pts ? "кривая по ОФЗ из скринера" : CURVE.busy ? "загружаю кривую ОФЗ…" : "нет кривой ОФЗ"}</span></div>
+    <div class="lab-kpi">
+      <div><span>Средний спред к ОФЗ</span><b>${fixed.length ? Math.round(wgs) + " б.п." : "—"}</b><small>взвешенно, без ОФЗ и флоатеров</small></div>
+      <div><span>Рынок видит риск</span><b class="${risky.length ? "neg" : ""}">${risky.length}</b><small>${risky.length ? esc(risky.slice(0, 3).map(x => x.short).join(", ")) : "спреды в норме"}</small></div>
+      <div><span>Платят меньше рынка</span><b class="${cheap.length ? "warn-t" : ""}">${cheap.length}</b><small>${cheap.length ? esc(cheap.slice(0, 3).map(x => x.short).join(", ")) : "переплат за риск нет"}</small></div>
+      <div><span>Флоатеры</span><b>${pct(L.list.filter(x => x.floater).reduce((s, x) => s + x.w, 0) * 100, 1)}</b><small>не сравниваются с кривой</small></div>
+    </div>
+    ${xs.length ? `<div class="chart-wrap"><svg class="chart" viewBox="0 0 ${W} ${H}">${g}</svg></div>
+      <div class="legend">${usedG.map(k => `<span><i class="dot" style="background:${RGROUPS[k].c}"></i>${RGROUPS[k].n}</span>`).join("")}<span class="faint">размер точки — доля в портфеле</span></div>` : `<div class="empty small">Нет облигаций с фиксированным купоном и доходностью Мосбиржи</div>`}
+    ${!ms ? `<p class="note">Чтобы сравнить спреды с рынком по каждому рейтингу, нужны данные скринера облигаций. ${TOOL.bonds.busy || EMIS.busy ? `<i class="spin"></i> Загружаю…` : `<button class="link" data-lab-mkt>Загрузить с Мосбиржи</button>`}</p>` : ""}
+    <details class="more" open><summary>Облигации и спреды (${L.list.length})</summary>
+      <div class="hper lab-sort"><button class="${sortKey !== "w" ? "on" : ""}" data-lab-sort="gs">По спреду</button><button class="${sortKey === "w" ? "on" : ""}" data-lab-sort="w">По доле</button></div>
+      <div class="tbl-wrap"><table class="lab-t"><thead><tr><th>Облигация</th><th>Рейтинг</th><th class="n">Доходность</th><th class="n">Дюрация</th><th class="n">Спред, б.п.</th><th class="n">Рынок по рейтингу</th><th>Оценка</th><th class="n">Доля</th></tr></thead><tbody>
+      ${list.map(x => { const v = labVerdict(x, ms), m = ms && ms[x.rg];
+        return `<tr><td${cpA(x.isin, x.mx.secid)}><b>${esc(x.short)}</b>${x.floater ? ' <span class="chip">флоатер</span>' : ""}</td><td>${ratingChip(x.rating)}</td><td class="n">${x.ytm != null ? pct(x.ytm, 2) : "—"}</td><td class="n">${x.durY != null ? x.durY.toLocaleString("ru-RU", { maximumFractionDigits: 1 }) + " г" : x.yrs != null ? "≈" + x.yrs.toLocaleString("ru-RU", { maximumFractionDigits: 1 }) + " г" : "—"}</td>
+          <td class="n"><b>${x.gs != null ? Math.round(x.gs) : "—"}</b></td><td class="n faint">${m && !x.ofz && !x.floater ? Math.round(m.q1) + "–" + Math.round(m.q3) : "—"}</td><td><span class="lab-v ${v.c}"${v.tip ? ` data-tip="${esc(v.tip)}"` : ""}>${v.t}</span></td><td class="n">${pct(x.w * 100, 1)}</td></tr>`; }).join("")}
+      </tbody></table></div></details>
+    ${CURVE.err && !CURVE.pts ? `<p class="note">${esc(CURVE.err)}</p>` : ""}
+  </div>`;
+}
+/* ---- B. key-rate stress test ---- */
+const LAB_SC = [-3, -2, -1, 1, 2, 3];
+function labStress(L, d){
+  let dv = 0, dInc = 0; const by = [];
+  for (const x of L.list){
+    let p = 0, inc = 0;
+    if (x.floater){ inc = x.face * x.qty * x.fx * d / 100; } // coupon follows the key rate, price barely moves
+    else if (x.md != null){ p = -x.md * d / 100 * x.value + 0.5 * x.md * x.md * (d / 100) ** 2 * x.value; } // duration + rough convexity
+    dv += p; dInc += inc; by.push({ x, p, inc });
+  }
+  return { dv, dInc, by };
+}
+function labStressPanel(L){
+  const kr = keyRateNow(), sel = LAB_SC.includes(S.lab.stress) ? S.lab.stress : -2, res = LAB_SC.map(d => ({ d, ...labStress(L, d) }));
+  const maxA = Math.max(1, ...res.map(r => Math.abs(r.dv + r.dInc)));
+  const cur = res.find(r => r.d === sel), top = [...cur.by].sort((a, b) => Math.abs(b.p + b.inc) - Math.abs(a.p + a.inc)).slice(0, 8);
+  const fixedW = L.list.filter(x => !x.floater).reduce((s, x) => s + x.w, 0), mdW = L.list.filter(x => !x.floater && x.md != null).reduce((s, x) => s + x.md * x.w, 0) / (fixedW || 1);
+  const approx = L.list.filter(x => !x.floater && x.mdApprox).length, d1 = res.find(r => r.d === -1).dv;
+  return `<div class="panel lab-p"><div class="panel-head"><h2>Стресс-тест ключевой ставки</h2><span class="hinfo" data-tip="Что будет со стоимостью облигаций и купонным доходом, если ключевая ставка изменится, а доходности на всех сроках сдвинутся на столько же. Цена бумаг с фиксированным купоном меняется по модифицированной дюрации (с поправкой на выпуклость). У флоатеров цена почти не меняется, зато купон следует за ставкой. Это упрощённая оценка: длинные доходности обычно двигаются слабее ключевой." tabindex="0">?</span><span class="sub">ключевая сейчас ${pct(kr, 2)}</span></div>
+    <p class="lab-lead">Снижение ставки на 1 п.п. ≈ <b class="${d1 >= 0 ? "pos" : "neg"}">${sgn(d1)}</b> к стоимости облигаций (${(d1 >= 0 ? "+" : "−") + pct(Math.abs(d1) / L.V * 100, 1)}). Средняя модифицированная дюрация фиксированной части — <b>${mdW.toLocaleString("ru-RU", { maximumFractionDigits: 1 })} г</b>, флоатеров ${pct((1 - fixedW) * 100, 0)}.</p>
+    <div class="tbl-wrap"><table class="lab-t lab-st"><thead><tr><th>Сценарий</th><th class="n">Стоимость облигаций</th><th class="n">Купоны в год</th><th class="n">Итого за год</th><th class="bar-h"></th></tr></thead><tbody>
+    ${res.map(r => { const tot = r.dv + r.dInc, w = Math.abs(tot) / maxA * 100;
+      return `<tr class="${r.d === sel ? "on" : ""}" data-lab-st="${r.d}"><td><b>${r.d > 0 ? "+" : "−"}${Math.abs(r.d)} п.п.</b> <span class="faint small">ключевая ${pct(Math.max(0, kr + r.d), 1)}</span></td>
+        <td class="n ${r.dv >= 0 ? "pos" : "neg"}">${sgn(r.dv)} <small class="faint">${(r.dv >= 0 ? "+" : "−") + pct(Math.abs(r.dv) / L.V * 100, 1)}</small></td>
+        <td class="n ${r.dInc >= 0 ? "pos" : "neg"}">${Math.abs(r.dInc) > 0.5 ? sgn(r.dInc) : "0 ₽"}</td><td class="n ${tot >= 0 ? "pos" : "neg"}"><b>${sgn(tot)}</b></td>
+        <td class="bar-c"><span class="lab-bar ${tot >= 0 ? "up" : "down"}" style="width:${w.toFixed(1)}%"></span></td></tr>`; }).join("")}
+    </tbody></table></div>
+    <h3 class="lab-h3">Сильнее всего влияют при ${sel > 0 ? "+" : "−"}${Math.abs(sel)} п.п.</h3>
+    <div class="lab-top">${top.map(o => `<div><span${cpA(o.x.isin, o.x.mx.secid)}>${esc(o.x.short)}${o.x.floater ? ' <small class="faint">флоатер</small>' : o.x.md != null ? ` <small class="faint">дюр. ${o.x.md.toLocaleString("ru-RU", { maximumFractionDigits: 1 })} г</small>` : ""}</span><b class="${o.p + o.inc >= 0 ? "pos" : "neg"}">${sgn(o.p + o.inc)}</b></div>`).join("")}</div>
+    ${approx ? `<p class="note">По ${approx} ${plural(approx, "бумаге", "бумагам", "бумагам")} у Мосбиржи нет дюрации — взят срок до оферты или погашения.</p>` : ""}
+  </div>`;
+}
+/* ---- C. cash-flow ladder ---- */
+const LAB_HZ = [["1y", "1 год", 12, 1], ["3y", "3 года", 12, 3], ["5y", "5 лет", 10, 6]]; // [id, label, buckets, months per bucket]
+function labFlows(L, end){
+  const t = todayIso(), out = [];
+  for (const x of L.list){
+    const mx = x.mx, ev = (mx.events || []).filter(e => e.date >= t).sort((a, b) => a.date.localeCompare(b.date)), e = x.e, k = x.qty * x.fx;
+    let face = x.face || 0;
+    const offerD = x.nearIsOffer ? x.near : null;
+    for (const v of ev){
+      if (v.date > end) break;
+      if (v.type === "coupon"){
+        let a = v.perUnit != null && v.perUnit > 0 ? v.perUnit * k : null, est = false;
+        if (a == null && face){ const rate = e && e.ct === "I" && e.b === "RREFKEYR" && e.bs != null ? keyRateAt(v.date) + e.bs : mx.couponPct || null; if (rate){ a = face * rate / 100 / (x.freq || 2) * k; est = true; } }
+        if (a) out.push({ date: v.date, kind: "cpn", amount: a, est: est || (offerD && v.date > offerD), x });
+      } else if (v.type === "amortization" && v.perUnit > 0){ out.push({ date: v.date, kind: "amort", amount: v.perUnit * k, x }); face = Math.max(0, face - v.perUnit); }
+      else if (v.type === "maturity" && face > 0){ out.push({ date: v.date, kind: "mat", amount: face * k, x }); }
+      else if (v.type === "offer" && face > 0){ out.push({ date: v.date, kind: "offer", amount: face * k, x, ot: v.offerType || "" }); }
+    }
+  }
+  return out;
+}
+function labLadderPanel(L){
+  const hz = LAB_HZ.find(h => h[0] === S.lab.hz) || LAB_HZ[0], [, , nB, mPer] = hz, t = todayIso();
+  const now = new Date(), start = new Date(now.getFullYear(), now.getMonth(), 1);
+  const buckets = []; for (let i = 0; i < nB; i++){ const a = new Date(start.getFullYear(), start.getMonth() + i * mPer, 1), b = new Date(a.getFullYear(), a.getMonth() + mPer, 1);
+    const iso = d => d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-01";
+    buckets.push({ a: iso(a), b: iso(b), label: mPer === 1 ? MON_SHORT[a.getMonth()] + (a.getMonth() === 0 || i === 0 ? " '" + String(a.getFullYear()).slice(2) : "") : mPer === 3 ? "Q" + (Math.floor(a.getMonth() / 3) + 1) + " '" + String(a.getFullYear()).slice(2) : (a.getMonth() < 6 ? "I" : "II") + " пг '" + String(a.getFullYear()).slice(2), cpn: 0, amort: 0, mat: 0, offer: 0, items: [] }); }
+  const end = addDays(buckets[buckets.length - 1].b, -1), flows = labFlows(L, end);
+  for (const f of flows){ const bk = buckets.find(b => f.date >= b.a && f.date < b.b); if (!bk) continue; bk[f.kind] += f.amount; bk.items.push(f); }
+  const host = $("#v-bondlab"), W = Math.max(320, Math.min(1100, ((host && host.clientWidth) || (document.querySelector("main") || document.body).clientWidth || 960) - 40)), Hh = 250, pL = 52, pT = 12, pB = 26;
+  const mx = Math.max(1, ...buckets.map(b => b.cpn + b.amort + b.mat + b.offer)), st = niceStep(mx / 4), top = Math.ceil(mx / st) * st;
+  const cw = (W - pL) / nB, bw = Math.min(46, cw * 0.62), Y = v => pT + (1 - v / top) * (Hh - pT - pB);
+  let g = ""; for (let v = 0; v <= top + st / 2; v += st) g += `<line class="gl" x1="${pL}" x2="${W}" y1="${Y(v)}" y2="${Y(v)}" ${v ? 'stroke-dasharray="3 4"' : ""}/><text x="${pL - 6}" y="${Y(v) + 4}" text-anchor="end">${fmtAxis(v)}</text>`;
+  const KC = { cpn: ["Купоны", "var(--c-coupon)"], amort: ["Амортизация", "var(--c-amort)"], mat: ["Погашения", "var(--c-mat)"], offer: ["Оферты (можно предъявить)", "var(--c-offer)"] };
+  buckets.forEach((b, i) => { const cx = pL + cw * i + cw / 2; let y = Y(0);
+    const lines = [`${b.label}${mPer > 1 ? ` (${fmtD(b.a)} – ${fmtD(addDays(b.b, -1))})` : ""}`];
+    for (const k of ["cpn", "amort", "mat"]){ if (!b[k]) continue; const hgt = Y(0) - Y(b[k]); g += `<rect x="${cx - bw / 2}" y="${y - hgt}" width="${bw}" height="${Math.max(0.5, hgt)}" fill="${KC[k][1]}"/>`; y -= hgt; lines.push(`${KC[k][0]}: ${money(b[k])}`); }
+    if (b.offer){ const hgt = Y(0) - Y(b.offer); g += `<rect x="${cx - bw / 2 + 0.75}" y="${y - hgt + 0.75}" width="${bw - 1.5}" height="${Math.max(0.5, hgt - 1.5)}" fill="none" stroke="var(--c-offer)" stroke-width="1.5" stroke-dasharray="4 3"/>`; lines.push(`${KC.offer[0]}: ${money(b.offer)}`); }
+    const big = [...b.items].filter(f => f.kind !== "cpn").sort((p, q) => q.amount - p.amount).slice(0, 4); for (const f of big) lines.push(`· ${f.x.short}: ${KC[f.kind][0].split(" ")[0].toLowerCase()} ${fmtD(f.date)} — ${money(f.amount)}`);
+    g += `<rect x="${pL + cw * i}" y="${pT}" width="${cw}" height="${Hh - pT - pB}" fill="transparent" data-tip="${esc(lines.join("\n"))}"/>`;
+    if (nB <= 12 || i % 2 === 0) g += `<text x="${cx}" y="${Hh - 8}" text-anchor="middle">${b.label}</text>`; });
+  const y1 = addDays(t, 365), in12 = flows.filter(f => f.date <= y1);
+  const prin12 = in12.filter(f => f.kind === "amort" || f.kind === "mat").reduce((s, f) => s + f.amount, 0), off12 = in12.filter(f => f.kind === "offer").reduce((s, f) => s + f.amount, 0), cpn12 = in12.filter(f => f.kind === "cpn").reduce((s, f) => s + f.amount, 0);
+  /* reinvestment: principal coming back within a year earns its current YTM today; what if it is reinvested at another yield */
+  const back = new Map(); for (const f of in12) if (f.kind === "amort" || f.kind === "mat") back.set(f.x, (back.get(f.x) || 0) + f.amount);
+  let wy = 0, ww = 0; for (const [x, a] of back){ const y = x.floater ? keyRateNow() + ((x.e && x.e.bs) || 0) : x.ytm; if (y != null){ wy += y * a; ww += a; } }
+  const curY = ww ? wy / ww : null, def = curveAt(1) ?? keyRateNow(), reinv = S.lab.reinv != null ? S.lab.reinv : Math.round(def * 10) / 10;
+  const delta = curY != null ? prin12 * (reinv - curY) / 100 : null;
+  const tot = buckets.reduce((s, b) => s + b.cpn + b.amort + b.mat, 0);
+  const upcoming = flows.filter(f => f.kind !== "cpn").sort((a, b) => a.date.localeCompare(b.date)).slice(0, 20);
+  return `<div class="panel lab-p"><div class="panel-head"><h2>Лестница погашений и денежный поток</h2><span class="hinfo" data-tip="Сколько денег вернут облигации портфеля: купоны, амортизации, погашения. Оферты показаны пунктиром: по ним деньги вернутся, только если вы предъявите бумаги. Купоны, которые ещё не объявлены, оценены по текущему купону, флоатеры — по ключевой ставке. До НДФЛ." tabindex="0">?</span></div>
+    <div class="hrow"><div class="hper">${LAB_HZ.map(h => `<button class="${h[0] === hz[0] ? "on" : ""}" data-lab-hz="${h[0]}">${h[1]}</button>`).join("")}</div><span class="hsum">Всего за период <b>${money(tot)}</b></span></div>
+    <div class="lab-kpi">
+      <div><span>Вернётся тела за 12 мес.</span><b>${money(prin12)}</b><small>${L.V ? pct(prin12 / L.V * 100, 1) + " облигаций" : ""}${off12 ? ` · ещё ${money(off12)} по офертам` : ""}</small></div>
+      <div><span>Купоны за 12 мес.</span><b>${money(cpn12)}</b><small>≈ ${money(cpn12 / 12)} в месяц, до НДФЛ</small></div>
+      <div><span>Сейчас эти деньги приносят</span><b>${curY != null ? pct(curY, 2) : "—"}</b><small>доходность погашаемых бумаг</small></div>
+      <div class="lab-reinv"><span>Реинвестировать под</span><label class="lab-in"><input type="text" inputmode="decimal" data-lab-reinv value="${String(reinv).replace(".", ",")}"> %</label><small>${delta != null && prin12 ? `доход ${delta >= 0 ? "вырастет" : "упадёт"} на <b class="${delta >= 0 ? "pos" : "neg"}">${money(Math.abs(delta))}</b> в год` : "по умолчанию — ОФЗ на 1 год"}</small></div>
+    </div>
+    <div class="chart-wrap"><svg class="chart" viewBox="0 0 ${W} ${Hh}">${g}</svg></div>
+    <div class="legend">${["cpn", "amort", "mat"].map(k => `<span><i class="dot" style="background:${KC[k][1]}"></i>${KC[k][0]}</span>`).join("")}<span><i class="dot" style="background:transparent;border:1.5px dashed var(--c-offer)"></i>${KC.offer[0]}</span></div>
+    ${upcoming.length ? `<details class="more"><summary>Ближайшие погашения, амортизации и оферты (${upcoming.length})</summary><div class="tbl-wrap"><table class="lab-t"><thead><tr><th>Дата</th><th>Облигация</th><th>Событие</th><th class="n">Сумма</th></tr></thead><tbody>
+      ${upcoming.map(f => `<tr><td class="num">${fmtD(f.date)}</td><td${cpA(f.x.isin, f.x.mx.secid)}><b>${esc(f.x.short)}</b></td><td>${f.kind === "mat" ? "Погашение" : f.kind === "amort" ? "Амортизация" : "Оферта" + (f.ot ? ` <small class="faint">${esc(String(f.ot).replace(/оферта/i, "").trim())}</small>` : "")}</td><td class="n">${money(f.amount)}</td></tr>`).join("")}</tbody></table></div></details>` : ""}
+  </div>`;
+}
+function renderBondLab(D){
+  const el = $("#v-bondlab"), H = valueHoldings(D), total = totalValue(D, H);
+  if (!CURVE.busy && (!CURVE.pts || Date.now() - CURVE.at > 12 * 3600e3) && !CURVE.tried){ CURVE.tried = true; setTimeout(() => loadCurve(false), 0); }
+  if (!TOOL.bonds.data && !TOOL.bonds.busy && !TOOL.bonds.restoreTried) scrRestore("bonds");
+  if (!EMIS.map && !EMIS.busy && !EMIS.tried){ EMIS.tried = true; setTimeout(() => loadEmissions(false), 0); }
+  const L = labRows(D, H, total);
+  const head = `<div class="view-bar"><div><h1>Облигации: риски и потоки</h1><span class="sub">${esc(pfName(S.active))} · ${L.list.length} ${plural(L.list.length, "облигация", "облигации", "облигаций")} на ${money(L.V)}</span></div></div>`;
+  if (!L.list.length){ el.innerHTML = head + `<div class="panel"><div class="empty"><b>В портфеле нет облигаций</b><span>${D.reports.length || D.trades.length ? "Если облигации есть, обновите данные Мосбиржи кнопкой вверху." : "Загрузите отчёт брокера или добавьте сделку."}</span></div></div>`; return; }
+  el.innerHTML = head + labCurvePanel(L) + labStressPanel(L) + labLadderPanel(L) + `<p class="note">Расчёты по данным Мосбиржи: цены, доходности, дюрация, купоны, амортизации и оферты. Это оценка, а не рекомендация.</p>`;
+}
+document.addEventListener("click", e => {
+  const t = e.target; let b;
+  if ((b = t.closest("[data-lab-st]"))){ S.lab.stress = +b.dataset.labSt; saveLab(); render(); return; }
+  if ((b = t.closest("[data-lab-hz]"))){ S.lab.hz = b.dataset.labHz; saveLab(); render(); return; }
+  if ((b = t.closest("[data-lab-sort]"))){ S.lab.sort = b.dataset.labSort; saveLab(); render(); return; }
+  if (t.closest("[data-lab-mkt]")){ loadBonds(false); if (!EMIS.busy) loadEmissions(false); render(); return; }
+});
+document.addEventListener("change", e => { if (e.target.matches("[data-lab-reinv]")){ const v = num(e.target.value); S.lab.reinv = isFinite(v) && v > 0 && v < 100 ? v : null; saveLab(); render(); } });
+
+
+/* ---- key-rate path for floater coupons: change at every Bank of Russia meeting, up to a limit ---- */
+function keyRateAt(d){
+  const p = S.settings.krPath || {}, st = +p.step || 0, now = keyRateNow(); if (!st || !d) return now;
+  const t = todayIso(), n = KR_MEET.filter(m => m >= t && m < d).length;
+  let r = now + st * n; if (p.lim != null && isFinite(p.lim)) r = st < 0 ? Math.max(Math.min(p.lim, now), r) : Math.min(Math.max(p.lim, now), r);
+  return Math.max(0, r);
+}
+const KR_PRESETS = [[0, "Не меняется"], [-0.5, "−0,5 п.п. на заседании"], [-1, "−1 п.п. на заседании"], [0.5, "+0,5 п.п. на заседании"]];
+function floaterPanel(D, H, total){
+  const rows = assetRows(D, H, total).filter(r => r.kind === "bond" && !r.sold && r.qty > 0 && r.clean > 0);
+  const fl = rows.filter(r => { const e = em(r.isin); return e && e.ct === "I"; }); if (!fl.length) return "";
+  const t = todayIso(), y1 = addDays(t, 365), kr = keyRateNow(), p = S.settings.krPath || { step: 0, lim: null }, st = +p.step || 0;
+  let sumF = 0, sumC = 0;
+  const list = fl.map(r => { const mx = r.mx || {}, e = em(r.isin), fx = fxRate(mx.faceUnit || "RUB") || 1, k = r.qty * fx, freq = e.cf || mx.couponFreq || 12;
+    const linked = e.bs != null && (e.b === "RREFKEYR" || /RUONIA|RUSFAR/i.test(e.b || "")), face = mx.face || 0;
+    let f = 0, c = 0, est = 0;
+    for (const x of (mx.events || []).filter(x => x.type === "coupon" && x.date > t && x.date <= y1)){
+      if (x.perUnit > 0){ f += x.perUnit * k; c += x.perUnit * k; }
+      else if (linked && face){ f += face * (keyRateAt(x.date) + e.bs) / 100 / freq * k; c += face * (kr + e.bs) / 100 / freq * k; est++; }
+    }
+    sumF += f; sumC += c;
+    return { r, e, linked, f, c, est, now: linked ? kr + e.bs : null, m6: linked ? keyRateAt(addDays(t, 182)) + e.bs : null, m12: linked ? keyRateAt(y1) + e.bs : null };
+  });
+  const path = KR_MEET.filter(m => m >= t).slice(0, 8).map(m => { const after = keyRateAt(addDays(m, 1)); return `<span class="kr-pt"><small>${fmtD(m).slice(0, 5)}${m.slice(2, 4) !== t.slice(2, 4) ? "." + m.slice(2, 4) : ""}</small><b>${pct(after, after % 1 ? 2 : 0)}</b></span>`; }).join("");
+  const diff = sumF - sumC;
+  return `<div class="panel lab-p" id="floaters"><div class="panel-head"><h2>Прогноз купонов по флоатерам</h2><span class="hinfo" data-tip="Купоны флоатеров, которые ещё не объявлены, пересчитываются по траектории ключевой ставки: на каждом заседании ЦБ ставка меняется на заданный шаг, пока не дойдёт до предела. Объявленные купоны берутся с Мосбиржи как есть. Эта же траектория используется в календаре и прогнозе выплат." tabindex="0">?</span><span class="sub">ключевая сейчас ${pct(kr, 2)}</span></div>
+    <div class="kr-path-set"><div class="hper">${KR_PRESETS.map(([v, n]) => `<button class="${st === v ? "on" : ""}" data-krp="${v}">${n}</button>`).join("")}</div>
+      <label class="lab-in small">Шаг <input type="text" inputmode="decimal" data-krp-f="step" value="${String(st).replace(".", ",")}"> п.п.</label>
+      <label class="lab-in small">${st > 0 ? "Не выше" : "Не ниже"} <input type="text" inputmode="decimal" data-krp-f="lim" value="${p.lim != null ? String(p.lim).replace(".", ",") : ""}" placeholder="—"> %</label></div>
+    ${st ? `<div class="kr-path">${path}</div>` : ""}
+    <div class="lab-kpi">
+      <div><span>Купоны флоатеров за 12 мес.</span><b>${money(sumF)}</b><small>по выбранной траектории, до НДФЛ</small></div>
+      <div><span>Если ставка не изменится</span><b>${money(sumC)}</b><small>при ключевой ${pct(kr, 2)}</small></div>
+      <div><span>Разница</span><b class="${diff >= 0 ? "pos" : "neg"}">${sgn(diff)}</b><small>${pct(rows.length ? fl.reduce((s, r) => s + r.clean, 0) / rows.reduce((s, r) => s + r.clean, 0) * 100 : 0, 1)} облигаций — флоатеры</small></div>
+    </div>
+    <div class="tbl-wrap"><table class="lab-t"><thead><tr><th>Облигация</th><th>Купон</th><th class="n">Сейчас</th><th class="n">Через 6 мес.</th><th class="n">Через год</th><th class="n">Купоны за 12 мес.</th><th class="n">Без изменения ставки</th></tr></thead><tbody>
+    ${list.map(x => `<tr><td${cpA(x.r.isin, x.r.mx.secid)}><b>${esc(x.r.short)}</b></td><td class="small">${esc(cpnTypeName(x.e) || "Плавающий")}</td><td class="n">${x.now != null ? pct(x.now, 2) : "—"}</td><td class="n">${x.m6 != null ? pct(x.m6, 2) : "—"}</td><td class="n">${x.m12 != null ? pct(x.m12, 2) : "—"}</td>
+      <td class="n"><b>${money(x.f)}</b>${x.est ? ` <small class="faint" data-tip="Купонов по прогнозу: ${x.est}">≈</small>` : ""}</td><td class="n faint">${money(x.c)}</td></tr>`).join("")}</tbody></table></div>
+    ${list.some(x => !x.linked) ? `<p class="note">У флоатеров с другой базой (не ключевая ставка и не RUONIA) будущие купоны не прогнозируются — учтены только объявленные.</p>` : ""}
+    ${st && KR_MEET[KR_MEET.length - 1] < y1 ? `<p class="note">Даты заседаний ЦБ известны до ${fmtD(KR_MEET[KR_MEET.length - 1])}, дальше ставка считается неизменной.</p>` : ""}
+  </div>`;
+}
+document.addEventListener("click", e => { const b = e.target.closest("[data-krp]"); if (!b) return; const v = +b.dataset.krp;
+  S.settings.krPath = { step: v, lim: v < 0 ? (S.settings.krPath && S.settings.krPath.lim != null && S.settings.krPath.step < 0 ? S.settings.krPath.lim : 10) : v > 0 ? 25 : null }; saveSettings(); render(); });
+document.addEventListener("change", e => { const f = e.target.closest && e.target.closest("[data-krp-f]"); if (!f) return; const v = num(f.value), p = Object.assign({ step: 0, lim: null }, S.settings.krPath);
+  if (f.dataset.krpF === "step") p.step = isFinite(v) && Math.abs(v) <= 5 ? v : 0; else p.lim = isFinite(v) && v >= 0 && v < 100 && f.value.trim() ? v : null;
+  S.settings.krPath = p; saveSettings(); render(); });
+
+/* ======================= bond picker: fill the gaps of the portfolio ======================= */
+S.pick = Object.assign({ minR: "A-", term: "gaps", tmin: "", tmax: "", ct: "any", noQual: true, noRisk: true, noOut: true, minVol: 1, budget: 100000, n: 5, sort: "ytm" }, store.get("pf.pick.v1", {}));
+const savePick = () => store.set("pf.pick.v1", S.pick);
+const pickBucket = yrs => yrs == null ? null : Math.min(5, Math.max(0, Math.floor(yrs)));
+function pickLadder(L){
+  const years = [...Array(6)].map((_, i) => ({ y: i, label: i === 5 ? "5+ лет" : i === 0 ? "до 1 года" : `${i}–${i + 1} ${i + 1 < 5 ? "года" : "лет"}`, v: 0, n: 0 }));
+  for (const x of L.list){ const k = pickBucket(x.yrs); if (k == null) continue; years[k].v += x.value; years[k].n++; }
+  const tot = years.reduce((s, b) => s + b.v, 0) || 1; for (const b of years) b.sh = b.v / tot;
+  const avg = 1 / years.length; for (const b of years) b.gap = b.sh < avg * 0.5;
+  return years;
+}
+function pickRun(L, ladder){
+  const P = S.pick, data = TOOL.bonds.data || [], ms = marketSpreads(), pts = curvePts(), held = new Set(L.list.map(x => x.isin));
+  const lim = (S.settings.maxIssuer || 10) / 100, issW = {}; for (const x of L.list){ const k = (x.e && (x.e.inn || x.e.e)) || x.short; issW[k] = (issW[k] || 0) + x.w; }
+  const minRank = ratingRank(P.minR), gapYears = new Set(ladder.filter(b => b.gap).map(b => b.y));
+  const tmin = num(P.tmin), tmax = num(P.tmax), seenIss = new Set(), out = [];
+  const cands = [];
+  for (const r of data){
+    if (r.anomal || r.faceUnit !== "RUB" || !(r.ytm > 0) || held.has(r.isin)) continue;
+    const e = em(r.isin); if (!e) continue;
+    const rk = ratingRank(e.r); if (minRank != null && (rk == null || rk > minRank)) continue;
+    if (P.noQual && e.q) continue; if (P.noRisk && e.hr) continue;
+    if (P.ct === "F" && e.ct !== "F") continue; if (P.ct === "I" && e.ct !== "I") continue;
+    if ((r.vol || 0) < (+P.minVol || 0) * 1e6) continue;
+    const near = r.offer || r.mat, yrs = yearsTo(near); if (yrs == null || yrs < 0.08) continue;
+    const ny = +near.slice(0, 4);
+    if (P.term === "gaps"){ if (!gapYears.has(pickBucket(yrs))) continue; }
+    else { if (isFinite(tmin) && P.tmin !== "" && yrs < tmin) continue; if (isFinite(tmax) && P.tmax !== "" && yrs > tmax) continue; }
+    const ik = e.inn || e.e; if ((issW[ik] || 0) >= lim) continue;
+    const g = e.ct === "I" ? null : pts && r.dur > 0.1 ? (r.ytm - curveAt(r.dur, pts)) * 100 : null, m = ms && ms[ratingGroup(e.r)];
+    if (P.noOut && g != null && m && g > m.q3 + 150) continue;
+    const ytm = e.ct === "I" && e.b === "RREFKEYR" && e.bs != null ? keyRateNow() + e.bs : r.ytm;
+    cands.push({ r, e, near, yrs, ny, g, rel: g != null && m ? g - m.med : null, ytm, ik });
+  }
+  cands.sort((a, b) => P.sort === "rel" ? (b.rel ?? -1e9) - (a.rel ?? -1e9) : P.sort === "liq" ? (b.r.vol || 0) - (a.r.vol || 0) : b.ytm - a.ytm);
+  for (const c of cands){ if (seenIss.has(c.ik)) continue; seenIss.add(c.ik); out.push(c); if (out.length >= 30) break; }
+  /* split the budget evenly across the first N, whole bonds only */
+  const N = Math.max(1, Math.min(+P.n || 5, out.length)), per = (+P.budget || 0) / N; let left = +P.budget || 0;
+  out.forEach((c, i) => { const unit = c.r.price / 100 * c.r.face + (c.r.nkd || 0); c.unit = unit; if (i < N && unit > 0 && per > 0){ c.qty = Math.floor(per / unit); c.sum = c.qty * unit; left -= c.sum; c.inc = c.qty * c.r.face * (cpnRateNow(c.r.isin, c.r.cpnPct) || 0) / 100; } });
+  return { out, cands: cands.length, left, N };
+}
+function renderBondPick(D){
+  const el = $("#v-bondpick"), H = valueHoldings(D), total = totalValue(D, H), P = S.pick;
+  if (!TOOL.bonds.data && !TOOL.bonds.busy && !TOOL.bonds.restoreTried) scrRestore("bonds");
+  if (!EMIS.map && !EMIS.busy && !EMIS.tried){ EMIS.tried = true; setTimeout(() => loadEmissions(false), 0); }
+  if (!CURVE.busy && !CURVE.tried && (!CURVE.pts || Date.now() - CURVE.at > 12 * 3600e3)){ CURVE.tried = true; setTimeout(() => loadCurve(false), 0); }
+  const L = labRows(D, H, total), ladder = pickLadder(L), T = TOOL.bonds;
+  const ready = T.data && EMIS.map, res = ready ? pickRun(L, ladder) : null;
+  const maxV = Math.max(...ladder.map(b => b.v), 1);
+  const sel = (k, opts) => `<select data-pk="${k}">${opts.map(([v, n]) => `<option value="${v}" ${String(P[k]) === String(v) ? "selected" : ""}>${n}</option>`).join("")}</select>`;
+  const chk = (k, n) => `<label class="chk"><input type="checkbox" data-pk="${k}" ${P[k] ? "checked" : ""}> ${n}</label>`;
+  const inp = (k, ph, w) => `<input type="text" inputmode="decimal" data-pk="${k}" value="${esc(String(P[k] ?? ""))}" placeholder="${ph}" style="width:${w || 80}px">`;
+  el.innerHTML = `<div class="view-bar"><div><h1>Подбор облигаций</h1><span class="sub">бумаги с Мосбиржи под пробелы вашего портфеля · ${esc(pfName(S.active))}</span></div></div>
+  <div class="panel lab-p"><div class="panel-head"><h2>Где пробелы</h2><span class="hinfo" data-tip="Облигации портфеля по сроку до ближайшей оферты или погашения. Пробел — срок, на который приходится меньше половины от равномерной доли: деньги в этот год не вернутся, лестница неровная." tabindex="0">?</span><span class="sub">${L.list.length} ${plural(L.list.length, "облигация", "облигации", "облигаций")} на ${money(L.V)}</span></div>
+    <div class="pk-lad">${ladder.map((b, i) => `<div class="${b.gap ? "gap" : ""}"><span class="pk-bar"><i style="height:${Math.max(2, b.v / maxV * 100)}%"></i></span><b>${b.label}</b><small>${pct(b.sh * 100, 0)}${b.gap ? " · пробел" : ""}</small></div>`).join("")}</div>
+  </div>
+  <div class="panel lab-p"><div class="panel-head"><h2>Условия подбора</h2></div>
+    <div class="pk-f">
+      <label class="fld"><span>Рейтинг не ниже</span>${sel("minR", [["AAA", "AAA"], ["AA-", "AA-"], ["A-", "A-"], ["BBB-", "BBB-"], ["BB-", "BB-"], ["any", "Любой"]])}</label>
+      <label class="fld"><span>Срок до оферты/погашения</span>${sel("term", [["gaps", "Под пробелы портфеля"], ["range", "Свой диапазон"]])}</label>
+      ${P.term === "range" ? `<label class="fld"><span>От, лет</span>${inp("tmin", "0", 70)}</label><label class="fld"><span>До, лет</span>${inp("tmax", "3", 70)}</label>` : ""}
+      <label class="fld"><span>Купон</span>${sel("ct", [["any", "Любой"], ["F", "Фиксированный"], ["I", "Плавающий"]])}</label>
+      <label class="fld"><span>Оборот за день от, млн ₽</span>${inp("minVol", "1", 80)}</label>
+      <label class="fld"><span>Сумма к вложению, ₽</span>${inp("budget", "100000", 110)}</label>
+      <label class="fld"><span>На сколько бумаг разделить</span>${sel("n", [[3, "3"], [5, "5"], [7, "7"], [10, "10"]])}</label>
+      <label class="fld"><span>Сортировать</span>${sel("sort", [["ytm", "По доходности"], ["rel", "По спреду к рынку"], ["liq", "По ликвидности"]])}</label>
+    </div>
+    <div class="pk-c">${chk("noQual", "Без бумаг для квалов")}${chk("noRisk", "Без высокого риска")}${chk("noOut", "Скрыть подозрительно высокие спреды")}</div>
+    <p class="small muted" style="margin:0">Исключаются бумаги, которые уже есть в портфеле, и эмитенты, чья доля в облигациях уже ${pct(S.settings.maxIssuer || 10, 0)} и выше. Из каждого эмитента — одна бумага.</p>
+  </div>
+  <div class="panel lab-p"><div class="panel-head"><h2>Подходящие облигации</h2>${res ? `<span class="sub">подходит ${res.cands}, показаны лучшие ${res.out.length}</span>` : ""}<span class="spacer"></span><span class="scr-upd small muted">${T.at ? "Данные на " + new Date(T.at).toLocaleString("ru-RU", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }) : ""}</span><button class="btn ghost scr-reload" data-sreload="bonds" ${T.busy ? "disabled" : ""}><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9M13.5 2.5v3h-3"/></svg>Обновить</button></div>
+    ${!ready ? `<div class="empty">${T.busy || EMIS.busy ? `<i class="spin"></i> Загружаю облигации и рейтинги Мосбиржи…` : `<b>Нет данных скринера</b><span>Нажмите «Обновить», чтобы загрузить облигации Мосбиржи.</span>`}</div>`
+    : !res.out.length ? `<div class="empty"><b>Ничего не подошло</b><span>Ослабьте условия: рейтинг, срок или оборот.</span></div>`
+    : `${+P.budget > 0 ? `<div class="lab-kpi"><div><span>Распределено</span><b>${money((+P.budget) - res.left)}</b><small>из ${money(+P.budget)}, остаток ${money(res.left)}</small></div>
+        <div><span>Купоны в год</span><b>${money(res.out.slice(0, res.N).reduce((s, c) => s + (c.inc || 0), 0))}</b><small>по текущим ставкам, до НДФЛ</small></div>
+        <div><span>Средняя доходность</span><b>${pct(res.out.slice(0, res.N).reduce((s, c) => s + c.ytm * (c.sum || 0), 0) / (res.out.slice(0, res.N).reduce((s, c) => s + (c.sum || 0), 0) || 1), 2)}</b><small>взвешенно по сумме</small></div></div>` : ""}
+      <div class="tbl-wrap"><table class="lab-t"><thead><tr><th>Облигация</th><th>Рейтинг</th><th>Оферта / погашение</th><th class="n">Доходность</th><th class="n">Спред, б.п.</th><th class="n">Купон</th><th class="n">Оборот</th><th class="n">Купить</th><th></th></tr></thead><tbody>
+      ${res.out.map((c, i) => `<tr class="${i < res.N && c.qty ? "pk-on" : ""}"><td><div class="asset-c"><button type="button" class="av sm" style="--ac:${(RGROUPS[ratingGroup(c.e.r)] || RGROUPS.none).c}" data-card="${esc(c.r.isin)}" data-card-sec="${esc(c.r.secid)}" data-tip="Карточка бумаги">${esc(String(c.r.short).replace(/[^A-Za-zА-Яа-яЁё0-9]/g, "").slice(0, 3).toUpperCase())}</button><span class="mv-n"${cpA(c.r.isin, c.r.secid)}><b>${esc(c.r.short)}</b><small>${esc(c.e.e || c.r.isin)}</small></span></div></td>
+        <td>${ratingChip(c.e.r)}</td><td class="nowrap">${fmtD(c.near)} <span class="faint small">${c.r.offer ? "оферта" : ""} (${c.yrs.toLocaleString("ru-RU", { maximumFractionDigits: 1 })} г)</span></td>
+        <td class="n"><b>${pct(c.ytm, 2)}</b>${c.e.ct === "I" ? ' <small class="faint">флоатер</small>' : ""}</td><td class="n">${c.g != null ? Math.round(c.g) : "—"}${c.rel != null ? ` <small class="${c.rel >= 0 ? "pos" : "faint"}">${c.rel >= 0 ? "+" : "−"}${Math.abs(Math.round(c.rel))}</small>` : ""}</td>
+        <td class="n">${cpnRateNow(c.r.isin, c.r.cpnPct) ? pct(cpnRateNow(c.r.isin, c.r.cpnPct), 2) : "—"}</td><td class="n">${c.r.vol ? shortMoney(c.r.vol) : "—"}</td>
+        <td class="n">${i < res.N && c.qty ? `<b>${c.qty} шт.</b><small class="faint"> ${money(c.sum)}</small>` : i < res.N ? `<small class="faint">не хватает на 1 шт.</small>` : ""}</td>
+        <td><button class="btn ghost small" data-sbuy="bonds|${esc(c.r.isin)}">Добавить</button></td></tr>`).join("")}</tbody></table></div>
+      <p class="note">Спред — премия к ОФЗ того же срока; маленькое число рядом — насколько он выше (+) или ниже медианы рынка для этого рейтинга. «Добавить» открывает окно сделки, чтобы записать покупку в портфель. Это подборка по фильтрам, а не рекомендация к покупке.</p>`}
+  </div>`;
+}
+document.addEventListener("change", e => { const f = e.target.closest && e.target.closest("[data-pk]"); if (!f) return; const k = f.dataset.pk;
+  S.pick[k] = f.type === "checkbox" ? f.checked : f.tagName === "SELECT" ? f.value : f.value.trim().replace(",", "."); savePick(); render(); });
+
+
+/* ======================= home: risk signals on held securities ======================= */
+const SIG = { busy: false, hist: store.get("pf.sig.v1", { at: 0, h: {} }), rat: store.get("pf.ratsnap.v1", {}), all: false, tried: false };
+async function loadSignals(force){
+  const D = derive("all"), isins = [...new Set(D.holdings.map(h => h.isin))].filter(i => { const m = S.moex[i]; return m && m.secid && m.board && m.bEngine; });
+  if (SIG.busy || !isins.length) return;
+  if (!force && Date.now() - SIG.hist.at < 6 * 3600e3 && isins.every(i => SIG.hist.h[i])) return;
+  SIG.busy = true; render();
+  const from = addDays(todayIso(), -16), h = {}, queue = [...isins];
+  const one = async isin => { const mx = S.moex[isin];
+    try { const j = await iss(`history/engines/${mx.bEngine}/markets/${mx.bMarket}/boards/${mx.board}/securities/${encodeURIComponent(mx.secid)}.json`, `from=${from}`);
+      h[isin] = tbl(j, "history").map(r => [r.tradedate, +(r.close || r.legalcloseprice || r.waprice) || null, r.yieldclose > 0 ? +r.yieldclose : r.yieldatwap > 0 ? +r.yieldatwap : null]).filter(x => x[1]);
+    } catch { if (SIG.hist.h[isin]) h[isin] = SIG.hist.h[isin]; } };
+  await Promise.all([0, 1, 2, 3].map(async () => { while (queue.length) await one(queue.shift()); }));
+  SIG.hist = { at: Date.now(), h }; store.set("pf.sig.v1", SIG.hist);
+  SIG.busy = false; render();
+}
+const SIG_LV = { high: 0, mid: 1, info: 2, good: 3 };
+function signalsList(D, H, total){
+  const t = todayIso(), w7 = addDays(t, -7), m30 = addDays(t, 30), out = [], rows = assetRows(D, H, total).filter(r => !r.sold && r.qty > 0);
+  const ms = typeof marketSpreads === "function" ? marketSpreads() : null; let ratChanged = false;
+  for (const r of rows){
+    const mx = r.mx || {}, e = em(r.isin), bond = r.kind === "bond", hist = SIG.hist.h[r.isin] || [], nm = r.short || r.name;
+    /* price and yield over a week */
+    if (hist.length >= 2){
+      const base = [...hist].reverse().find(x => x[0] <= w7) || hist[0], last = hist[hist.length - 1];
+      const nowP = mx.price != null && (mx.quotesAt || 0) > msOf(last[0]) ? +mx.price : last[1];
+      const ch = base[1] ? (nowP / base[1] - 1) * 100 : null, lim = bond ? -3 : -8;
+      if (ch != null && ch <= lim) out.push({ lv: ch <= (bond ? -5 : -12) ? "high" : "mid", r, title: `Цена упала на ${pct(Math.abs(ch), 1)} за неделю`, text: bond ? `${pct(base[1], 2)} → ${pct(nowP, 2)} от номинала. Резкое падение облигации часто означает новости об эмитенте.` : `${money(base[1], 2)} → ${money(nowP, 2)}.` });
+      if (bond && !isFloater(r.isin, r.name) && base[2] != null){ const yNow = +mx.yield > 0 ? +mx.yield : last[2]; if (yNow != null && yNow - base[2] >= 1.5) out.push({ lv: yNow - base[2] >= 3 ? "high" : "mid", r, title: `Доходность выросла на ${(yNow - base[2]).toLocaleString("ru-RU", { maximumFractionDigits: 1 })} п.п. за неделю`, text: `${pct(base[2], 2)} → ${pct(yNow, 2)}. Рынок стал требовать больше за риск этой бумаги.` }); }
+    }
+    if (!bond) continue;
+    /* deep discount */
+    if (mx.price != null && +mx.price < 85 && !(mx.matdate && yearsTo(mx.matdate) > 7)) out.push({ lv: +mx.price < 70 ? "high" : "mid", r, title: `Цена ${pct(+mx.price, 1)} от номинала`, text: "Сильный дисконт к номиналу: рынок сомневается, что эмитент расплатится полностью." });
+    /* rating changes: compare with the last seen rating */
+    if (e && e.r){ const snap = SIG.rat[r.isin], cur = ratingNorm(e.r);
+      if (!snap){ SIG.rat[r.isin] = { r: cur, at: t }; ratChanged = true; }
+      else if (snap.r !== cur){ SIG.rat[r.isin] = { r: cur, at: t, prev: snap.r, ch: t }; ratChanged = true; }
+      const s2 = SIG.rat[r.isin];
+      if (s2.prev && s2.ch && s2.ch >= addDays(t, -30)){ const a = ratingRank(s2.prev), b = ratingRank(s2.r), down = a != null && b != null && b > a;
+        out.push({ lv: down ? "high" : "good", r, title: down ? `Рейтинг понижен: ${s2.prev} → ${s2.r}` : `Рейтинг ${a != null && b != null && b < a ? "повышен" : "изменён"}: ${s2.prev} → ${s2.r}`, text: `Замечено ${fmtD(s2.ch)}.` + (down ? " Обычно после понижения доходность растёт, а цена падает." : "") }); } }
+    /* offer soon */
+    const offer = (mx.events || []).filter(x => x.type === "offer" && x.date >= t && x.date <= m30).sort((a, b) => a.date.localeCompare(b.date))[0];
+    if (offer){ const days = Math.round((msOf(offer.date) - msOf(t)) / 864e5);
+      const nextC = (mx.events || []).filter(x => x.type === "coupon" && x.date > offer.date).sort((a, b) => a.date.localeCompare(b.date))[0];
+      const rate = nextC && (nextC.rate > 0 ? +nextC.rate : nextC.perUnit > 0 && mx.face ? nextC.perUnit * ((e && e.cf) || mx.couponFreq || 2) / mx.face * 100 : null);
+      const ref = +mx.yield > 0 ? +mx.yield : curveAt(Math.max(0.5, yearsTo(mx.matdate || offer.date) || 1));
+      const win = offer.start || offer.end ? ` Заявки ${offer.start ? "с " + fmtD(offer.start) : ""}${offer.end ? " по " + fmtD(offer.end) : ""}.` : "";
+      if (rate == null) out.push({ lv: "mid", r, title: `Оферта ${fmtD(offer.date)} — через ${days} ${plural(days, "день", "дня", "дней")}`, text: `Купон после оферты ещё не объявлен.${win} Решите, предъявлять ли бумаги, когда эмитент объявит ставку.` });
+      else { const low = ref != null && rate < ref - 1;
+        out.push({ lv: low ? "high" : "info", r, title: `Оферта ${fmtD(offer.date)} — через ${days} ${plural(days, "день", "дня", "дней")}`, text: `Купон после оферты ${pct(rate, 2)}${ref != null ? `, а рынок сейчас даёт около ${pct(ref, 1)}` : ""}.${low ? " Купон ниже рынка — имеет смысл предъявить бумаги к выкупу." : " Купон в рынке — можно держать дальше."}${win}` }); } }
+    /* market sees risk: spread far above the norm for the rating */
+    if (ms && e && e.ct !== "I" && +mx.yield > 0 && mx.duration > 0){ const m = ms[ratingGroup(e.r)], c = curveAt(mx.duration / 365.25);
+      if (m && c != null){ const gs = (+mx.yield - c) * 100; if (gs > m.q3 + 150) out.push({ lv: "mid", r, title: `Спред ${Math.round(gs)} б.п. — выше нормы для рейтинга ${RGROUPS[ratingGroup(e.r)].n}`, text: `Обычно ${Math.round(m.q1)}–${Math.round(m.q3)} б.п. Рынок закладывает повышенный риск эмитента.` }); } }
+  }
+  if (ratChanged) store.set("pf.ratsnap.v1", SIG.rat);
+  return out.sort((a, b) => SIG_LV[a.lv] - SIG_LV[b.lv] || b.r.clean - a.r.clean);
+}
+function signalsPanel(D, H, total){
+  if (!H.length) return "";
+  if (!SIG.busy && !SIG.tried){ SIG.tried = true; setTimeout(() => loadSignals(false), 400); }
+  if (!EMIS.map && !EMIS.busy && !EMIS.tried && H.some(h => (S.moex[h.isin] || {}).kind === "bond")){ EMIS.tried = true; setTimeout(() => loadEmissions(false), 0); }
+  const list = signalsList(D, H, total), n = new Set(H.map(h => h.isin)).size, show = SIG.all ? list : list.slice(0, 6);
+  const C = { high: "var(--bad)", mid: "var(--warn)", info: "var(--c-coupon)", good: "var(--good)" };
+  return `<div class="panel sig-p"><div class="panel-head"><h2>Сигналы по бумагам</h2><span class="hinfo" data-tip="Что изменилось по бумагам портфеля: падение цены за неделю (облигации от 3%, акции от 8%), рост доходности от 1,5 п.п., смена рейтинга, оферты в ближайшие 30 дней и купон после них, сильный дисконт к номиналу, спред выше нормы для рейтинга. Это повод присмотреться, а не рекомендация." tabindex="0">?</span>
+    <span class="sub">${SIG.busy ? `<i class="spin"></i> проверяю ${n} ${plural(n, "бумагу", "бумаги", "бумаг")}…` : SIG.hist.at ? `проверено ${new Date(SIG.hist.at).toLocaleString("ru-RU", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" })}` : ""}</span><span class="spacer"></span><button class="link" data-sig-reload ${SIG.busy ? "disabled" : ""}>Проверить</button></div>
+    ${list.length ? `<div class="sig-list">${show.map(s => `<div class="sig sig-${s.lv}"><i style="background:${C[s.lv]}"></i><div><div class="sig-t"><span class="sig-n" data-card="${esc(s.r.isin)}" data-card-sec="${esc(s.r.mx.secid || "")}" data-tip="Карточка бумаги">${esc(s.r.short || s.r.name)}</span> · ${esc(s.title)}</div><small>${esc(s.text)}</small></div></div>`).join("")}</div>
+      ${list.length > 6 ? `<button class="link" data-sig-all>${SIG.all ? "Свернуть" : `Показать все (${list.length})`}</button>` : ""}`
+    : `<div class="sig-ok"><i></i><span>${SIG.busy ? "Проверяю бумаги…" : SIG.hist.at ? `Всё спокойно: по ${n} ${plural(n, "бумаге", "бумагам", "бумагам")} тревожных изменений нет.` : "Нажмите «Проверить», чтобы загрузить цены за неделю с Мосбиржи."}</span></div>`}
+  </div>`;
+}
+document.addEventListener("click", e => { if (e.target.closest("[data-sig-reload]")){ loadSignals(true); return; } if (e.target.closest("[data-sig-all]")){ SIG.all = !SIG.all; render(); } });
+
+
+/* ======================= tools: money-market funds ("копилки") ======================= */
+const MMF_DEF = [
+  { t: "SBMM", n: "Первая — Сберегательный", uk: "УК Первая (Сбер)", b: "sber", fee: 0.299 },
+  { t: "LQDT", n: "ВИМ — Ликвидность", uk: "ВИМ Инвестиции (ВТБ)", b: "vtb", fee: 0.294 },
+  { t: "TMON", n: "Т-Капитал Денежный рынок", uk: "Т-Капитал (Т-Банк)", b: "tbank", fee: 1.199 },
+  { t: "FMMM", n: "Финам Денежный рынок", uk: "Финам Менеджмент", b: "finam", fee: null },
+];
+const MMF_BRK = ["sber", "vtb", "tbank", "finam"];
+S.mmf = Object.assign({ funds: MMF_DEF.map(f => ({ ...f })), hz: 90, amt: 100000, comm: { sber: 0.06, vtb: 0.05, tbank: 0.3, finam: 0.04 }, home: true, tax: true, per: 365 }, store.get("pf.mmf.v1", {}));
+const saveMmf = () => store.set("pf.mmf.v1", { funds: S.mmf.funds, hz: S.mmf.hz, amt: S.mmf.amt, comm: S.mmf.comm, home: S.mmf.home, tax: S.mmf.tax, per: S.mmf.per });
+const MMF = { data: null, at: 0, busy: false, err: "", tried: false };
+async function loadMmf(force){
+  if (MMF.busy) return;
+  if (!force && MMF.data && S.mmf.funds.every(f => MMF.data[f.t])) return;
+  MMF.busy = true; MMF.err = ""; render();
+  const from = addDays(todayIso(), -400), data = Object.assign({}, MMF.data || {}); let fails = 0;
+  for (const f of S.mmf.funds){
+    if (!force && data[f.t]) continue;
+    try { const px = await candles(`engines/stock/markets/shares/boards/TQTF/securities/${encodeURIComponent(f.t)}/candles.json`, from); if (px.length < 2) throw 0; data[f.t] = px; }
+    catch { fails++; }
+  }
+  MMF.data = data; MMF.at = Date.now(); MMF.busy = false;
+  if (fails) MMF.err = `Мосбиржа не отдала цены по ${fails} ${plural(fails, "фонду", "фондам", "фондам")}. Нажмите «Обновить».`;
+  idbSet("mmf", { at: MMF.at, data }); render();
+}
+function mmfRestore(){ if (MMF.tried) return; MMF.tried = true; MMF.busy = true;
+  idbGet("mmf").then(v => { MMF.busy = false; if (v && v.data){ MMF.data = v.data; MMF.at = v.at; } loadMmf(false); }); }
+/* simple annualised return over the last `days` days from daily closes */
+function mmfRet(px, days){
+  if (!px || px.length < 2) return null; const last = px[px.length - 1], from = addDays(last[0], -days);
+  const base = [...px].reverse().find(p => p[0] <= from); if (!base) return null;
+  const d = (msOf(last[0]) - msOf(base[0])) / 864e5; return d > 0 ? (last[1] / base[1] - 1) * 365 / d * 100 : null;
+}
+function mmfCalc(f, broker){
+  const P = S.mmf, px = MMF.data && MMF.data[f.t]; const y = mmfRet(px, P.per); if (y == null) return null;
+  const c = P.home && f.b === broker ? 0 : (+P.comm[broker] || 0);
+  const amt = +P.amt || 0, days = +P.hz || 90;
+  const commRub = amt * c / 100 * 2;               // buy + sell
+  const gross = amt * y / 100 * days / 365;          // fund price growth (fund expenses already deducted)
+  const tax = P.tax ? Math.max(0, gross - commRub) * 0.13 : 0;
+  const net = gross - commRub - tax;
+  return { y, c, commRub, gross, tax, net, eff: amt ? net / amt * 365 / days * 100 : 0 };
+}
+function mmfChart(){
+  const funds = S.mmf.funds.filter(f => MMF.data && MMF.data[f.t] && MMF.data[f.t].length > 2); if (!funds.length) return "";
+  const from = addDays(todayIso(), -Math.max(30, +S.mmf.per || 365));
+  const dates = [...new Set(funds.flatMap(f => MMF.data[f.t].filter(p => p[0] >= from).map(p => p[0])))].sort(); if (dates.length < 3) return "";
+  const COLORS = { sber: "var(--b-sber)", vtb: "var(--b-vtb)", tbank: "var(--b-tbank)", finam: "var(--b-finam)" }, extra = ["var(--c-offer)", "var(--c-div)", "var(--c-amort)", "var(--k-fund)"];
+  const series = funds.map((f, i) => { const m = new Map(MMF.data[f.t].map(p => [p[0], p[1]])); let base = null, last = null;
+    const v = dates.map(d => { const x = m.get(d) ?? last; if (x != null) last = x; if (x == null) return null; if (base == null) base = x; return x / base * 100; });
+    return { k: f.t, n: f.t, c: COLORS[f.b] || extra[i % extra.length], v, w: 1.8, fmt: v => money(v, 2) + " (+" + pct(v - 100, 2) + ")" }; });
+  return lineChart("mmf", dates, series, { h: 260, host: "#v-mmf" });
+}
+function renderMmf(){
+  const el = $("#v-mmf"), P = S.mmf; if (!MMF.tried) mmfRestore();
+  const brSel = P.brk || "sber";
+  const rows = P.funds.map(f => ({ f, px: MMF.data && MMF.data[f.t], r1: mmfRet(MMF.data && MMF.data[f.t], 30), r3: mmfRet(MMF.data && MMF.data[f.t], 91), r6: mmfRet(MMF.data && MMF.data[f.t], 182), r12: mmfRet(MMF.data && MMF.data[f.t], 365) }));
+  const kr = keyRateNow(), per = +P.per || 365;
+  /* broker × fund result for the horizon */
+  const mat = MMF_BRK.map(b => ({ b, cells: P.funds.map(f => mmfCalc(f, b)) }));
+  const allNet = mat.flatMap(m => m.cells.filter(Boolean).map(c => c.net)), best = allNet.length ? Math.max(...allNet) : null;
+  const perName = { 30: "1 мес.", 91: "3 мес.", 182: "6 мес.", 365: "год" }[per] || per + " дн.";
+  const hzName = { 30: "1 месяц", 91: "3 месяца", 182: "6 месяцев", 365: "1 год" }[P.hz] || P.hz + " дн.";
+  el.innerHTML = `<div class="view-bar"><div><h1>Фонды-копилки</h1><span class="sub">фонды денежного рынка Сбера, ВТБ, Т-Банка и Финама: доходность, комиссии и что останется на руках</span></div></div>
+  <div class="panel lab-p"><div class="panel-head"><h2>Доходность фондов</h2><span class="hinfo" data-tip="Доходность посчитана по ценам паёв на Мосбирже и пересчитана в годовые. Расходы фонда (вознаграждение УК, депозитария и прочее) уже вычтены из цены пая — это то, что фонд реально принёс." tabindex="0">?</span><span class="spacer"></span><span class="scr-upd small muted">${MMF.at ? "Данные на " + new Date(MMF.at).toLocaleString("ru-RU", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }) : ""}</span><button class="btn ghost scr-reload" data-mmf-reload ${MMF.busy ? "disabled" : ""}><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9M13.5 2.5v3h-3"/></svg>Обновить</button></div>
+    ${MMF.busy && !MMF.data ? `<p class="status-line"><i class="spin"></i>Загружаю цены фондов с Мосбиржи…</p>` : ""}${MMF.err ? `<p class="msg warn-m" style="margin:0">${esc(MMF.err)}</p>` : ""}
+    <div class="tbl-wrap"><table class="lab-t mmf-t"><thead><tr><th>Фонд</th><th class="n">1 мес.</th><th class="n">3 мес.</th><th class="n">6 мес.</th><th class="n">1 год</th><th class="n"><span class="dotted" data-tip="Вознаграждение УК, депозитария и прочие расходы фонда, % в год. Уже вычтены из цены пая. Значение по данным УК — проверьте и поправьте при необходимости">Расходы фонда</span></th><th class="n">Цена пая</th><th></th></tr></thead><tbody>
+    ${rows.map((x, i) => { const r = v => v == null ? `<span class="faint">—</span>` : pct(v, 2); return `<tr><td><div class="asset-c"><span class="av sm" style="--ac:${(BROKERS[x.f.b] || BROKERS.other).c}">${esc(x.f.t.slice(0, 3))}</span><span class="mv-n" data-cp="${esc(x.f.t)}"><b>${esc(x.f.t)} · ${esc(x.f.n)}</b><small>${esc(x.f.uk || "")}${x.f.b && BROKERS[x.f.b] ? " · без комиссии в " + BROKERS[x.f.b].name : ""}</small></span></div></td>
+      <td class="n">${r(x.r1)}</td><td class="n">${r(x.r3)}</td><td class="n">${r(x.r6)}</td><td class="n"><b>${r(x.r12)}</b></td>
+      <td class="n"><input class="mmf-in" type="text" inputmode="decimal" data-mmf-fee="${i}" value="${x.f.fee != null ? String(x.f.fee).replace(".", ",") : ""}" placeholder="?"> %</td>
+      <td class="n">${x.px ? money(x.px[x.px.length - 1][1], 4) : "—"}</td><td>${i >= MMF_DEF.length ? `<button class="link" data-mmf-del="${i}" aria-label="Убрать">✕</button>` : ""}</td></tr>`; }).join("")}
+    </tbody></table></div>
+    <div class="mmf-add"><input type="text" data-mmf-new placeholder="Тикер фонда, например AKMM" maxlength="12"><button class="btn ghost" data-mmf-addbtn>Добавить фонд</button><span class="small muted">Ключевая ставка сейчас ${pct(kr, 2)} — доходность фондов денежного рынка обычно чуть ниже неё.</span></div>
+    <h3 class="lab-h3">Рост 100 ₽ за ${perName}</h3>
+    ${mmfChart() || `<div class="empty small">Нет цен для графика</div>`}
+  </div>
+  <div class="panel lab-p"><div class="panel-head"><h2>Что останется на руках</h2><span class="hinfo" data-tip="Сумма вкладывается в фонд на выбранный срок и растёт с той доходностью, что фонд показал за выбранный период. Вычитаются комиссия брокера за покупку и продажу (в «родном» брокере фонда её обычно нет) и НДФЛ 13% с дохода. Прошлая доходность не гарантирует будущую." tabindex="0">?</span></div>
+    <div class="pk-f">
+      <label class="fld"><span>Сумма, ₽</span><input type="text" inputmode="decimal" data-mmf-f="amt" value="${esc(String(P.amt))}"></label>
+      <label class="fld"><span>На какой срок</span><select data-mmf-f="hz">${[[30, "1 месяц"], [91, "3 месяца"], [182, "6 месяцев"], [365, "1 год"]].map(([v, n]) => `<option value="${v}" ${+P.hz === v ? "selected" : ""}>${n}</option>`).join("")}</select></label>
+      <label class="fld"><span>Доходность брать за</span><select data-mmf-f="per">${[[30, "последний месяц"], [91, "3 месяца"], [182, "6 месяцев"], [365, "год"]].map(([v, n]) => `<option value="${v}" ${+P.per === v ? "selected" : ""}>${n}</option>`).join("")}</select></label>
+      ${MMF_BRK.map(b => `<label class="fld"><span>Комиссия ${BROKERS[b].name}, %</span><input type="text" inputmode="decimal" data-mmf-comm="${b}" value="${String(P.comm[b] ?? "").replace(".", ",")}"></label>`).join("")}
+    </div>
+    <div class="pk-c"><label class="chk"><input type="checkbox" data-mmf-f="home" ${P.home ? "checked" : ""}> Свой фонд у своего брокера без комиссии</label><label class="chk"><input type="checkbox" data-mmf-f="tax" ${P.tax ? "checked" : ""}> Вычитать НДФЛ 13%</label></div>
+    <div class="tbl-wrap"><table class="lab-t mmf-m"><thead><tr><th>Брокер</th>${P.funds.map(f => `<th class="n">${esc(f.t)}</th>`).join("")}<th>Лучше всего</th></tr></thead><tbody>
+    ${mat.map(m => { const ok = m.cells.map((c, i) => [c, i]).filter(x => x[0]); const top = ok.sort((a, b) => b[0].net - a[0].net)[0];
+      return `<tr><td><span class="acc-tag"><i class="dot" style="background:${BROKERS[m.b].c}"></i>${BROKERS[m.b].name}</span></td>${m.cells.map((c, i) => c ? `<td class="n ${top && top[1] === i ? "mmf-best" : ""}${best != null && Math.abs(c.net - best) < 0.005 ? " mmf-top" : ""}" data-tip="${esc(`${P.funds[i].t} в ${BROKERS[m.b].name}\nРост пая: +${money(c.gross)} (${pct(c.y, 2)} годовых)\nКомиссия брокера: −${money(c.commRub)} (${pct(c.c, 2)} × 2)${P.tax ? `\nНДФЛ: −${money(c.tax)}` : ""}\nНа руках: ${money(c.net)}`)}"><b>${money(c.net)}</b><small>${pct(c.eff, 2)}</small></td>` : `<td class="n faint">—</td>`).join("")}
+        <td>${top ? `<b>${esc(P.funds[top[1]].t)}</b> <small class="faint">${money(top[0].net)}</small>` : "—"}</td></tr>`; }).join("")}
+    </tbody></table></div>
+    <p class="note">Доход за ${hzName} с ${money(+P.amt || 0)} после комиссий${P.tax ? " и налога" : ""}; под суммой — эффективная доходность в год. Доходность фонда — фактическая за ${perName} по ценам Мосбиржи. Комиссии брокеров — примерные для базовых тарифов, поставьте свои. Наведите на ячейку, чтобы увидеть расчёт.</p>
+  </div>`;
+}
+document.addEventListener("click", e => { const t = e.target; let b;
+  if (t.closest("[data-mmf-reload]")){ loadMmf(true); return; }
+  if (t.closest("[data-mmf-addbtn]")){ const inp = $("[data-mmf-new]"), v = (inp && inp.value || "").trim().toUpperCase(); if (!/^[A-Z0-9]{2,12}$/.test(v) || S.mmf.funds.some(f => f.t === v)) return;
+    S.mmf.funds.push({ t: v, n: v, uk: "", b: "", fee: null }); saveMmf(); loadMmf(false); return; }
+  if ((b = t.closest("[data-mmf-del]"))){ S.mmf.funds.splice(+b.dataset.mmfDel, 1); saveMmf(); render(); return; }
+});
+document.addEventListener("change", e => { const t = e.target;
+  if (t.matches("[data-mmf-fee]")){ const v = num(t.value); S.mmf.funds[+t.dataset.mmfFee].fee = t.value.trim() && isFinite(v) ? v : null; saveMmf(); render(); return; }
+  if (t.matches("[data-mmf-comm]")){ const v = num(t.value); S.mmf.comm[t.dataset.mmfComm] = isFinite(v) && v >= 0 ? v : 0; saveMmf(); render(); return; }
+  if (t.matches("[data-mmf-f]")){ const k = t.dataset.mmfF; S.mmf[k] = t.type === "checkbox" ? t.checked : k === "amt" ? Math.max(0, num(t.value) || 0) : +t.value; saveMmf(); render(); }
+});
+document.addEventListener("keydown", e => { if (e.key === "Enter" && e.target.matches("[data-mmf-new]")){ e.preventDefault(); const b = $("[data-mmf-addbtn]"); b && b.click(); } });
+
+
+/* ======================= tools: tax optimisation before year end ======================= */
+S.tx = Object.assign({ rate: 13, incl: "all" }, store.get("pf.tx.v1", {}));
+const saveTx = () => store.set("pf.tx.v1", S.tx);
+function renderTaxOpt(D){
+  const el = $("#v-taxopt"), H = valueHoldings(D), t = todayIso(), Y = t.slice(0, 4), rate = (+S.tx.rate || 13) / 100;
+  const y3 = addDays(t, -3 * 365 - 1), soon = addDays(t, 183);
+  /* realised result this year per account */
+  const acc = {}, A = (b, a) => acc[b + "|" + a] || (acc[b + "|" + a] = { b, a, real: 0, unm: 0, hold: [] });
+  for (const x of D.realized){ if (x.year !== Y) continue; const k = A(x.trade.broker, x.trade.account); k.real += x.pnl * (fxRate(x.trade.ccy) || 1); if (x.unmatched) k.unm++; }
+  /* open positions with paper result and holding period of the lots */
+  for (const h of H){
+    if (!(h.qty > 0) || h.cost == null || h.costPartial || h.value == null) continue;
+    const pnl = h.value - (h.accrued || 0) - h.cost; if (!isFinite(pnl)) continue;
+    const lots = D.trades.filter(x => x.side === "buy" && x.isin === h.isin && x.broker === h.broker && x.account === h.account && (D.lotLeft.get(x) || 0) > 0);
+    const ldv = lots.filter(x => x.date <= y3 && x.date >= "2014-01-01").reduce((s, x) => s + (D.lotLeft.get(x) || 0), 0);
+    const next = lots.filter(x => x.date > y3 && x.date >= "2014-01-01").map(x => addDays(x.date, 3 * 365 + 1)).filter(d => d <= soon).sort()[0] || null;
+    A(h.broker, h.account).hold.push({ h, pnl, ldvShare: h.qty ? Math.min(1, ldv / h.qty) : 0, next, kind: h.kind, name: (h.mx && h.mx.shortname) || h.name });
+  }
+  const list = Object.values(acc).filter(k => Math.abs(k.real) > 0.5 || k.hold.length);
+  let totSave = 0, totTax = 0, totFree = 0;
+  const cards = list.map(k => {
+    const gain = k.real, tax = Math.max(0, gain) * rate; totTax += tax;
+    const losers = k.hold.filter(x => x.pnl < -1 && x.ldvShare < 0.999).sort((a, b) => a.pnl - b.pnl), winners = k.hold.filter(x => x.pnl > 1 && x.ldvShare < 0.999).sort((a, b) => b.pnl - a.pnl);
+    let plan = [], save = 0, free = 0;
+    if (gain > 1){ let need = gain; for (const x of losers){ if (need <= 0) break; const use = Math.min(need, -x.pnl); plan.push({ x, use }); need -= use; } save = (gain - Math.max(0, gain - losers.reduce((s, x) => s - x.pnl, 0))) * rate; }
+    else if (gain < -1){ let room = -gain; for (const x of winners){ if (room <= 0) break; const use = Math.min(room, x.pnl); plan.push({ x, use, win: true }); room -= use; } free = -gain - Math.max(0, room); }
+    totSave += save; totFree += free;
+    const ldv = k.hold.filter(x => x.ldvShare > 0.001 || x.next);
+    const al = acctLabel({ broker: k.b, account: k.a }), bn = BROKERS[k.b] ? BROKERS[k.b].name : k.b, label = esc(al.startsWith(bn) ? al : bn + " · " + al);
+    return `<div class="panel lab-p tx-acc"><div class="panel-head"><h2><span class="acc-tag"><i class="dot" style="background:${(BROKERS[k.b] || BROKERS.other).c}"></i>${label}</span></h2></div>
+      <div class="lab-kpi">
+        <div><span>Финрезультат за ${Y}</span><b class="${gain >= 0 ? "pos" : "neg"}">${sgn(gain)}</b><small>по продажам и погашениям${k.unm ? ` · ${k.unm} без цены покупки` : ""}</small></div>
+        <div><span>Налог с него</span><b>${money(tax)}</b><small>${pct(rate * 100, 0)}, брокер удержит в конце года</small></div>
+        ${gain > 1 ? `<div><span>Можно сэкономить</span><b class="${save > 0 ? "pos" : ""}">${money(save)}</b><small>${losers.length ? "продав бумаги в убытке до конца года" : "бумаг в убытке на этом счёте нет"}</small></div>`
+          : gain < -1 ? `<div><span>Можно продать без налога</span><b class="pos">${money(free)}</b><small>${winners.length ? "прибыли — её покроет убыток этого года" : "прибыльных бумаг на счёте нет; убыток можно перенести на следующие годы через 3-НДФЛ"}</small></div>` : ""}
+      </div>
+      ${plan.length ? `<h3 class="lab-h3">${plan[0].win ? "Зафиксировать прибыль без налога" : "Продать, чтобы зачесть убыток"}</h3><div class="tbl-wrap"><table class="lab-t"><thead><tr><th>Бумага</th><th class="n">Кол-во</th><th class="n">${plan[0].win ? "Бумажная прибыль" : "Бумажный убыток"}</th><th class="n">Зачтётся</th><th class="n">${plan[0].win ? "Налог не придётся платить" : "Экономия налога"}</th></tr></thead><tbody>
+        ${plan.map(p => `<tr><td${cpA(p.x.h.isin, p.x.h.mx && p.x.h.mx.secid)}><b>${esc(p.x.name)}</b> <small class="faint">${KINDS[p.x.kind] ? KINDS[p.x.kind].name : ""}</small></td><td class="n">${qtyFmt(p.x.h.qty)} шт.</td><td class="n ${p.win ? "pos" : "neg"}">${sgn(p.x.pnl)}</td><td class="n">${money(p.use)}</td><td class="n pos">${money(p.use * rate)}</td></tr>`).join("")}</tbody></table></div>` : ""}
+      ${ldv.length ? `<details class="more"><summary>Льгота за 3 года владения (${ldv.length})</summary><div class="tbl-wrap"><table class="lab-t"><thead><tr><th>Бумага</th><th class="n">Бумажный результат</th><th>Льгота</th></tr></thead><tbody>
+        ${ldv.map(x => `<tr><td><b>${esc(x.name)}</b></td><td class="n ${x.pnl >= 0 ? "pos" : "neg"}">${sgn(x.pnl)}</td><td>${x.ldvShare > 0.999 ? `<span class="pos">уже действует</span>` : x.ldvShare > 0.001 ? `для ${pct(x.ldvShare * 100, 0)} бумаг уже действует` : ""}${x.next ? `${x.ldvShare > 0.001 ? "; " : ""}ещё часть станет льготной ${fmtD(x.next)}` : ""}</td></tr>`).join("")}</tbody></table></div>
+        <p class="note">Прибыль от продажи бумаг, купленных больше 3 лет назад, не облагается налогом (до 3 млн ₽ за каждый год владения). Если продавать прибыльную бумагу — лучше дождаться этой даты.</p></details>` : ""}
+    </div>`;
+  });
+  el.innerHTML = `<div class="view-bar"><div><h1>Налоги до конца года</h1><span class="sub">${Y} · что можно сделать до 31 декабря, чтобы заплатить меньше НДФЛ</span></div></div>
+  <div class="panel lab-p"><div class="lab-kpi">
+      <div><span>Налог с продаж за ${Y}</span><b>${money(totTax)}</b><small>оценка по всем счетам</small></div>
+      <div><span>Можно сэкономить</span><b class="${totSave > 0 ? "pos" : ""}">${money(totSave)}</b><small>продав бумаги в убытке на тех же счетах</small></div>
+      <div><span>Можно зафиксировать без налога</span><b class="${totFree > 0 ? "pos" : ""}">${money(totFree)}</b><small>прибыли на счетах с убытком за год</small></div>
+      <div><span>Ставка</span><label class="lab-in"><input type="text" inputmode="decimal" data-tx-rate value="${String(S.tx.rate).replace(".", ",")}"> %</label><small>15% — с дохода свыше 2,4 млн ₽ в год</small></div>
+    </div>
+    <p class="note">Как это работает: брокер в конце года считает налог по каждому счёту отдельно — прибыль от продаж минус убытки. Если продать бумагу с бумажным убытком до конца года, убыток уменьшит налог; бумагу можно сразу купить обратно (кроме ИИС — там налог считается при закрытии счёта). Сделки должны пройти расчёты в этом году: продавайте не позже <b>${lastSettleDay(Y)}</b>. Учтите комиссию брокера и разницу цен покупки и продажи. Убыток у одного брокера можно зачесть против прибыли у другого только через декларацию 3-НДФЛ. Купоны, дивиденды и ИИС здесь не учитываются.</p></div>
+  ${cards.length ? cards.join("") : `<div class="panel"><div class="empty"><b>Нет данных за ${Y}</b><span>Загрузите отчёты брокеров за этот год.</span></div></div>`}
+  <p class="note">Это оценка по загруженным отчётам, а не налоговая консультация. Точный расчёт — у брокера и в личном кабинете налогоплательщика.</p>`;
+}
+function lastSettleDay(Y){ let d = new Date(Date.UTC(+Y, 11, 30)); const wd = () => d.getUTCDay(); while (wd() === 0 || wd() === 6) d = new Date(d.getTime() - 864e5); return fmtD(d.toISOString().slice(0, 10)); }
+document.addEventListener("change", e => { if (e.target.matches("[data-tx-rate]")){ const v = num(e.target.value); S.tx.rate = isFinite(v) && v > 0 && v < 50 ? v : 13; saveTx(); render(); } });
+
+/* ======================= tools: even coupon income by month ======================= */
+S.cc = Object.assign({ target: null, minR: "A-", maxT: 5, ct: "any", noQual: true, noRisk: true }, store.get("pf.cc.v1", {}));
+const saveCc = () => store.set("pf.cc.v1", S.cc);
+function bondPayMonths(r, from, to){
+  const out = []; if (!r.nextCpn || !r.freq) return out; const step = 365 / r.freq; let d = r.nextCpn, i = 0;
+  const end = [r.mat, to].filter(Boolean).sort()[0];
+  while (d <= end && i < 60){ if (d >= from) out.push(d.slice(0, 7)); i++; d = addDays(r.nextCpn, Math.round(step * i)); }
+  return out;
+}
+function renderCpnCal(D){
+  const el = $("#v-cpncal"), H = valueHoldings(D), t = todayIso(), P = S.cc;
+  if (!TOOL.bonds.data && !TOOL.bonds.busy && !TOOL.bonds.restoreTried) scrRestore("bonds");
+  if (!EMIS.map && !EMIS.busy && !EMIS.tried){ EMIS.tried = true; setTimeout(() => loadEmissions(false), 0); }
+  const now = new Date(), months = []; for (let i = 0; i < 12; i++){ const d = new Date(now.getFullYear(), now.getMonth() + i, 1); months.push({ key: d.getFullYear() + "-" + pad(d.getMonth() + 1), label: MON_SHORT[d.getMonth()] + (d.getMonth() === 0 || i === 0 ? " '" + String(d.getFullYear()).slice(2) : ""), cpn: 0, oth: 0, items: [] }); }
+  const idx = Object.fromEntries(months.map((m, i) => [m.key, i])), end = addDays(t, 366);
+  for (const e of buildEvents(D)){ if (!e.future || !e.amount || e.date > end) continue; const i = idx[e.date.slice(0, 7)]; if (i == null) continue;
+    if (e.type === "coupon"){ months[i].cpn += e.amount; months[i].items.push(e); } else if (e.type === "dividend" || e.type === "interest") months[i].oth += e.amount; }
+  const avg = months.reduce((s, m) => s + m.cpn, 0) / 12, target = P.target != null ? +P.target : Math.round(avg / 100) * 100;
+  for (const m of months) m.def = Math.max(0, target - m.cpn);
+  const weak = months.filter(m => m.def > 0.5), host = $("#v-cpncal"), W = Math.max(320, Math.min(1100, ((host && host.clientWidth) || (document.querySelector("main") || document.body).clientWidth || 960) - 40)), Hh = 230, pL = 52, pT = 12, pB = 26;
+  const mx = Math.max(1, target, ...months.map(m => m.cpn)) * 1.08, st = niceStep(mx / 4), top = Math.ceil(mx / st) * st, cw = (W - pL) / 12, bw = Math.min(44, cw * 0.62), Y = v => pT + (1 - v / top) * (Hh - pT - pB);
+  let g = ""; for (let v = 0; v <= top + st / 2; v += st) g += `<line class="gl" x1="${pL}" x2="${W}" y1="${Y(v)}" y2="${Y(v)}" ${v ? 'stroke-dasharray="3 4"' : ""}/><text x="${pL - 6}" y="${Y(v) + 4}" text-anchor="end">${fmtAxis(v)}</text>`;
+  months.forEach((m, i) => { const cx = pL + cw * i + cw / 2, h = Y(0) - Y(m.cpn);
+    g += `<rect x="${cx - bw / 2}" y="${Y(m.cpn)}" width="${bw}" height="${Math.max(0.5, h)}" rx="3" fill="${m.def > 0.5 ? "var(--warn)" : "var(--c-coupon)"}"/>`;
+    if (m.def > 0.5) g += `<rect x="${cx - bw / 2 + 0.75}" y="${Y(target) + 0.75}" width="${bw - 1.5}" height="${Math.max(0.5, Y(m.cpn) - Y(target) - 1.5)}" rx="3" fill="none" stroke="var(--warn)" stroke-dasharray="3 3"/>`;
+    const tip = [`${m.label}: купоны ${money(m.cpn)}`, m.def > 0.5 ? `до цели не хватает ${money(m.def)}` : "цель выполнена", ...m.items.sort((a, b) => b.amount - a.amount).slice(0, 6).map(e => `· ${e.name}: ${money(e.amount)}`)].join("\n");
+    g += `<rect x="${pL + cw * i}" y="${pT}" width="${cw}" height="${Hh - pT - pB}" fill="transparent" data-tip="${esc(tip)}"/><text x="${cx}" y="${Hh - 8}" text-anchor="middle">${m.label}</text>`; });
+  g += `<line x1="${pL}" x2="${W}" y1="${Y(target)}" y2="${Y(target)}" style="stroke:var(--fg);stroke-dasharray:6 4;opacity:.6"/><text x="${W - 4}" y="${Y(target) - 5}" text-anchor="end" style="font-weight:600">цель ${fmtAxis(target)}</text>`;
+  /* candidates: bonds from the screener that pay in weak months */
+  const T = TOOL.bonds, ready = T.data && EMIS.map, held = new Set(H.map(h => h.isin)), minRank = ratingRank(P.minR), weakSet = new Set(weak.map(m => m.key));
+  let cands = [];
+  if (ready && weak.length){
+    for (const r of T.data){
+      if (r.anomal || r.faceUnit !== "RUB" || !(r.ytm > 0) || held.has(r.isin) || !r.freq || !r.nextCpn) continue;
+      const e = em(r.isin); if (!e) continue; const rk = ratingRank(e.r); if (minRank != null && (rk == null || rk > minRank)) continue;
+      if (P.noQual && e.q) continue; if (P.noRisk && e.hr) continue; if (P.ct === "F" && e.ct !== "F") continue; if (P.ct === "I" && e.ct !== "I") continue;
+      const near = r.offer || r.mat, yrs = yearsTo(near); if (yrs == null || yrs < 1 || yrs > (+P.maxT || 50)) continue; // must pay through the year
+      if ((r.vol || 0) < 3e5) continue;
+      const pays = [...new Set(bondPayMonths(r, t, end))], hit = pays.filter(k => weakSet.has(k)); if (!hit.length) continue;
+      const cpn = cpnRateNow(r.isin, r.cpnPct), perPay = cpn && r.face ? r.face * cpn / 100 / r.freq : 0; if (!perPay) continue;
+      /* how many bonds to close the largest gap among the months it covers */
+      const needMax = Math.max(...hit.map(k => months[idx[k]].def)), qty = Math.ceil(needMax / perPay), unit = r.price / 100 * r.face + (r.nkd || 0);
+      cands.push({ r, e, pays, hit, perPay, qty, cost: qty * unit, unit, yrs, near, score: hit.length / pays.length * 2 + hit.length / Math.max(1, weak.length) + r.ytm / 100 });
+    }
+    cands.sort((a, b) => b.score - a.score || b.r.ytm - a.r.ytm);
+    const seen = new Set(); cands = cands.filter(c => { const k = c.e.inn || c.e.e; if (seen.has(k)) return false; seen.add(k); return true; }).slice(0, 25);
+  }
+  const sel = (k, opts) => `<select data-cc="${k}">${opts.map(([v, n]) => `<option value="${v}" ${String(P[k]) === String(v) ? "selected" : ""}>${n}</option>`).join("")}</select>`;
+  el.innerHTML = `<div class="view-bar"><div><h1>Ровный купонный доход</h1><span class="sub">купоны по месяцам на год вперёд и облигации, которые закроют провалы · ${esc(pfName(S.active))}</span></div></div>
+  <div class="panel lab-p"><div class="panel-head"><h2>Купоны по месяцам</h2><span class="hinfo" data-tip="Купоны облигаций портфеля на 12 месяцев вперёд по данным Мосбиржи (не объявленные флоатеры — по траектории ключевой ставки). Оранжевые месяцы — ниже цели." tabindex="0">?</span></div>
+    <div class="lab-kpi">
+      <div><span>Цель в месяц</span><label class="lab-in"><input type="text" inputmode="decimal" data-cc="target" value="${esc(String(target))}" style="width:110px"> ₽</label><small>по умолчанию — среднее (${money(avg)})</small></div>
+      <div><span>Купоны за 12 мес.</span><b>${money(months.reduce((s, m) => s + m.cpn, 0))}</b><small>до НДФЛ</small></div>
+      <div><span>Месяцев ниже цели</span><b class="${weak.length ? "warn-t" : "pos"}">${weak.length} из 12</b><small>${weak.length ? esc(weak.map(m => m.label.split(" ")[0]).join(", ")) : "доход ровный"}</small></div>
+      <div><span>Не хватает за год</span><b>${money(weak.reduce((s, m) => s + m.def, 0))}</b><small>чтобы каждый месяц был не ниже цели</small></div>
+    </div>
+    <div class="chart-wrap"><svg class="chart" viewBox="0 0 ${W} ${Hh}">${g}</svg></div>
+  </div>
+  <div class="panel lab-p"><div class="panel-head"><h2>Облигации, которые платят в слабые месяцы</h2>${ready && cands.length ? `<span class="sub">${cands.length} вариантов</span>` : ""}<span class="spacer"></span><span class="scr-upd small muted">${T.at ? "Данные на " + new Date(T.at).toLocaleString("ru-RU", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }) : ""}</span><button class="btn ghost scr-reload" data-sreload="bonds" ${T.busy ? "disabled" : ""}><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9M13.5 2.5v3h-3"/></svg>Обновить</button></div>
+    <div class="pk-f">
+      <label class="fld"><span>Рейтинг не ниже</span>${sel("minR", [["AAA", "AAA"], ["AA-", "AA-"], ["A-", "A-"], ["BBB-", "BBB-"], ["BB-", "BB-"], ["any", "Любой"]])}</label>
+      <label class="fld"><span>Срок не больше, лет</span>${sel("maxT", [[2, "2"], [3, "3"], [5, "5"], [10, "10"], [50, "любой"]])}</label>
+      <label class="fld"><span>Купон</span>${sel("ct", [["any", "Любой"], ["F", "Фиксированный"], ["I", "Плавающий"]])}</label>
+    </div>
+    <div class="pk-c"><label class="chk"><input type="checkbox" data-cc="noQual" ${P.noQual ? "checked" : ""}> Без бумаг для квалов</label><label class="chk"><input type="checkbox" data-cc="noRisk" ${P.noRisk ? "checked" : ""}> Без высокого риска</label></div>
+    ${!weak.length ? `<div class="empty"><b>Все месяцы на уровне цели</b><span>Поднимите цель, чтобы подобрать бумаги.</span></div>`
+    : !ready ? `<div class="empty">${T.busy || EMIS.busy ? `<i class="spin"></i> Загружаю облигации и рейтинги Мосбиржи…` : `<b>Нет данных скринера</b><span>Нажмите «Обновить», чтобы загрузить облигации Мосбиржи.</span>`}</div>`
+    : !cands.length ? `<div class="empty"><b>Ничего не подошло</b><span>Ослабьте рейтинг или срок.</span></div>`
+    : `<div class="tbl-wrap"><table class="lab-t cc-t"><thead><tr><th>Облигация</th><th>Рейтинг</th><th>Платит в месяцы</th><th class="n">Доходность</th><th class="n">Купон на 1 шт.</th><th class="n">Чтобы закрыть провал</th><th></th></tr></thead><tbody>
+      ${cands.map(c => `<tr><td><div class="asset-c"><button type="button" class="av sm" style="--ac:${(RGROUPS[ratingGroup(c.e.r)] || RGROUPS.none).c}" data-card="${esc(c.r.isin)}" data-card-sec="${esc(c.r.secid)}" data-tip="Карточка бумаги">${esc(String(c.r.short).replace(/[^A-Za-zА-Яа-яЁё0-9]/g, "").slice(0, 3).toUpperCase())}</button><span class="mv-n"${cpA(c.r.isin, c.r.secid)}><b>${esc(c.r.short)}</b><small>${esc(c.e.e || "")} · до ${fmtD(c.near)}</small></span></div></td>
+        <td>${ratingChip(c.e.r)}</td><td><div class="cc-m">${months.map(m => `<i class="${c.pays.includes(m.key) ? (weakSet.has(m.key) ? "hit" : "on") : ""}" data-tip="${esc(m.label)}${c.pays.includes(m.key) ? " — выплата" : ""}">${m.label.slice(0, 1).toUpperCase()}</i>`).join("")}</div></td>
+        <td class="n">${pct(c.r.ytm, 2)}</td><td class="n">${money(c.perPay, 2)} <small class="faint">· ${c.r.freq} р/г</small></td>
+        <td class="n"><b>${c.qty} шт.</b><small class="faint"> ≈ ${money(c.cost)}</small></td><td><button class="btn ghost small" data-sbuy="bonds|${esc(c.r.isin)}">Добавить</button></td></tr>`).join("")}</tbody></table></div>
+      <p class="note">Месяцы выплат рассчитаны по дате следующего купона и частоте выплат из данных Мосбиржи. Оранжевые клетки — выплаты в слабые месяцы. «Чтобы закрыть провал» — сколько бумаг нужно, чтобы купон закрыл самый большой недобор среди этих месяцев. Это подборка по фильтрам, а не рекомендация к покупке.</p>`}
+  </div>`;
+}
+document.addEventListener("change", e => { const f = e.target.closest && e.target.closest("[data-cc]"); if (!f) return; const k = f.dataset.cc;
+  if (k === "target"){ const v = num(f.value); S.cc.target = f.value.trim() && isFinite(v) && v >= 0 ? v : null; }
+  else S.cc[k] = f.type === "checkbox" ? f.checked : f.value; saveCc(); render(); });
+
 /* ======================= tools: bond screener & dividend stocks ======================= */
 S.scr = store.get("pf.scr.v1", {});
 function scrState(id, def){ const st = S.scr[id] || (S.scr[id] = JSON.parse(JSON.stringify(def))); for (const k in def) if (!(k in st)) st[k] = JSON.parse(JSON.stringify(def[k])); st.page = st.page || 0; return st; }
@@ -3411,10 +4238,26 @@ function saveScr(){ const c = {}; for (const [k, v] of Object.entries(S.scr)){ c
 const TOOL = { bonds: { data: null, at: 0, busy: false, status: "" }, divs: { data: null, at: 0, busy: false, status: "", done: 0, total: 0 } };
 const yearsTo = iso => iso && iso !== "0000-00-00" ? (msOf(iso) - msOf(todayIso())) / (365.25 * 864e5) : null;
 
+/* ---- screener data is kept between launches (IndexedDB) and reloaded only by the "Обновить" button ---- */
+const IDB = {};
+function idbOpen(){ return IDB.p || (IDB.p = new Promise((res, rej) => { try { const r = indexedDB.open("pf-cache", 1); r.onupgradeneeded = () => r.result.createObjectStore("kv"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); } catch (e){ rej(e); } })); }
+async function idbGet(k){ try { const db = await idbOpen(); return await new Promise(res => { const q = db.transaction("kv").objectStore("kv").get(k); q.onsuccess = () => res(q.result); q.onerror = () => res(undefined); }); } catch { return undefined; } }
+async function idbSet(k, v){ try { const db = await idbOpen(); await new Promise(res => { const tx = db.transaction("kv", "readwrite"); tx.objectStore("kv").put(v, k); tx.oncomplete = tx.onerror = tx.onabort = () => res(); }); } catch {} }
+function scrRestore(id){
+  const T = TOOL[id]; if (T.restoreTried) return T.restoreP; T.restoreTried = true; T.busy = true; T.status = "Открываю сохранённые данные…";
+  T.restoreP = idbGet("scr." + id).then(v => {
+    T.busy = false; T.status = "";
+    if (v && v.at){ if (id === "bonds" && Array.isArray(v.data)){ T.data = v.data; T.at = v.at; }
+      if (id === "divs" && Array.isArray(v.list)){ T.list = v.list; T.cache = store.get("pf.divs.v2", {}); T.data = buildDivRows(v.list, T.cache); T.at = v.at; } }
+    if (!T.data) SCR[id].load(false); else render();
+  });
+  return T.restoreP;
+}
 /* ---- data: bonds ---- */
 const BOND_BOARDS = { TQOB: 1, TQCB: 1, TQIR: 1, TQOD: 1, TQOE: 1, TQOY: 1, TQIU: 1 };
 async function loadBonds(force){
-  const T = TOOL.bonds; if (T.busy || (!force && T.data && Date.now() - T.at < 3 * 3600e3)) return;
+  const T = TOOL.bonds; if (T.busy || (!force && T.data)) return;
+  if (force) loadCurve(true);
   T.busy = true; T.status = "Загружаю облигации Мосбиржи…"; render();
   try {
     const j = await iss("engines/stock/markets/bonds/securities.json", "iss.only=securities,marketdata,marketdata_yields&securities.columns=SECID,BOARDID,SHORTNAME,SECNAME,ISIN,PREVPRICE,PREVWAPRICE,FACEVALUE,FACEUNIT,COUPONVALUE,COUPONPERIOD,COUPONPERCENT,NEXTCOUPON,MATDATE,OFFERDATE,PUTOPTIONDATE,BUYBACKDATE,ACCRUEDINT,CURRENCYID,SECTYPE,YIELDATPREVWAPRICE,LISTLEVEL&marketdata.columns=SECID,BOARDID,LAST,LCURRENTPRICE,WAPRICE,YIELD,DURATION,VALTODAY&marketdata_yields.columns=SECID,BOARDID,PRICE,EFFECTIVEYIELD,DURATION,GSPREADBP,ZSPREADBP,YIELDDATETYPE");
@@ -3439,22 +4282,22 @@ async function loadBonds(force){
         cpnPct: s.couponpercent || (cpnYear && face ? cpnYear / face * 100 : null), freq, nkd: s.accruedint, mat: s.matdate, term: yearsTo(s.matdate), offer, offerTerm: offer ? yearsTo(offer) : null, dur: durD ? durD / 365.25 : null, itype, list: s.listlevel, vol: m.valtoday || 0, nextCpn: s.nextcoupon, gs: y.gspreadbp ?? null, ydt: y.yielddatetype || "",
         anomal: !ytm || ytm <= 0 || ytm > 40 || price < 50 });
     }
-    T.data = out; T.at = Date.now(); T.status = "";
-  } catch { T.status = "Мосбиржа не ответила. Проверьте интернет и нажмите «Найти» ещё раз."; }
+    T.data = out; T.at = Date.now(); T.status = ""; idbSet("scr.bonds", { at: T.at, data: out });
+  } catch { T.status = "Мосбиржа не ответила. Проверьте интернет и нажмите «Обновить»."; }
   T.busy = false; render();
 }
 /* ---- data: dividend stocks ---- */
 async function loadDivs(force){
-  const T = TOOL.divs; if (T.busy || (!force && T.data && !T.status && Date.now() - T.at < 6 * 3600e3)) return;
+  const T = TOOL.divs; if (T.busy || (!force && T.data)) return;
   T.busy = true; T.status = "Загружаю акции Мосбиржи…"; render();
   try {
     const j = await iss("engines/stock/markets/shares/boards/TQBR/securities.json", "iss.only=securities,marketdata&securities.columns=SECID,SHORTNAME,SECNAME,ISIN,PREVPRICE,LOTSIZE,SECTYPE,CURRENCYID,ISSUESIZE&marketdata.columns=SECID,LAST,LCURRENTPRICE,ISSUECAPITALIZATION,VALTODAY");
     const md = new Map(tbl(j, "marketdata").map(m => [m.secid, m]));
     const list = tbl(j, "securities").map(s => { const m = md.get(s.secid) || {}; return { secid: s.secid, isin: s.isin, short: s.shortname, name: s.secname || s.shortname, pref: String(s.sectype) === "2" || /-п$|\bап\b|пр(\.|ив)/i.test(s.shortname || ""), price: m.last || m.lcurrentprice || s.prevprice || null, cap: m.issuecapitalization || (s.issuesize && (m.last || s.prevprice) ? s.issuesize * (m.last || s.prevprice) : null), vol: m.valtoday || 0, ccy: ccyNorm(s.currencyid) }; }).filter(x => x.price);
-    const cache = store.get("pf.divs.v2", {}), fresh = Date.now() - 24 * 3600e3;
+    const cache = store.get("pf.divs.v2", {}), fresh = Date.now() - (force ? 6 : 24) * 3600e3;
     T.list = list; T.cache = cache;
     /* liquid names first, so SBER/LKOH etc. appear right away */
-    const need = list.filter(x => !cache[x.secid] || cache[x.secid].at < fresh || force).sort((a, b) => b.vol - a.vol);
+    const need = list.filter(x => !cache[x.secid] || cache[x.secid].at < fresh).sort((a, b) => b.vol - a.vol);
     T.total = need.length; T.done = 0; T.failed = [];
     T.data = buildDivRows(list, cache); render();
     const fetchOne = async x => {
@@ -3472,7 +4315,7 @@ async function loadDivs(force){
       T.done++; T.status = `Загружаю историю дивидендов: ${T.done} из ${T.total}`; if (T.done % 10 === 0){ T.data = buildDivRows(list, cache); render(); } } };
     await Promise.all([work(), work(), work(), work()]);
     store.set("pf.divs.v2", cache);
-    T.data = buildDivRows(list, cache); T.at = Date.now();
+    T.data = buildDivRows(list, cache); T.at = Date.now(); idbSet("scr.divs", { at: T.at, list });
     const nf = T.failed.length;
     T.status = nf ? `История дивидендов не загрузилась по ${nf} ${plural(nf, "акции", "акциям", "акциям")}${nf === T.total ? ": Мосбиржа не отдаёт данные о выплатах" : ""}. Нажмите «Найти», чтобы повторить.` : "";
   } catch { T.status = "Мосбиржа не ответила. Проверьте интернет и нажмите «Найти» ещё раз."; }
@@ -3512,7 +4355,10 @@ function scrApply(cfg, st, rows){
 }
 function renderScreener(cfg){
   const el = $("#v-" + cfg.id), st = scrState(cfg.id, cfg.def), T = TOOL[cfg.id];
-  if (!T.data && !T.busy && !T.status) cfg.load(false);
+  if (!T.data && !T.busy && !T.restoreTried) scrRestore(cfg.id);
+  if (cfg.id === "bonds"){ if (!CURVE.busy && !CURVE.tried && (!CURVE.pts || Date.now() - CURVE.at > 12 * 3600e3)){ CURVE.tried = true; setTimeout(() => loadCurve(false), 0); }
+    const pts = curvePts(), key = (CURVE.at || "s") + "|" + (EMIS.at || 0) + "|" + T.at;
+    if (pts && T.data && T.gsKey !== key){ T.gsKey = key; for (const r of T.data){ const e = em(r.isin); r.gs = !r.anomal && r.ytm > 0 && r.dur > 0.1 && r.faceUnit === "RUB" && !(e && e.ct === "I") ? (r.ytm - curveAt(r.dur, pts)) * 100 : null; } } }
   if (cfg.id === "bonds" && !EMIS.busy && !EMIS.tried && (!EMIS.map || Date.now() - EMIS.at > 24 * 3600e3)){ EMIS.tried = true; setTimeout(() => loadEmissions(false), 0); }
   const all = T.data || [], cols = cfg.cols.filter(c => st.cols.includes(c.id));
   let rows = scrApply(cfg, st, all);
@@ -3524,13 +4370,13 @@ function renderScreener(cfg){
   const shown = cfg.filters.filter(f => st.show.includes(f.id));
   el.innerHTML = `<div class="view-bar"><div><h1>${cfg.title}</h1><span class="sub">${cfg.sub}</span></div></div>
   <div class="panel scr">
-    <div class="scr-top"><button class="link strong" data-faddopen="${cfg.id}">+ Добавить фильтр</button><button class="link muted-l" data-freset="${cfg.id}">↻ По умолчанию</button><span class="spacer"></span><button class="ib tool" data-scols="${cfg.id}" aria-label="Столбцы" data-tip="Столбцы">${ICO_TOGGLE}</button></div>
+    <div class="scr-top"><button class="link strong" data-faddopen="${cfg.id}">+ Добавить фильтр</button><button class="link muted-l" data-freset="${cfg.id}">↻ По умолчанию</button><span class="spacer"></span><span class="scr-upd small muted">${T.at ? "Данные на " + new Date(T.at).toLocaleString("ru-RU", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }) : ""}</span><button class="btn ghost scr-reload" data-sreload="${cfg.id}" ${T.busy ? "disabled" : ""} data-tip="Загрузить свежие данные с Мосбиржи"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9M13.5 2.5v3h-3"/></svg>Обновить</button><button class="ib tool" data-scols="${cfg.id}" aria-label="Столбцы" data-tip="Столбцы">${ICO_TOGGLE}</button></div>
     <div class="fboxes">${shown.map(f => scrFilterBox(cfg.id, f, st)).join("")}<button class="btn primary find" data-sfind="${cfg.id}"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="7" cy="7" r="4.5"/><path d="m10.5 10.5 3 3"/></svg>Найти</button></div>
-    <div class="scr-count"><b>${cfg.found}: ${rows.length}</b><span class="muted">, отображено строк: ${view.length}${T.at ? ", данные Мосбиржи на " + new Date(T.at).toLocaleTimeString("ru-RU", { hour: "2-digit", minute: "2-digit" }) : ""}</span>${T.busy ? ` <i class="spin"></i> <span class="muted small">${esc(T.status)}</span>` : T.status ? ` <span class="neg small">${esc(T.status)}</span>` : ""}${cfg.id === "bonds" && EMIS.busy ? ` <i class="spin"></i> <span class="muted small">${esc(EMIS.status)}</span>` : ""}</div>
+    <div class="scr-count"><b>${cfg.found}: ${rows.length}</b><span class="muted">, отображено строк: ${view.length}</span>${T.busy ? ` <i class="spin"></i> <span class="muted small">${esc(T.status)}</span>` : T.status ? ` <span class="neg small">${esc(T.status)}</span>` : ""}${cfg.id === "bonds" && EMIS.busy ? ` <i class="spin"></i> <span class="muted small">${esc(EMIS.status)}</span>` : ""}</div>
     ${view.length ? `<div class="tbl-wrap"><table class="scr-t"><thead><tr><th>${cfg.firstCol}</th>${cols.map(th).join("")}<th></th></tr></thead><tbody>${view.map(r => `<tr><td><div class="asset-c"><button type="button" class="av sm" style="--ac:${cfg.color(r)}" data-card="${esc(r.isin)}" data-card-sec="${esc(r.secid)}" data-tip="Карточка бумаги" aria-label="Карточка: ${esc(r.short)}">${esc(String(r.short || r.secid).replace(/[^A-Za-zА-Яа-яЁё0-9]/g, "").slice(0, 3).toUpperCase())}</button><span class="mv-n"${cpA(r.isin, r.secid)}><b>${esc(r.short)}</b><small>${esc(cfg.sub2(r))}</small></span></div></td>${cols.map(c => `<td class="${c.c || ""}">${c.f(r)}</td>`).join("")}<td class="acts"><button class="ib edit" data-sbuy="${cfg.id}|${esc(r.isin)}" aria-label="Добавить сделку" data-tip="Добавить сделку с этой бумагой">${ic16("plus")}</button></td></tr>`).join("")}</tbody></table></div>
     <div class="as-foot"><select data-ssize="${cfg.id}" aria-label="Строк на странице">${[25, 50, 100].map(n => `<option ${st.size === n ? "selected" : ""}>${n}</option>`).join("")}</select><span class="small">Показано ${st.page * st.size + 1}–${Math.min(rows.length, (st.page + 1) * st.size)} из ${rows.length}</span>
       ${pages > 1 ? `<span class="pager"><button class="btn ghost" data-spage="${cfg.id}|-1" ${st.page ? "" : "disabled"}>‹</button><span class="small">${st.page + 1} / ${pages}</span><button class="btn ghost" data-spage="${cfg.id}|1" ${st.page < pages - 1 ? "" : "disabled"}>›</button></span>` : ""}</div>`
-    : `<div class="empty">${T.busy ? "Загружаю данные Мосбиржи…" : all.length ? "Ничего не нашлось. Ослабьте фильтры или нажмите «По умолчанию»" : "Нет данных. Нажмите «Найти», чтобы загрузить с Мосбиржи"}</div>`}
+    : `<div class="empty">${T.busy ? "Загружаю данные Мосбиржи…" : all.length ? "Ничего не нашлось. Ослабьте фильтры или нажмите «По умолчанию»" : "Нет данных. Нажмите «Обновить», чтобы загрузить с Мосбиржи"}</div>`}
     <p class="note">${cfg.note}</p>
   </div>`;
 }
@@ -3614,7 +4460,8 @@ document.addEventListener("click", e => {
   let b;
   if ((b = B("[data-ssort]"))){ const [sid, k] = b.dataset.ssort.split("|"), st = S.scr[sid]; st.sort = st.sort.key === k ? { key: k, dir: -st.sort.dir } : { key: k, dir: -1 }; saveScr(); render(); return; }
   if ((b = B("[data-spage]"))){ const [sid, d] = b.dataset.spage.split("|"); S.scr[sid].page += +d; render(); return; }
-  if ((b = B("[data-sfind]"))){ const sid = b.dataset.sfind; S.scr[sid].page = 0; SCR[sid].load(!TOOL[sid].data || (sid !== "divs" && !!TOOL[sid].status)); render(); return; }
+  if ((b = B("[data-sfind]"))){ const sid = b.dataset.sfind; S.scr[sid].page = 0; if (!TOOL[sid].data && !TOOL[sid].busy) SCR[sid].load(false); render(); return; }
+  if ((b = B("[data-sreload]"))){ const sid = b.dataset.sreload; if (!TOOL[sid].busy){ SCR[sid].load(true); if (sid === "bonds" && !EMIS.busy) loadEmissions(true); } render(); return; }
   if ((b = B("[data-fdel]"))){ e.preventDefault(); const [sid, fid] = b.dataset.fdel.split("|"), st = S.scr[sid]; st.show = st.show.filter(x => x !== fid); delete st.f[fid]; st.page = 0; saveScr(); render(); return; }
   if ((b = B("[data-freset]"))){ const sid = b.dataset.freset; S.scr[sid] = JSON.parse(JSON.stringify(SCR[sid].def)); saveScr(); render(); return; }
   if ((b = B("[data-sbuy]"))){ const [sid, isin] = b.dataset.sbuy.split("|"); const r = (TOOL[sid].data || []).find(x => x.isin === isin); if (r) openTrade(null, { isin: r.isin, name: r.short, ticker: r.secid !== r.isin ? r.secid : "", kind: sid === "bonds" ? "bond" : "share" }); return; }
@@ -3859,7 +4706,7 @@ function openMore(){
     <button type="button" class="more-item" data-m="moex"><b>Обновить данные Мосбиржи</b><small>Заново загрузить цены, купоны, оферты и даты погашения</small></button>
     <button type="button" class="more-item" data-m="ics"><b>Напоминания в календаре телефона</b><small>Скачать файл .ics с выплатами и офертами</small></button>
     <button type="button" class="more-item" data-m="manage"><b>Мои портфели</b><small>Переименовать, собрать счета, удалить</small></button>
-    <button type="button" class="more-item" data-m="sync"><b>Синхронизация между устройствами</b><small>${syncOn() ? "Включена · " + esc(S.sync.url.replace(/^https?:\/\//, "")) : "Через ваш бесплатный сервер в Cloudflare, данные зашифрованы"}</small></button>
+    <button type="button" class="more-item" data-m="sync"><b>Синхронизация между устройствами</b><small>${syncOn() ? "Включена · " + (prov() === "cf" ? esc(S.sync.url.replace(/^https?:\/\//, "")) : SP_NAME[prov()]) : "Через Яндекс Диск, Google Диск или свой сервер Cloudflare, данные зашифрованы"}</small></button>
     <button type="button" class="more-item" data-m="backup"><b>Сохранить резервную копию</b><small>Все отчёты, ручные записи, портфели и цели в одном файле</small></button>
     <label class="more-item" for="restoreIn"><b>Восстановить из копии</b><small>Загрузить ранее сохранённый файл .json</small></label><input type="file" id="restoreIn" accept=".json" hidden>
     <button type="button" class="more-item danger" data-m="wipe"><b>Удалить все данные</b><small>Очистить приложение в этом браузере</small></button>
@@ -3908,7 +4755,7 @@ function render(){
   renderSwitcher();
   if (S.view === "reports") renderReports();
   const secs = { home: ["portfolio"], portfolio: ["portfolio"], analytics: S.anTab === "report" ? ["analytics"] : ["analytics", "taxes"], goal: ["goal"] }[S.view] || [S.view];
-  for (const v of ["portfolio", "analytics", "goal", "calendar", "taxes", "deals", "reports", "deposits", "bonds", "divs"]){ $("#v-" + v).hidden = !secs.includes(v); }
+  for (const v of ["portfolio", "analytics", "goal", "calendar", "taxes", "deals", "reports", "deposits", "bonds", "divs", "bondlab", "bondpick", "mmf", "taxopt", "cpncal"]){ $("#v-" + v).hidden = !secs.includes(v); }
   document.querySelectorAll("#tabs a").forEach(a => a.setAttribute("aria-current", a.getAttribute("href") === "#" + S.view ? "page" : "false"));
   const inPf = PF_VIEWS.includes(S.view); $("#navPfBtn").classList.toggle("on", inPf);
   $("#navPfBtn").firstChild.textContent = "Портфель";
@@ -3919,7 +4766,12 @@ function render(){
   if (S.view === "deals") renderDeals(D);
   if (S.view === "deposits") renderDeposits(S.active === "all" ? D : derive("all"));
   if (S.view === "bonds" || S.view === "divs") renderScreener(SCR[S.view]);
-  const inTools = ["bonds", "divs"].includes(S.view); $("#navToolsBtn").classList.toggle("on", inTools);
+  if (S.view === "bondlab") renderBondLab(D);
+  if (S.view === "bondpick") renderBondPick(D);
+  if (S.view === "mmf") renderMmf();
+  if (S.view === "taxopt") renderTaxOpt(derive());
+  if (S.view === "cpncal") renderCpnCal(D);
+  const inTools = ["bonds", "divs", "bondlab", "bondpick", "mmf", "taxopt", "cpncal"].includes(S.view); $("#navToolsBtn").classList.toggle("on", inTools);
   $("#navToolsBtn").firstChild.textContent = "Инструменты"; 
   document.querySelectorAll("#toolsMenu a").forEach(a => a.setAttribute("aria-current", a.getAttribute("href") === "#" + S.view ? "page" : "false"));
   $("#btnRefresh").disabled = S.moexBusy || !derive("all").holdings.length; moexIndicator();
@@ -4246,6 +5098,7 @@ const DASH = [
   { id: "ticker", n: "Курсы валют и IMOEX", fixed: "в заголовке" },
   { id: "kpi", n: "Стоимость, прибыль, доходность, пассивный доход" },
   { id: "soon", n: "Скоро: ближайшие выплаты и события" },
+  { id: "signals", n: "Сигналы по бумагам: падение цены, рейтинг, оферты" },
   { id: "comp", n: "Состав портфеля" },
   { id: "hv", n: "Стоимость портфеля (график)" },
   { id: "hp", n: "Прибыль портфеля (график)" },
@@ -4266,7 +5119,7 @@ function saveDash(){ store.set("pf.dash.v1", S.dash); }
 function homeWidgets(D, H, total){
   let hist = null; const hx = () => hist || (hist = historyPanels(D, H, total) || {});
   const histPart = k => { const h = hx(); if (typeof h === "string") return k === "hv" ? h : ""; const v = h[k]; return typeof v === "function" ? v() : v || ""; };
-  const make = { soon: () => soonPanel(buildEvents(D), true), kpi: () => kpiTiles(D, H, total), comp: () => compositionPanel(D, H, total),
+  const make = { signals: () => signalsPanel(D, H, total), soon: () => soonPanel(buildEvents(D), true), kpi: () => kpiTiles(D, H, total), comp: () => compositionPanel(D, H, total),
     hv: () => histPart("hv"), hp: () => histPart("hp"), hm: () => histPart("hm"), ha: () => histPart("ha"), movers: () => moversPanels(H),
     future: () => futurePanel(D), received: () => receivedPanel(D), growth: () => growthPanel(D), goal: () => goalPanel(D, H, total) };
   let out = "", pair = [];
@@ -4300,7 +5153,8 @@ const SYNC_KEYS = new Set(["pf.reports.v1", "pf.manual.v1", "pf.edits.v1", "pf.g
 S.sync = Object.assign({ url: "", id: "", pass: "", rev: 0, dirty: false, at: null, auto: true }, store.get("pf.sync.v1", {}));
 const SY = { busy: false, applying: false, timer: 0, status: "", err: "", lastPull: 0, key: null, keyFor: "" };
 const saveSync = () => { const { ...x } = S.sync; localStorage.setItem("pf.sync.v1", JSON.stringify(x)); };
-const syncOn = () => !!(S.sync.url && S.sync.id && S.sync.pass);
+const prov = () => S.sync.prov || "cf";
+const syncOn = () => !!S.sync.pass && (prov() === "cf" ? !!(S.sync.url && S.sync.id) : prov() === "yd" ? !!S.sync.ytoken : !!S.sync.gclient);
 { const set0 = store.set; store.set = (k, v) => { const track = SYNC_KEYS.has(k) && !SY.applying && syncOn(); let prev = null; if (track) try { prev = localStorage.getItem(k); } catch {} const ok = set0(k, v); if (track){ let now = null; try { now = localStorage.getItem(k); } catch {} if (now !== prev) markDirty(); } return ok; }; }
 function markDirty(){ if (!S.sync.dirty){ S.sync.dirty = true; saveSync(); } paintSync(); if (S.sync.auto){ clearTimeout(SY.timer); SY.timer = setTimeout(() => syncPush(false), 15000); } }
 function backupData(){ return { app: "portfel", v: 1, at: new Date().toISOString(), reports: S.reports, manual: S.manual, edits: S.edits, deposits: S.deposits, settings: S.settings, portfolios: S.portfolios, goals: S.goals, rem: S.rem, active: S.active, dash: S.dash }; }
@@ -4325,11 +5179,11 @@ async function syncKeys(id, pass){
   const wk = [...bits.slice(32)].map(b => b.toString(16).padStart(2, "0")).join("");
   SY.key = { aes, wk }; SY.keyFor = id + "\u0000" + pass; return SY.key;
 }
-async function sealData(obj, k){
+async function sealData(obj, k, sid){
   const gz = await streamBytes(new TextEncoder().encode(JSON.stringify(obj)), new CompressionStream("gzip"));
   const iv = crypto.getRandomValues(new Uint8Array(12));
   const ct = new Uint8Array(await crypto.subtle.encrypt({ name: "AES-GCM", iv }, k.aes, gz));
-  return JSON.stringify({ v: 1, alg: "AES-GCM/PBKDF2-250k/gzip", iv: b64(iv), ct: b64(ct) });
+  return JSON.stringify({ v: 1, alg: "AES-GCM/PBKDF2-250k/gzip", sid: sid || undefined, iv: b64(iv), ct: b64(ct) });
 }
 async function openData(text, k){
   const p = JSON.parse(text); let raw;
@@ -4339,37 +5193,118 @@ async function openData(text, k){
 }
 const syncUrl = (u, id) => u.replace(/\/+$/, "") + "/v1/" + encodeURIComponent(id);
 function newSyncId(){ return [...crypto.getRandomValues(new Uint8Array(18))].map(b => "abcdefghijkmnpqrstuvwxyz23456789"[b % 32]).join(""); }
+/* ---- storage providers: your Cloudflare Worker, Yandex Disk (app folder), Google Drive (appDataFolder) ---- */
+const SYNC_FILE = "portfel-sync.json";
+const SP_NAME = { cf: "Cloudflare", yd: "Яндекс Диск", gd: "Google Диск" };
+const offlineMsg = () => ({ cf: "Нет связи с сервером синхронизации", yd: "Нет связи с Яндекс Диском (или браузер не пустил запрос)", gd: "Нет связи с Google Диском" })[prov()];
+const SP = {};
+SP.cf = {
+  async get(){ const r = await fetch(syncUrl(S.sync.url, S.sync.id), { cache: "no-store" }); if (r.status === 404) return null; if (!r.ok) throw new Error("Сервер ответил ошибкой " + r.status);
+    return { rev: +r.headers.get("X-Rev") || 0, updated: r.headers.get("X-Updated"), text: await r.text() }; },
+  async put(body, base, k){
+    const r = await fetch(syncUrl(S.sync.url, S.sync.id), { method: "PUT", headers: { "Content-Type": "application/json", "X-Write-Key": k.wk, "X-Base-Rev": String(base || 0) }, body });
+    const j = await r.json().catch(() => ({}));
+    if (r.status === 409) return { conflict: j };
+    if (r.status === 403) throw new Error("Сервер не принял запись: пароль не совпадает с тем, которым создано хранилище.");
+    if (!r.ok) throw new Error(j.error ? "Сервер ответил: " + j.error : "Сервер ответил ошибкой " + r.status);
+    return { rev: j.rev, updated: j.updated }; },
+  newer: rev => rev > (S.sync.rev || 0),
+};
+/* Yandex Disk REST API, app folder only (scope cloud_api:disk.app_folder) */
+const YD_API = "https://cloud-api.yandex.net/v1/disk/resources", ydPath = () => encodeURIComponent("app:/" + SYNC_FILE);
+async function ydFetch(url, opts = {}){
+  const r = await fetch(url, { ...opts, cache: "no-store", headers: { ...(opts.headers || {}), Authorization: "OAuth " + S.sync.ytoken } });
+  if (r.status === 401 || r.status === 403) throw new Error("Яндекс Диск не принял токен. Получите новый токен в окне синхронизации.");
+  return r;
+}
+async function ydMeta(){ const r = await ydFetch(`${YD_API}?path=${ydPath()}&fields=md5,modified,revision`); if (r.status === 404) return null; if (!r.ok) throw new Error("Яндекс Диск ответил ошибкой " + r.status);
+  const j = await r.json(); return { rev: String(j.revision || j.md5 || j.modified), updated: j.modified }; }
+SP.yd = {
+  async get(){ const m = await ydMeta(); if (!m) return null;
+    const d = await ydFetch(`${YD_API}/download?path=${ydPath()}`); if (!d.ok) throw new Error("Яндекс Диск не отдал файл: ошибка " + d.status);
+    const { href } = await d.json(); const t = await fetch(href, { cache: "no-store" }); if (!t.ok) throw new Error("Яндекс Диск не отдал файл: ошибка " + t.status);
+    return { ...m, text: await t.text() }; },
+  async put(body, base){
+    const m = await ydMeta(); if (m && base && String(m.rev) !== String(base)) return { conflict: { rev: m.rev, updated: m.updated } };
+    const u = await ydFetch(`${YD_API}/upload?path=${ydPath()}&overwrite=true`); if (!u.ok) throw new Error("Яндекс Диск не дал загрузить файл: ошибка " + u.status);
+    const { href } = await u.json(); const p = await fetch(href, { method: "PUT", body: new Blob([body], { type: "application/json" }) });
+    if (!p.ok && p.status !== 201 && p.status !== 202) throw new Error("Яндекс Диск не принял файл: ошибка " + p.status);
+    for (let i = 0; i < 4; i++){ const m2 = await ydMeta(); if (m2 && (!m || m2.rev !== m.rev)) return m2; await new Promise(r => setTimeout(r, 700)); }
+    const m3 = await ydMeta(); if (!m3) throw new Error("Файл на Яндекс Диске не появился"); return m3; },
+  newer: rev => String(rev) !== String(S.sync.rev || ""),
+};
+/* Google Drive: hidden app folder (scope drive.appdata), sign-in via Google Identity Services */
+const GD = Object.assign({ token: "", exp: 0, lib: null, id: "" }, (() => { try { const x = JSON.parse(localStorage.getItem("pf.gdtok.v1") || "{}"); return x.t && x.exp > Date.now() ? { token: x.t, exp: x.exp } : {}; } catch { return {}; } })());
+function gisLoad(){ return GD.lib || (GD.lib = new Promise((res, rej) => { if (window.google && google.accounts && google.accounts.oauth2) return res();
+  const s = document.createElement("script"); s.src = "https://accounts.google.com/gsi/client"; s.async = true; s.onload = () => res(); s.onerror = () => { GD.lib = null; rej(new Error("Не загрузилась библиотека входа Google. Проверьте интернет.")); }; document.head.appendChild(s); })); }
+async function gdToken(){
+  if (GD.token && Date.now() < GD.exp - 60e3) return GD.token;
+  if (location.protocol !== "https:") throw new Error("Google Диск работает только в приложении, открытом по адресу https:// (например, с GitHub Pages), а не из файла.");
+  if (!SY.gesture){ const e = new Error("Войдите в Google ещё раз: нажмите на значок облака → «Синхронизировать сейчас»."); e.login = true; throw e; }
+  await gisLoad();
+  return new Promise((res, rej) => {
+    const tc = google.accounts.oauth2.initTokenClient({ client_id: S.sync.gclient, scope: "https://www.googleapis.com/auth/drive.appdata",
+      callback: r => { if (r.error){ rej(new Error("Google не дал доступ: " + r.error)); return; } GD.token = r.access_token; GD.exp = Date.now() + (+r.expires_in || 3600) * 1000;
+        try { localStorage.setItem("pf.gdtok.v1", JSON.stringify({ t: GD.token, exp: GD.exp })); } catch {} res(GD.token); },
+      error_callback: e => rej(new Error(e && e.type === "popup_closed" ? "Окно входа Google закрыто." : e && e.type === "popup_failed_to_open" ? "Браузер заблокировал окно входа Google — разрешите всплывающие окна для этого сайта." : "Не удалось войти в Google.")) });
+    tc.requestAccessToken({ prompt: S.sync.gseen ? "" : "consent" });
+  });
+}
+async function gdFetch(url, opts = {}){
+  const tok = await gdToken();
+  const r = await fetch(url, { ...opts, cache: "no-store", headers: { ...(opts.headers || {}), Authorization: "Bearer " + tok } });
+  if (r.status === 401){ GD.token = ""; try { localStorage.removeItem("pf.gdtok.v1"); } catch {} const e = new Error("Вход в Google истёк: нажмите на значок облака → «Синхронизировать сейчас»."); e.login = true; throw e; }
+  return r;
+}
+async function gdMeta(){
+  const q = encodeURIComponent(`name='${SYNC_FILE}' and trashed=false`);
+  const r = await gdFetch(`https://www.googleapis.com/drive/v3/files?spaces=appDataFolder&q=${q}&fields=files(id,version,modifiedTime)&pageSize=5`);
+  if (!r.ok) throw new Error(r.status === 403 ? "Google Диск запретил доступ: включите Google Drive API в своём проекте Google Cloud." : "Google Диск ответил ошибкой " + r.status);
+  const f = ((await r.json()).files || [])[0]; if (!f) return null; GD.id = f.id; return { id: f.id, rev: String(f.version), updated: f.modifiedTime };
+}
+SP.gd = {
+  async get(){ const m = await gdMeta(); if (!m) return null; const r = await gdFetch(`https://www.googleapis.com/drive/v3/files/${m.id}?alt=media`); if (!r.ok) throw new Error("Google Диск не отдал файл: ошибка " + r.status); return { ...m, text: await r.text() }; },
+  async put(body, base){
+    const m = await gdMeta(); if (m && base && String(m.rev) !== String(base)) return { conflict: { rev: m.rev, updated: m.updated } };
+    let r;
+    if (m) r = await gdFetch(`https://www.googleapis.com/upload/drive/v3/files/${m.id}?uploadType=media&fields=id,version,modifiedTime`, { method: "PATCH", headers: { "Content-Type": "application/json" }, body });
+    else { const bnd = "pf" + Math.random().toString(36).slice(2);
+      const mp = `--${bnd}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${JSON.stringify({ name: SYNC_FILE, parents: ["appDataFolder"] })}\r\n--${bnd}\r\nContent-Type: application/json\r\n\r\n${body}\r\n--${bnd}--`;
+      r = await gdFetch(`https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,version,modifiedTime`, { method: "POST", headers: { "Content-Type": "multipart/related; boundary=" + bnd }, body: mp }); }
+    if (!r.ok) throw new Error("Google Диск не принял файл: ошибка " + r.status);
+    const j = await r.json(); S.sync.gseen = true; return { rev: String(j.version), updated: j.modifiedTime }; },
+  newer: rev => String(rev) !== String(S.sync.rev || ""),
+};
 /* ---- push / pull ---- */
 async function syncPush(force, baseRev){
   if (!syncOn() || SY.busy) return; clearTimeout(SY.timer);
   SY.busy = true; SY.status = "Отправляю…"; SY.err = ""; paintSync();
   try {
-    const k = await syncKeys(S.sync.id, S.sync.pass), body = await sealData(backupData(), k);
-    const r = await fetch(syncUrl(S.sync.url, S.sync.id), { method: "PUT", headers: { "Content-Type": "application/json", "X-Write-Key": k.wk, "X-Base-Rev": String(baseRev ?? S.sync.rev) }, body });
-    const j = await r.json().catch(() => ({}));
-    if (r.status === 409){ SY.busy = false; SY.status = ""; paintSync(); return syncConflict(j); }
-    if (r.status === 403) throw new Error("Сервер не принял запись: пароль не совпадает с тем, которым создано хранилище.");
-    if (!r.ok) throw new Error(j.error ? "Сервер ответил: " + j.error : "Сервер ответил ошибкой " + r.status);
-    S.sync.rev = j.rev; S.sync.at = j.updated; S.sync.dirty = false; saveSync(); SY.status = "";
-  } catch (e){ SY.err = e.message && !/fetch/i.test(e.message) ? e.message : "Нет связи с сервером синхронизации"; SY.status = ""; }
+    if (!S.sync.id) S.sync.id = newSyncId();
+    const k = await syncKeys(S.sync.id, S.sync.pass), body = await sealData(backupData(), k, S.sync.id);
+    const res = await SP[prov()].put(body, baseRev ?? S.sync.rev, k);
+    if (res.conflict){ SY.busy = false; SY.status = ""; paintSync(); return syncConflict(res.conflict); }
+    S.sync.rev = res.rev; S.sync.at = res.updated; S.sync.dirty = false; saveSync(); SY.status = "";
+  } catch (e){ SY.err = e.message && !/fetch|NetworkError|Load failed/i.test(e.message) ? e.message : offlineMsg(); SY.status = ""; }
   SY.busy = false; paintSync(); refreshSyncDlg();
 }
 async function syncPull(opts = {}){
-  if (!syncOn() || SY.busy) return; SY.busy = true; SY.status = "Проверяю сервер…"; SY.err = ""; paintSync(); SY.lastPull = Date.now();
+  if (!syncOn() || SY.busy) return; SY.busy = true; SY.status = "Проверяю хранилище…"; SY.err = ""; paintSync(); SY.lastPull = Date.now();
   try {
-    const r = await fetch(syncUrl(S.sync.url, S.sync.id), { cache: "no-store" });
-    if (r.status === 404){ SY.busy = false; SY.status = ""; if (opts.mustExist){ SY.err = "Хранилище с таким кодом не найдено на этом сервере."; paintSync(); return; } paintSync(); if (S.sync.dirty || anyData()) return syncPush(false, 0); return; }
-    if (!r.ok) throw new Error("Сервер ответил ошибкой " + r.status);
-    const rev = +r.headers.get("X-Rev") || 0, upd = r.headers.get("X-Updated"), text = await r.text();
-    if (rev > S.sync.rev || opts.force){
+    const got = await SP[prov()].get();
+    if (!got){ SY.busy = false; SY.status = ""; if (opts.mustExist){ SY.err = prov() === "cf" ? "Хранилище с таким кодом не найдено на этом сервере." : "На " + SP_NAME[prov()] + " ещё нет данных приложения."; paintSync(); return; } paintSync(); if (S.sync.dirty || anyData()) return syncPush(false, 0); return; }
+    const { rev, updated: upd, text } = got;
+    if (SP[prov()].newer(rev) || opts.force){
       if (S.sync.dirty && !opts.force){ SY.busy = false; SY.status = ""; paintSync(); return syncConflict({ rev, updated: upd }); }
+      let env = {}; try { env = JSON.parse(text); } catch { throw new Error("bad"); }
+      if (env.sid && env.sid !== S.sync.id){ S.sync.id = env.sid; SY.key = null; }
       const d = await openData(text, await syncKeys(S.sync.id, S.sync.pass));
       SY.applying = true; try { applyBackup(d); } finally { SY.applying = false; }
       S.sync.rev = rev; S.sync.at = upd; S.sync.dirty = false; saveSync(); render(); refreshMoex(false);
-      if (!opts.quiet) addMsg("Данные обновлены с сервера синхронизации.", "ok");
+      if (!opts.quiet) addMsg("Данные обновлены из хранилища синхронизации (" + SP_NAME[prov()] + ").", "ok");
     }
     SY.status = "";
-  } catch (e){ SY.err = e.pass ? e.message : /JSON|bad/.test(e.message) ? "На сервере не те данные" : e.message && !/fetch/i.test(e.message) ? e.message : "Нет связи с сервером синхронизации"; SY.status = ""; }
+  } catch (e){ SY.err = e.pass ? e.message : /JSON|bad/.test(e.message) ? "В хранилище не те данные" : e.message && !/fetch|NetworkError|Load failed/i.test(e.message) ? e.message : offlineMsg(); SY.status = ""; }
   SY.busy = false; paintSync(); refreshSyncDlg();
   if (!SY.err && S.sync.dirty && S.sync.auto) syncPush(false);
 }
@@ -4386,7 +5321,7 @@ function syncConflict(j){
 function paintSync(){
   const b = $("#syncBtn"); if (!b) return; b.hidden = !syncOn();
   const st = SY.busy ? "busy" : SY.err ? "err" : S.sync.dirty ? "dirty" : "ok"; b.dataset.st = st;
-  b.setAttribute("data-tip", { busy: SY.status || "Синхронизация…", err: SY.err, dirty: "Есть изменения, отправлю через несколько секунд", ok: "Синхронизировано" + (S.sync.at ? " " + new Date(S.sync.at).toLocaleString("ru-RU", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }) : "") }[st]);
+  b.setAttribute("data-tip", { busy: SY.status || "Синхронизация…", err: SY.err, dirty: "Есть изменения, отправлю через несколько секунд", ok: "Синхронизировано (" + SP_NAME[prov()] + ")" + (S.sync.at ? " " + new Date(S.sync.at).toLocaleString("ru-RU", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }) : "") }[st]);
 }
 /* ---- settings dialog ---- */
 let syncDlgOpen = null;
@@ -4396,61 +5331,109 @@ function openSync(){
   dlg.querySelector("#mSubmit").hidden = true; const fb = dlg.querySelector(".dlg-foot [data-close]:not(.ghost)"); if (fb) fb.textContent = "Закрыть";
   dlg.querySelector("#mForm").onsubmit = e => { e.preventDefault(); };
   const body = dlg.querySelector("#syBody");
-  const howto = `<details class="more"><summary>Как поднять свой сервер в Cloudflare (бесплатно, ~10 минут)</summary><ol class="sy-steps">
+  let tab = S.sync.prov || "cf";
+  const howCf = `<details class="more"><summary>Как поднять свой сервер в Cloudflare (бесплатно, ~10 минут)</summary><ol class="sy-steps">
       <li>Зарегистрируйтесь на <b>dash.cloudflare.com</b> (бесплатный план).</li>
       <li><b>Storage &amp; Databases → KV → Create</b>: создайте хранилище, например <code>pf-sync</code>.</li>
       <li><b>Workers &amp; Pages → Create → Worker</b> (шаблон Hello World) → <b>Deploy</b>, затем <b>Edit code</b>: вставьте код из файла ниже и снова <b>Deploy</b>.</li>
       <li>В воркере: <b>Settings → Bindings → Add → KV namespace</b>, имя переменной <code>PF</code>, хранилище <code>pf-sync</code>. Сохраните.</li>
       <li>Скопируйте адрес воркера вида <code>https://pf-sync.ваше-имя.workers.dev</code> и вставьте сюда.</li></ol>
       <button type="button" class="btn" data-sy="code">Скачать код воркера</button></details>`;
+  const howYd = `<details class="more" open><summary>Как получить токен Яндекс Диска (~5 минут, один раз)</summary><ol class="sy-steps">
+      <li>Откройте <a href="https://oauth.yandex.ru/client/new/id" target="_blank" rel="noopener"><b>oauth.yandex.ru</b> → «Создать приложение»</a>, войдите своим Яндекс ID. Тип — <b>«Для доступа к API или отладки»</b> (если спросят), название любое, например «Портфель».</li>
+      <li>Платформа — <b>«Веб-сервисы»</b>, Redirect URI: <code>https://oauth.yandex.ru/verification_code</code>.</li>
+      <li>В доступах найдите <b>«Яндекс Диск REST API»</b> и отметьте только <b>«Доступ к папке приложения на Диске»</b> (<code>cloud_api:disk.app_folder</code>). Приложение увидит только свою папку «Приложения», остальной Диск — нет.</li>
+      <li>Нажмите «Создать приложение» и скопируйте <b>ClientID</b> в поле ниже → <b>«Получить токен»</b>. В открывшейся вкладке нажмите «Разрешить» — Яндекс покажет токен. Скопируйте его во второе поле.</li>
+      <li>Придумайте пароль шифрования и нажмите <b>«Подключить»</b>. На других устройствах — тот же токен (или новый по тем же шагам) и тот же пароль.</li></ol>
+      <p class="small muted" style="margin:0">Токен действует около года. Отозвать его можно в <a href="https://id.yandex.ru/security/apps" target="_blank" rel="noopener">id.yandex.ru → Безопасность → Доступ к данным</a>. Файл появится на Диске в папке «Приложения».</p></details>`;
+  const howGd = `<details class="more" open><summary>Как подключить Google Диск (~10 минут, один раз)</summary><ol class="sy-steps">
+      <li>Google Диск работает только в приложении, открытом по адресу <b>https://</b> — например, с вашего GitHub Pages (<code>https://логин.github.io/…</code>). Из файла на телефоне Google вход не разрешит.</li>
+      <li>Откройте <a href="https://console.cloud.google.com/projectcreate" target="_blank" rel="noopener"><b>console.cloud.google.com</b></a> и создайте проект, например «portfel».</li>
+      <li><b>APIs &amp; Services → Library</b>: найдите <b>Google Drive API</b> → <b>Enable</b>.</li>
+      <li><b>Google Auth Platform</b> (OAuth consent screen) → <b>Get started</b>: название приложения, ваша почта, тип <b>External</b>. Затем <b>Audience → Test users → Add users</b>: добавьте свой Gmail.</li>
+      <li><b>Clients → Create client</b>: тип <b>Web application</b>, в <b>Authorized JavaScript origins</b> добавьте <code>${esc(location.protocol === "https:" ? location.origin : "https://ваш-логин.github.io")}</code> (без пути в конце) → <b>Create</b>. Скопируйте <b>Client ID</b> (оканчивается на <code>.apps.googleusercontent.com</code>) в поле ниже.</li>
+      <li>Придумайте пароль шифрования и нажмите <b>«Войти через Google и подключить»</b>. Google предупредит, что приложение не проверено — это ваше же приложение: «Продолжить».</li></ol>
+      <p class="small muted" style="margin:0">Приложение получает доступ только к своей скрытой папке на Диске, ваши файлы ему не видны. Вход действует час; когда он истечёт, значок облака попросит войти снова одним нажатием.</p></details>`;
+  const passHint = `<p class="small muted" style="margin:0">Данные шифруются этим паролем прямо в браузере, в хранилище уходит только шифротекст. Пароль не восстановить — запомните его. На всех устройствах пароль должен быть один.</p>`;
+  const tabs = () => `<div class="hper sy-tabs">${["cf", "yd", "gd"].map(p => `<button type="button" class="${tab === p ? "on" : ""}" data-sytab="${p}">${SP_NAME[p]}</button>`).join("")}</div>`;
   const draw = () => {
     if (!syncOn()){
-      body.innerHTML = `<p class="small muted" style="margin:0">Данные шифруются вашим паролем прямо в браузере и только потом уходят на ваш сервер в Cloudflare. Без пароля их не прочитать ни Cloudflare, ни кому-то ещё. Пароль не восстановить — запомните его.</p>
+      const err = `<p class="small neg" id="syErr" style="margin:0">${esc(SY.err)}</p>`;
+      if (tab === "cf") body.innerHTML = tabs() + `<p class="small muted" style="margin:0">Свой сервер в Cloudflare: данные шифруются вашим паролем в браузере и только потом уходят на сервер. Без пароля их не прочитать ни Cloudflare, ни кому-то ещё.</p>
         <label class="fld"><span>Адрес воркера</span><input id="syUrl" placeholder="https://pf-sync.имя.workers.dev" value="${esc(S.sync.url || "")}"></label>
-        <div class="fld2"><label class="fld"><span>Код хранилища</span><input id="syId" placeholder="пусто — создать новое" value="${esc(S.sync.id || "")}" autocomplete="off"></label>
+        <div class="fld2"><label class="fld"><span>Код хранилища</span><input id="syId" placeholder="пусто — создать новое" value="${esc(S.sync.prov === "cf" || !S.sync.prov ? S.sync.id || "" : "")}" autocomplete="off"></label>
           <label class="fld"><span>Пароль</span><input id="syPass" type="password" autocomplete="new-password" placeholder="не короче 8 символов"></label></div>
         <p class="small muted" style="margin:0">Первое устройство: оставьте код пустым — приложение создаст хранилище и отправит туда ваши данные. Другие устройства: введите тот же адрес, код и пароль — данные загрузятся с сервера.</p>
-        <p class="small neg" id="syErr" style="margin:0">${esc(SY.err)}</p>
-        <div class="bank-acts" style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn primary" data-sy="connect">Подключить</button><button type="button" class="btn" data-sy="test">Проверить адрес</button></div>
-        ${howto}`;
+        ${err}<div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn primary" data-sy="connect">Подключить</button><button type="button" class="btn" data-sy="test">Проверить адрес</button></div>${howCf}`;
+      if (tab === "yd") body.innerHTML = tabs() + `<div class="fld2"><label class="fld"><span>ClientID приложения (для получения токена)</span><input id="syYc" value="${esc(S.sync.ycid || "")}" placeholder="например, 1a2b3c…" autocomplete="off"></label>
+          <div class="fld" style="align-self:end"><button type="button" class="btn" data-sy="ytoken">Получить токен ↗</button></div></div>
+        <div class="fld2"><label class="fld"><span>OAuth-токен</span><input id="syYt" type="password" autocomplete="off" placeholder="y0_…" value="${esc(S.sync.ytoken || "")}"></label>
+          <label class="fld"><span>Пароль шифрования</span><input id="syPass" type="password" autocomplete="new-password" placeholder="не короче 8 символов"></label></div>
+        ${passHint}${err}<div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn primary" data-sy="yconnect">Подключить</button></div>${howYd}`;
+      if (tab === "gd") body.innerHTML = tabs() + `<label class="fld"><span>Client ID из Google Cloud</span><input id="syGc" value="${esc(S.sync.gclient || "")}" placeholder="…apps.googleusercontent.com" autocomplete="off"></label>
+        <label class="fld"><span>Пароль шифрования</span><input id="syPass" type="password" autocomplete="new-password" placeholder="не короче 8 символов"></label>
+        ${passHint}${location.protocol !== "https:" ? `<p class="msg warn-m" style="margin:0">Сейчас приложение открыто из файла — Google Диск так не подключится. Откройте его по адресу https:// (например, с GitHub Pages).</p>` : ""}
+        ${(location.protocol === "https:" && gisLoad().catch(() => {}), "")}${err}<div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn primary" data-sy="gconnect" ${location.protocol !== "https:" ? "disabled" : ""}>Войти через Google и подключить</button></div>${howGd}`;
       return;
     }
-    const st = SY.busy ? SY.status : SY.err ? `<span class="neg">${esc(SY.err)}</span>` : S.sync.dirty ? "есть неотправленные изменения" : "всё синхронизировано";
-    body.innerHTML = `<div class="sy-info"><div><span class="k">Сервер</span><b>${esc(S.sync.url.replace(/^https?:\/\//, ""))}</b></div>
-        <div><span class="k">Код хранилища</span><b class="num">${esc(S.sync.id)}</b> <button type="button" class="link" data-sy="copy">скопировать</button></div>
+    const p = prov(), st = SY.busy ? SY.status : SY.err ? `<span class="neg">${esc(SY.err)}</span>` : S.sync.dirty ? "есть неотправленные изменения" : "всё синхронизировано";
+    body.innerHTML = `<div class="sy-info"><div><span class="k">Хранилище</span><b>${p === "cf" ? esc(S.sync.url.replace(/^https?:\/\//, "")) : SP_NAME[p] + (p === "yd" ? " · папка «Приложения»" : " · скрытая папка приложения")}</b></div>
+        ${p === "cf" ? `<div><span class="k">Код хранилища</span><b class="num">${esc(S.sync.id)}</b> <button type="button" class="link" data-sy="copy">скопировать</button></div>` : ""}
         <div><span class="k">Состояние</span><b>${st}</b></div>
-        <div><span class="k">Последняя синхронизация</span><b>${S.sync.at ? new Date(S.sync.at).toLocaleString("ru-RU") : "—"}</b>${S.sync.rev ? ` <small class="faint">версия ${S.sync.rev}</small>` : ""}</div></div>
+        <div><span class="k">Последняя синхронизация</span><b>${S.sync.at ? new Date(S.sync.at).toLocaleString("ru-RU") : "—"}</b>${p === "cf" && S.sync.rev ? ` <small class="faint">версия ${S.sync.rev}</small>` : ""}</div></div>
       <label class="chk"><input type="checkbox" id="syAuto" ${S.sync.auto ? "checked" : ""}> Отправлять изменения автоматически и забирать новое при открытии</label>
-      <div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn primary" data-sy="now" ${SY.busy ? "disabled" : ""}>Синхронизировать сейчас</button><button type="button" class="btn" data-sy="pull" ${SY.busy ? "disabled" : ""}>Загрузить с сервера</button><button type="button" class="btn" data-sy="off">Отключить на этом устройстве</button></div>
-      <p class="small muted" style="margin:0">Чтобы подключить другое устройство, откройте там приложение, «Ещё → Синхронизация» и введите этот адрес, код и тот же пароль. Пароль хранится только в этом браузере.</p>
-      ${howto}`;
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn primary" data-sy="now" ${SY.busy ? "disabled" : ""}>Синхронизировать сейчас</button><button type="button" class="btn" data-sy="pull" ${SY.busy ? "disabled" : ""}>Загрузить из хранилища</button><button type="button" class="btn" data-sy="off">Отключить на этом устройстве</button></div>
+      <p class="small muted" style="margin:0">${p === "cf" ? "Чтобы подключить другое устройство, откройте там приложение, нажмите на облако и введите этот адрес, код и тот же пароль." : p === "yd" ? "На другом устройстве выберите «Яндекс Диск», вставьте токен и тот же пароль." : "На другом устройстве выберите «Google Диск», вставьте тот же Client ID и пароль, войдите тем же аккаунтом Google."} Пароль хранится только в этом браузере.</p>
+      ${p === "cf" ? howCf : ""}`;
   };
   syncDlgOpen = draw; dlg.addEventListener("close", () => { syncDlgOpen = null; }, { once: true });
+  const connectDrive = async (b, setup) => {
+    const err = t => { SY.err = t; const q = body.querySelector("#syErr"); if (q) q.textContent = t; };
+    const pass = body.querySelector("#syPass").value; if (pass.length < 8) return err("Пароль — не короче 8 символов.");
+    const made = setup(); if (made) return err(made);
+    b.disabled = true; b.textContent = "Подключаю…";
+    S.sync = Object.assign(S.sync, { pass, id: "", rev: "", dirty: false, at: null, auto: true }); SY.key = null; SY.err = "";
+    SY.gesture = true;
+    try {
+      let got; try { got = await SP[prov()].get(); } catch (e){ throw e; }
+      if (got){ await syncPull({ force: true, quiet: true }); if (SY.err) throw new Error(SY.err); addMsg(`Подключено: данные загружены с ${SP_NAME[prov()] === "Яндекс Диск" ? "Яндекс Диска" : "Google Диска"}.`, "ok"); }
+      else { await syncPush(false, ""); if (SY.err) throw new Error(SY.err); addMsg(`Подключено: данные зашифрованы и сохранены на ${SP_NAME[prov()]}. Запомните пароль.`, "ok"); }
+      saveSync();
+    } catch (e){ SY.err = e.message && !/fetch|NetworkError|Load failed/i.test(e.message) ? e.message : offlineMsg(); S.sync.pass = ""; S.sync.id = ""; S.sync.rev = ""; saveSync(); }
+    SY.gesture = false; paintSync(); draw(); if (SY.err) err(SY.err);
+  };
   body.onclick = async e => {
+    const tb = e.target.closest("[data-sytab]"); if (tb){ tab = tb.dataset.sytab; SY.err = ""; draw(); return; }
     const b = e.target.closest("[data-sy]"); if (!b) return; const a = b.dataset.sy;
     if (a === "code"){ const blob = new Blob([WORKER_SRC], { type: "text/javascript" }), u = URL.createObjectURL(blob), x = document.createElement("a"); x.href = u; x.download = "pf-sync-worker.js"; document.body.appendChild(x); x.click(); x.remove(); setTimeout(() => URL.revokeObjectURL(u), 4000); return; }
     if (a === "copy"){ try { await navigator.clipboard.writeText(S.sync.id); addMsg("Код хранилища скопирован.", "ok"); } catch { addMsg("Код: " + S.sync.id, "ok"); } return; }
-    if (a === "now"){ if (S.sync.dirty) await syncPush(false); else await syncPull({}); draw(); return; }
-    if (a === "pull"){ if (!b.classList.contains("confirm")){ b.classList.add("confirm"); b.textContent = "Заменить данные этого устройства?"; return; } S.sync.dirty = false; await syncPull({ force: true }); draw(); return; }
-    if (a === "off"){ if (!b.classList.contains("confirm")){ b.classList.add("confirm"); b.textContent = "Точно отключить?"; return; } S.sync = { url: S.sync.url, id: "", pass: "", rev: 0, dirty: false, at: null, auto: true }; saveSync(); SY.key = null; SY.err = ""; paintSync(); draw(); addMsg("Синхронизация отключена. Данные на этом устройстве остались.", "ok"); return; }
+    if (a === "now"){ SY.gesture = true; try { if (S.sync.dirty) await syncPush(false); else await syncPull({}); } finally { SY.gesture = false; } draw(); return; }
+    if (a === "pull"){ if (!b.classList.contains("confirm")){ b.classList.add("confirm"); b.textContent = "Заменить данные этого устройства?"; return; } S.sync.dirty = false; SY.gesture = true; try { await syncPull({ force: true }); } finally { SY.gesture = false; } draw(); return; }
+    if (a === "off"){ if (!b.classList.contains("confirm")){ b.classList.add("confirm"); b.textContent = "Точно отключить?"; return; }
+      S.sync = { url: S.sync.url, prov: S.sync.prov, ycid: S.sync.ycid, gclient: S.sync.gclient, id: "", pass: "", rev: 0, dirty: false, at: null, auto: true }; saveSync(); SY.key = null; SY.err = ""; GD.token = ""; try { localStorage.removeItem("pf.gdtok.v1"); } catch {}
+      paintSync(); draw(); addMsg("Синхронизация отключена. Данные на этом устройстве остались.", "ok"); return; }
+    if (a === "ytoken"){ const cid = body.querySelector("#syYc").value.trim(); if (!/^[0-9a-f]{20,40}$/i.test(cid)){ SY.err = "Вставьте ClientID приложения из oauth.yandex.ru."; draw(); return; }
+      S.sync.ycid = cid; saveSync(); window.open("https://oauth.yandex.ru/authorize?response_type=token&client_id=" + encodeURIComponent(cid), "_blank", "noopener"); return; }
+    if (a === "yconnect") return connectDrive(b, () => { const t = body.querySelector("#syYt").value.trim(); if (t.length < 20) return "Вставьте OAuth-токен Яндекса."; S.sync.prov = "yd"; S.sync.ytoken = t; const cid = body.querySelector("#syYc").value.trim(); if (cid) S.sync.ycid = cid; });
+    if (a === "gconnect") return connectDrive(b, () => { const c = body.querySelector("#syGc").value.trim(); if (!/\.apps\.googleusercontent\.com$/.test(c)) return "Client ID должен оканчиваться на .apps.googleusercontent.com"; S.sync.prov = "gd"; S.sync.gclient = c; });
     const url = (body.querySelector("#syUrl") || {}).value?.trim().replace(/\/+$/, "") || "";
     const err = t => { SY.err = t; const p = body.querySelector("#syErr"); if (p) p.textContent = t; };
     if (!/^https:\/\/[^\s/]+/.test(url)) return err("Укажите адрес воркера, он начинается с https://");
-    if (a === "test"){ try { const r = await fetch(url + "/v1", { cache: "no-store" }); const j = await r.json(); err(j && j.service === "pf-sync" ? "" : "По этому адресу не воркер синхронизации."); if (j && j.service === "pf-sync") addMsg("Сервер отвечает.", "ok"); if (j && j.error) err(j.error); } catch { err("Сервер не отвечает. Проверьте адрес и что воркер развёрнут."); } return; }
+    if (a === "test"){ try { const r = await fetch(url + "/v1", { cache: "no-store" }); const j = await r.json(); err(j && j.service === "pf-sync" ? "" : "По этому адресу не воркер синхронизации."); if (j && j.service === "pf-sync") addMsg("Сервер отвечает.", "ok"); if (j && j.error) err(j.error); } catch { err("Сервер не отвечает. Проверьте адрес."); } return; }
     if (a === "connect"){
       const pass = body.querySelector("#syPass").value, id0 = body.querySelector("#syId").value.trim();
       if (pass.length < 8) return err("Пароль — не короче 8 символов.");
       if (id0 && !/^[A-Za-z0-9_-]{16,64}$/.test(id0)) return err("Код хранилища — 16–64 латинских буквы и цифр.");
       b.disabled = true; b.textContent = "Подключаю…";
-      const id = id0 || newSyncId();
-      S.sync = { url, id, pass, rev: 0, dirty: false, at: null, auto: true }; SY.key = null; SY.err = "";
-      if (id0){ // existing: download, a wrong password shows up here
+      const id = id0 || newSyncId(), keep = { ycid: S.sync.ycid, gclient: S.sync.gclient };
+      S.sync = { ...keep, prov: "cf", url, id, pass, rev: 0, dirty: false, at: null, auto: true }; SY.key = null; SY.err = "";
+      if (id0){
         await syncPull({ force: true, quiet: true, mustExist: true });
-        if (SY.err){ const e2 = SY.err; S.sync = { url, id: id0, pass: "", rev: 0, dirty: false, at: null, auto: true }; saveSync(); paintSync(); draw(); return err(e2); }
+        if (SY.err){ const e2 = SY.err; S.sync = { ...keep, prov: "cf", url, id: id0, pass: "", rev: 0, dirty: false, at: null, auto: true }; saveSync(); paintSync(); draw(); return err(e2); }
         addMsg("Подключено. Данные загружены с сервера.", "ok");
       } else {
         await syncPush(false, 0);
-        if (SY.err){ const e2 = SY.err; S.sync = { url, id: "", pass: "", rev: 0, dirty: false, at: null, auto: true }; saveSync(); paintSync(); draw(); return err(e2); }
+        if (SY.err){ const e2 = SY.err; S.sync = { ...keep, prov: "cf", url, id: "", pass: "", rev: 0, dirty: false, at: null, auto: true }; saveSync(); paintSync(); draw(); return err(e2); }
         addMsg("Хранилище создано, данные отправлены. Сохраните код хранилища и пароль.", "ok");
       }
       saveSync(); paintSync(); draw();
@@ -5030,7 +6013,7 @@ const drop = $("#drop"), ov = $("#dropOverlay");
 document.addEventListener("drop", e => { if (e.dataTransfer && e.dataTransfer.files.length){ e.preventDefault(); handleFiles([...e.dataTransfer.files]); } });
 $("#btnRefresh").onclick = () => refreshMoex(true);
 function autoMoex(){ if (MOEX_VIEWS.includes(S.view) && document.visibilityState !== "hidden") refreshMoex(false); if (["analytics", "portfolio"].includes(S.view) && derive("all").holdings.some(h => (S.moex[h.isin] || {}).kind === "bond")) loadEmissions(false); }
-function route(){ const h = location.hash.replace("#", ""); S.view = h === "assets" ? "portfolio" : h === "taxes" ? "analytics" : ["home", "analytics", "portfolio", "calendar", "deals", "goal", "reports", "deposits", "bonds", "divs"].includes(h) ? h : "home"; closeDrops(); render(); autoMoex(); }
+function route(){ const h = location.hash.replace("#", ""); S.view = h === "assets" ? "portfolio" : h === "taxes" ? "analytics" : ["home", "analytics", "portfolio", "calendar", "deals", "goal", "reports", "deposits", "bonds", "divs", "bondlab", "bondpick", "mmf", "taxopt", "cpncal"].includes(h) ? h : "home"; closeDrops(); render(); autoMoex(); }
 addEventListener("hashchange", route);
 S.moexAt = store.get("pf.moexAt", 0);
 route();
