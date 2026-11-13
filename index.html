@@ -639,7 +639,42 @@ th.sortable button:hover{color:var(--fg)}
 .cc-m i{display:inline-grid;place-items:center;width:15px;height:18px;border-radius:3px;background:var(--surface-2);color:var(--faint);font:600 9.5px var(--f-body);font-style:normal}
 .cc-m i.on{background:color-mix(in srgb,var(--c-coupon) 25%,transparent);color:var(--fg)}
 .cc-m i.hit{background:var(--warn);color:#fff}
+.sal-pre{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,200px),1fr));gap:8px}
+@media (max-width:560px){.sal-pre{grid-template-columns:1fr 1fr}.sal-p{padding:8px 10px}.sal-p small{font-size:11.5px}}
+.sal-p{display:grid;gap:2px;text-align:left;padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:transparent;color:var(--fg);cursor:pointer;font-size:14px}
+.sal-p small{color:var(--muted);font-size:12px;line-height:1.3}
+.sal-p:hover{background:var(--surface-2)}
+.sal-p.on{border-color:var(--accent);background:var(--accent-soft)}
+.sal-sv{display:grid;gap:4px}
+.sal-sv>div{display:flex;align-items:baseline;gap:6px 10px;flex-wrap:wrap;padding:6px 10px;border:1px solid var(--line);border-radius:8px}
+.sal-sv>div.on{border-color:var(--accent);background:var(--accent-soft)}
+.sal-sv small{color:var(--muted);flex:1;min-width:180px}
+.sal-mode{justify-self:start;align-self:start}
+.sal-q{width:56px!important;text-align:right;padding:3px 6px!important;font:inherit}
+.sal-t tr.sal-off td{opacity:.5}
+.sal-allbar{display:flex;gap:8px 16px;flex-wrap:wrap;align-items:end;margin:10px 0}
+.sal-allbar .fld{min-width:190px}
+.sal-act{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.sal-act input{flex:1;min-width:160px;max-width:300px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--fg);font:inherit}
+.sal-t td:last-child{display:flex;gap:4px;align-items:center}
 .tx-acc h2 .acc-tag{font-size:15px}
+.ag-l{display:inline-flex;flex-wrap:wrap;gap:3px}
+.ag{display:inline-flex;align-items:center;gap:3px;padding:1px 6px;border-radius:5px;background:var(--surface-2);font:500 12px var(--f-mono);white-space:nowrap}
+.ag small{font:600 9.5px var(--f-body);color:var(--muted)}
+.ag i{font-style:normal;color:var(--warn);font-weight:700}
+.stop-chip{background:color-mix(in srgb,var(--bad) 15%,transparent)!important;color:var(--bad)!important}
+.ga-set{display:grid;gap:6px}
+.ga-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:14px}
+.ga-row input[type=checkbox]{width:auto}
+.ga-d{color:var(--muted);font-size:13px}
+.ga-d input{width:44px;font:500 13px var(--f-mono);padding:2px 5px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--fg);text-align:center}
+.stop-add{display:flex;flex-wrap:wrap;gap:8px}
+.stop-add input{flex:1 1 200px;font:inherit;font-size:14px;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--fg)}
+.stop-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:6px}
+.stop-list>div{display:grid;grid-template-columns:1fr auto;gap:0 8px;padding:7px 10px;border-radius:8px;background:var(--surface-2);align-items:center}
+.stop-list>div b{font-size:14px}
+.stop-list>div small{grid-column:1;color:var(--muted);font-size:12px}
+.stop-list>div button{grid-column:2;grid-row:1/span 2}
 tr.pk-on td{background:color-mix(in srgb,var(--accent-soft) 60%,transparent)}
 .hist-p{display:grid;gap:12px}
 .hist-p .panel-head{align-items:center}
@@ -907,6 +942,8 @@ details.more summary{cursor:pointer;color:var(--muted);font-size:13px;margin-top
   <section class="view" id="v-mmf" hidden></section>
   <section class="view" id="v-taxopt" hidden></section>
   <section class="view" id="v-cpncal" hidden></section>
+  <section class="view" id="v-stoplist" hidden></section>
+  <section class="view" id="v-salary" hidden></section>
   <section class="view" id="v-calendar" hidden></section>
   <section class="view" id="v-taxes" hidden></section>
   <section class="view" id="v-deals" hidden></section>
@@ -926,7 +963,9 @@ details.more summary{cursor:pointer;color:var(--muted);font-size:13px;margin-top
   <a role="menuitem" href="#bondpick"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 3.5h11l-4.2 5v4l-2.6 1.2V8.5z"/></svg>Подбор облигаций</a>
   <a role="menuitem" href="#mmf"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6.5c0-1.7 2.2-3 5-3s5 1.3 5 3v3.5c0 1.7-2.2 3-5 3s-5-1.3-5-3z M3 6.5c0 1.7 2.2 3 5 3s5-1.3 5-3 M6.5 2.5h3"/></svg>Фонды-копилки</a>
   <a role="menuitem" href="#cpncal"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 4h11v9.5h-11z M2.5 7h11 M5.5 2.5v3 M10.5 2.5v3 M5 10.5h2 M9 10.5h2"/></svg>Ровный купонный доход</a>
+  <a role="menuitem" href="#salary"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 4.5h11v8h-11z M2.5 7h11 M5 10h2.5 M10.5 10h1"/></svg>Как зарплата</a>
   <a role="menuitem" href="#taxopt"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2.5h8v11l-2-1.2-2 1.2-2-1.2-2 1.2z M6 6h4 M6 8.5h4"/></svg>Налоги до конца года</a>
+  <a role="menuitem" href="#stoplist"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="8" cy="8" r="5.5"/><path d="M4.2 11.8l7.6-7.6"/></svg>Стоп-лист эмитентов</a>
 </div>
 <div class="dd-menu" id="addMenu" hidden role="menu">
   <span class="dd-title">Активы и сделки</span>
@@ -1038,40 +1077,43 @@ async function unzip(buf, wanted){
 }
 const byTag = (el, t) => el.getElementsByTagNameNS("*", t);
 function colIndex(ref){ let n = 0; for (const ch of ref){ const c = ch.charCodeAt(0); if (c < 65 || c > 90) break; n = n*26 + (c - 64); } return n - 1; }
-async function readXlsx(buf){
+async function readXlsxBook(buf){
   const files = await unzip(buf, n => /^xl\/(workbook\.xml|_rels\/workbook\.xml\.rels|sharedStrings\.xml|worksheets\/[^/]+\.xml)$/.test(n));
   const dec = new TextDecoder(), xml = s => new DOMParser().parseFromString(dec.decode(s), "application/xml");
-  let sheetPath = Object.keys(files).find(n => n.startsWith("xl/worksheets/"));
+  const sheets = [];
   if (files["xl/workbook.xml"] && files["xl/_rels/workbook.xml.rels"]){
-    const wb = xml(files["xl/workbook.xml"]), rels = xml(files["xl/_rels/workbook.xml.rels"]);
-    const first = byTag(wb, "sheet")[0];
-    const rid = first && (first.getAttribute("r:id") || first.getAttributeNS("http://schemas.openxmlformats.org/officeDocument/2006/relationships", "id"));
-    for (const r of byTag(rels, "Relationship")) if (r.getAttribute("Id") === rid){ const t = r.getAttribute("Target").replace(/^\/?xl\//, "").replace(/^\//, ""); if (files["xl/" + t]) sheetPath = "xl/" + t; }
+    const wb = xml(files["xl/workbook.xml"]), rels = xml(files["xl/_rels/workbook.xml.rels"]), tgt = {};
+    for (const r of byTag(rels, "Relationship")) tgt[r.getAttribute("Id")] = "xl/" + r.getAttribute("Target").replace(/^\/?xl\//, "").replace(/^\//, "");
+    for (const sh of byTag(wb, "sheet")){ const rid = sh.getAttribute("r:id") || sh.getAttributeNS("http://schemas.openxmlformats.org/officeDocument/2006/relationships", "id"); if (tgt[rid] && files[tgt[rid]]) sheets.push({ name: sh.getAttribute("name"), path: tgt[rid] }); }
   }
-  if (!sheetPath) throw new Error("В файле нет листов");
-  const ss = [];
-  if (files["xl/sharedStrings.xml"]) for (const si of byTag(xml(files["xl/sharedStrings.xml"]), "si")){ let t = ""; for (const x of byTag(si, "t")) t += x.textContent; ss.push(t); }
-  const doc = xml(files[sheetPath]); const rows = [];
-  let rowNo = 0;
-  for (const r of byTag(doc, "row")){
-    const ri = r.getAttribute("r") ? (+r.getAttribute("r") - 1) : rowNo; rowNo = ri + 1;
-    const arr = []; let ci = 0;
-    for (const c of byTag(r, "c")){
-      const ref = c.getAttribute("r"); if (ref) ci = colIndex(ref);
-      const t = c.getAttribute("t"); const vEl = byTag(c, "v")[0]; let val;
-      if (t === "s") val = vEl ? ss[+vEl.textContent] : "";
-      else if (t === "inlineStr"){ val = ""; for (const x of byTag(c, "t")) val += x.textContent; }
-      else if (t === "str" || t === "e") val = vEl ? vEl.textContent : "";
-      else if (t === "b") val = vEl ? vEl.textContent === "1" : "";
-      else val = vEl ? parseFloat(vEl.textContent) : "";
-      if (val !== "" && val != null) arr[ci] = typeof val === "string" ? val.trim() : val;
-      ci++;
+  if (!sheets.length){ const p = Object.keys(files).filter(n => n.startsWith("xl/worksheets/")).sort(); p.forEach((path, i) => sheets.push({ name: "Sheet" + (i + 1), path })); }
+  if (!sheets.length) throw new Error("В файле нет листов");
+  let ss = null;
+  const strings = () => { if (ss) return ss; ss = []; if (files["xl/sharedStrings.xml"]) for (const si of byTag(xml(files["xl/sharedStrings.xml"]), "si")){ let t = ""; for (const x of byTag(si, "t")) t += x.textContent; ss.push(t); } return ss; };
+  const read = path => {
+    const S2 = strings(), doc = xml(files[path]); const rows = []; let rowNo = 0;
+    for (const r of byTag(doc, "row")){
+      const ri = r.getAttribute("r") ? (+r.getAttribute("r") - 1) : rowNo; rowNo = ri + 1;
+      const arr = []; let ci = 0;
+      for (const c of byTag(r, "c")){
+        const ref = c.getAttribute("r"); if (ref) ci = colIndex(ref);
+        const t = c.getAttribute("t"); const vEl = byTag(c, "v")[0]; let val;
+        if (t === "s") val = vEl ? S2[+vEl.textContent] : "";
+        else if (t === "inlineStr"){ val = ""; for (const x of byTag(c, "t")) val += x.textContent; }
+        else if (t === "str" || t === "e") val = vEl ? vEl.textContent : "";
+        else if (t === "b") val = vEl ? vEl.textContent === "1" : "";
+        else val = vEl ? parseFloat(vEl.textContent) : "";
+        if (val !== "" && val != null) arr[ci] = typeof val === "string" ? val.trim() : val;
+        ci++;
+      }
+      rows[ri] = arr;
     }
-    rows[ri] = arr;
-  }
-  for (let i = 0; i < rows.length; i++) if (!rows[i]) rows[i] = [];
-  return rows;
+    for (let i = 0; i < rows.length; i++) if (!rows[i]) rows[i] = [];
+    return rows;
+  };
+  return { names: sheets.map(x => x.name), sheet: name => { const x = sheets.find(q => q.name === name); return x ? read(x.path) : null; }, first: () => read(sheets[0].path) };
 }
+async function readXlsx(buf){ return (await readXlsxBook(buf)).first(); }
 
 /* ======================= classification ======================= */
 function classifyCash(type, comment){
@@ -1338,7 +1380,9 @@ async function parseFile(file){
   const name = file.name, buf = await file.arrayBuffer(), u8 = new Uint8Array(buf);
   if (u8[0] === 0xD0 && u8[1] === 0xCF) throw new Error("Это старый формат .xls. Откройте файл в Excel или LibreOffice и сохраните как .xlsx.");
   if (u8[0] === 0x50 && u8[1] === 0x4B){
-    const rows = await readXlsx(buf);
+    const book = await readXlsxBook(buf);
+    if (book.names.includes("Стоп лист") || book.names.includes("Рейтинги агентств")) return { bondMap: book };
+    const rows = book.first();
     const head = rows.slice(0, 15).map(rw => cellsOf(rw).join(" ")).join(" ");
     if (/ВТБ/.test(head)) return parseVtb(rows, name);
     if (/ТБАНК|ТБанк|Тинькофф|ТИНЬКОФФ/i.test(head)) return parseTbank(rows, name);
@@ -2958,7 +3002,9 @@ const ACOLS = [
   { g: "Общее", id: "catShare", n: "Доля в категории", c: "n", s: r => r.catShare, f: r => pct(r.catShare * 100, 2) },
   { g: "Общее", id: "isin", n: "ISIN", s: r => r.isin, f: r => `<span class="num small">${esc(r.isin)}</span>` },
   { g: "Общее", id: "account", n: "Счёт", f: r => r.accounts.map(k => { const [b, ...a] = k.split("|"); return `<span class="acc-tag"><i class="dot" style="background:${BROKERS[b].c}"></i>${esc(acctLabel({ broker: b, account: a.join("|") }))}</span>`; }).join("<br>") },
-  { g: "Облигации", id: "rating", n: "Рейтинг", tip: "Кредитный рейтинг эмитента по данным Мосбиржи", s: r => { const k = ratingRank((em(r.isin) || {}).r); return k == null ? 99 : k; }, f: r => r.kind === "bond" ? ratingChip((em(r.isin) || {}).r) : dash },
+  { g: "Облигации", id: "rating", n: "Рейтинг", tip: "Кредитный рейтинг эмитента по данным Мосбиржи", s: r => { const k = ratingRank((em(r.isin) || {}).r); return k == null ? 99 : k; }, f: r => r.kind === "bond" ? ratingChip((em(r.isin) || {}).r) + (stopReason(r.isin, r.name, r.mx && r.mx.price) ? ` <span class="chip stop-chip" data-tip="${esc(stopReason(r.isin, r.name, r.mx && r.mx.price).t)}">стоп</span>` : "") : dash },
+  { g: "Облигации", id: "agr", n: "Рейтинги агентств", tip: "АКРА, Эксперт РА (ЭРА), НКР, НРА — из канала t.me/issuerRatings через помощник Google или из таблицы «Карта облигаций»", s: r => { const i = ratInfo(r.isin), k = i ? ratingRank(i.overall) : null; return k == null ? 99 : k; }, f: r => r.kind === "bond" ? ratAgHtml(r.isin) : dash },
+  { g: "Облигации", id: "rch", n: "Изменение рейтинга", tip: "Повышение или понижение рейтинга за последний год", s: r => { const i = ratInfo(r.isin); return i && i.ch ? (i.ch.act === "понижен" ? "0" : "1") + i.ch.d : "9"; }, f: r => r.kind === "bond" ? ratChHtml(r.isin) : dash },
   { g: "Облигации", id: "emitent", n: "Эмитент", s: r => (em(r.isin) || {}).e || "", f: r => { const e = em(r.isin); return e && e.e ? `<span class="small">${esc(e.e)}</span>` : dash; } },
   { g: "Облигации", id: "ctype", n: "Тип купона", s: r => (em(r.isin) || {}).ct || "", f: r => { const n = r.kind === "bond" && cpnTypeName(em(r.isin)); return n ? `<span class="small">${esc(n)}</span>` : dash; } },
   { g: "Облигации", id: "flags", n: "Особенности", f: r => { const f = r.kind === "bond" ? flagsOf(r.isin) : []; return f.length ? f.map(x => `<span class="chip ${x === "Высокий риск" ? "riskc" : ""}">${x}</span>`).join(" ") : dash; } },
@@ -2991,7 +3037,7 @@ const ACOLS = [
     t: rs => { const v = rs.reduce((s, r) => s + (r.day && !r.sold ? r.day.v : 0), 0), base = rs.reduce((s, r) => s + (r.day && !r.sold ? r.clean - r.day.v : 0), 0); return `<span class="pnl ${v >= 0 ? "pos" : "neg"}">${signed(v)}${badge(base ? v / base : 0, 2)}</span>`; } },
   { g: "Прибыль", id: "ret", n: "Доходность", c: "n", tip: "Прибыль к сумме всех покупок бумаги", s: r => r.bought ? r.profit / r.bought : -1e9, f: r => r.bought ? `<span class="${r.profit >= 0 ? "pos" : "neg"}">${pct(r.profit / r.bought * 100, 2)}</span>` : dash },
 ];
-const APRESETS = { mine: ["Мои активы", ["qty", "invested", "value", "income", "incYield", "profit", "day"]], general: ["Общее", ["qty", "invested", "value", "share", "category", "account", "isin"]], div: ["Дивиденды", ["qty", "income", "incYield", "nextDate", "nextPay", "record", "received", "tax"]], profit: ["Прибыль", ["invested", "value", "pPrice", "pSales", "profit", "day", "ret", "xirr"]], bonds: ["Облигации", ["qty", "rating", "ctype", "avgPct", "pricePct", "term", "nkd", "cpnYield", "curYield", "ytmBuy", "ytm", "xirr", "offer"]] };
+const APRESETS = { mine: ["Мои активы", ["qty", "invested", "value", "income", "incYield", "profit", "day"]], general: ["Общее", ["qty", "invested", "value", "share", "category", "account", "isin"]], div: ["Дивиденды", ["qty", "income", "incYield", "nextDate", "nextPay", "record", "received", "tax"]], profit: ["Прибыль", ["invested", "value", "pPrice", "pSales", "profit", "day", "ret", "xirr"]], bonds: ["Облигации", ["qty", "rating", "rch", "ctype", "avgPct", "pricePct", "term", "nkd", "cpnYield", "curYield", "ytmBuy", "ytm", "xirr", "offer"]] };
 function acCols(){ const ids = S.ac.cols || APRESETS[S.ac.preset] && APRESETS[S.ac.preset][1] || APRESETS.mine[1]; return ACOLS.filter(c => ids.includes(c.id)); }
 function avatarFor(r){ const ini = String(r.short || r.name).replace(/[^A-Za-zА-Яа-яЁё0-9 ]/g, " ").trim().split(/\s+/).slice(0, 2).map(w => w[0]).join("").toUpperCase(); return `<button type="button" class="av sm" style="--ac:${KINDS[r.kind].c}" data-card="${esc(r.isin)}" data-card-sec="${esc(r.mx && r.mx.secid || "")}" data-tip="Карточка бумаги" aria-label="Карточка: ${esc(r.short || r.name)}">${esc(ini || "?")}</button>`; }
 
@@ -3455,7 +3501,7 @@ function cpnTypeName(e){ if (!e) return null; if (e.ct === "I") return "Плав
 /* coupon rate now: floaters on the key rate = key rate + spread */
 function cpnRateNow(isin, fallback){ const e = em(isin); if (e && e.ct === "I" && e.b === "RREFKEYR" && e.bs != null) return keyRateNow() + e.bs; return fallback; }
 function itypeOf(isin, board, nm){ const e = em(isin); if (e && e.t){ if (/офз/i.test(e.t)) return "ofz"; if (/регион|муницип|субфед/i.test(e.t)) return "muni"; return "corp"; } if (board === "TQOB") return "ofz"; return /обл(\.|аст)|\bкрай|респ|\bг\.|город|москв|санкт|спб\b|округ|ханты|ямал|мун\b/i.test(nm || "") ? "muni" : "corp"; }
-function flagsOf(isin){ const e = em(isin); if (!e) return []; const f = []; if (e.q) f.push("Квал"); if (e.hr) f.push("Высокий риск"); if (/аморт/i.test(e.bt)) f.push("Амортизация"); return f; }
+function flagsOf(isin){ const e = em(isin); if (!e) return []; const f = []; if (S.stop.list.length && stopReason(isin, "", null)) f.push("Стоп-лист"); if (e.q) f.push("Квал"); if (e.hr) f.push("Высокий риск"); if (/аморт/i.test(e.bt)) f.push("Амортизация"); return f; }
 
 /* ---- analytics: bonds section ---- */
 function bondAnalytics(D, H, total){
@@ -3845,6 +3891,7 @@ function pickRun(L, ladder){
   for (const r of data){
     if (r.anomal || r.faceUnit !== "RUB" || !(r.ytm > 0) || held.has(r.isin)) continue;
     const e = em(r.isin); if (!e) continue;
+    if (S.stop.excl && stopReason(r.isin, r.name, r.price)) continue;
     const rk = ratingRank(e.r); if (minRank != null && (rk == null || rk > minRank)) continue;
     if (P.noQual && e.q) continue; if (P.noRisk && e.hr) continue;
     if (P.ct === "F" && e.ct !== "F") continue; if (P.ct === "I" && e.ct !== "I") continue;
@@ -3946,6 +3993,8 @@ function signalsList(D, H, total){
       if (bond && !isFloater(r.isin, r.name) && base[2] != null){ const yNow = +mx.yield > 0 ? +mx.yield : last[2]; if (yNow != null && yNow - base[2] >= 1.5) out.push({ lv: yNow - base[2] >= 3 ? "high" : "mid", r, title: `Доходность выросла на ${(yNow - base[2]).toLocaleString("ru-RU", { maximumFractionDigits: 1 })} п.п. за неделю`, text: `${pct(base[2], 2)} → ${pct(yNow, 2)}. Рынок стал требовать больше за риск этой бумаги.` }); }
     }
     if (!bond) continue;
+    { const w = stopReason(r.isin, r.name, null); if (w && w.manual) out.push({ lv: "high", r, title: "Эмитент в стоп-листе", text: w.t.replace(/^в стоп-листе:?\s*/, "") || "Добавлен в ваш стоп-лист." }); }
+    { const i = ratInfo(r.isin); if (i && i.ch && i.ch.d >= addDays(t, -30) && !(SIG.rat[r.isin] && SIG.rat[r.isin].ch >= addDays(t, -30))) out.push({ lv: i.ch.act === "понижен" ? "high" : "good", r, title: `Рейтинг ${i.ch.act}: ${i.ch.p} → ${i.ch.r}`, text: `${i.ch.ag ? i.ch.ag + ", " : ""}${fmtD(i.ch.d)}.` }); }
     /* deep discount */
     if (mx.price != null && +mx.price < 85 && !(mx.matdate && yearsTo(mx.matdate) > 7)) out.push({ lv: +mx.price < 70 ? "high" : "mid", r, title: `Цена ${pct(+mx.price, 1)} от номинала`, text: "Сильный дисконт к номиналу: рынок сомневается, что эмитент расплатится полностью." });
     /* rating changes: compare with the last seen rating */
@@ -4011,10 +4060,20 @@ async function loadMmf(force){
   }
   MMF.data = data; MMF.at = Date.now(); MMF.busy = false;
   if (fails) MMF.err = `Мосбиржа не отдала цены по ${fails} ${plural(fails, "фонду", "фондам", "фондам")}. Нажмите «Обновить».`;
-  idbSet("mmf2", { at: MMF.at, data }); render();
+  idbSet("mmf3", { at: MMF.at, data }); render();
+}
+async function mmfCalcFull(tk, btn){
+  if (btn){ btn.disabled = true; btn.innerHTML = '<i class="spin"></i>'; }
+  const from = addDays(todayIso(), -400), path = `engines/stock/markets/shares/boards/TQTF/securities/${encodeURIComponent(tk)}/candles.json`;
+  try { const cur = (MMF.data && MMF.data[tk]) || [], first = cur.length ? cur[0][0] : todayIso();
+    const h = await issHistory(path, from, todayIso()); const m = new Map(cur); for (const [d, v] of h) m.set(d, v);
+    MMF.data = Object.assign({}, MMF.data, { [tk]: [...m.entries()].sort((a, b) => a[0].localeCompare(b[0])) }); idbSet("mmf3", { at: MMF.at || Date.now(), data: MMF.data });
+    const got = MMF.data[tk]; if (!got.length || got[0][0] > addDays(todayIso(), -362)) addMsg(`${tk}: на Мосбирже история только с ${got.length ? fmtD(got[0][0]) : "—"}, за год посчитать нельзя.`, "warn");
+  } catch { addMsg("Мосбиржа не ответила. Попробуйте ещё раз.", "err"); }
+  render();
 }
 function mmfRestore(){ if (MMF.tried) return; MMF.tried = true; MMF.busy = true;
-  idbGet("mmf2").then(v => { MMF.busy = false; if (v && v.data){ MMF.data = v.data; MMF.at = v.at; } loadMmf(false); }); }
+  idbGet("mmf3").then(v => { MMF.busy = false; if (v && v.data){ MMF.data = v.data; MMF.at = v.at; } loadMmf(false); }); }
 /* simple annualised return over the last `days` days from daily closes */
 function mmfRet(px, days, loose){
   if (!px || px.length < 2) return null; const last = px[px.length - 1], from = addDays(last[0], -days);
@@ -4055,7 +4114,7 @@ function renderMmf(){
   <div class="panel lab-p"><div class="panel-head"><h2>Доходность фондов</h2><span class="hinfo" data-tip="Доходность посчитана по ценам паёв на Мосбирже и пересчитана в годовые. Расходы фонда (вознаграждение УК, депозитария и прочее) уже вычтены из цены пая — это то, что фонд реально принёс." tabindex="0">?</span><span class="spacer"></span><span class="scr-upd small muted">${MMF.at ? "Данные на " + new Date(MMF.at).toLocaleString("ru-RU", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }) : ""}</span><button class="btn ghost scr-reload" data-mmf-reload ${MMF.busy ? "disabled" : ""}><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9M13.5 2.5v3h-3"/></svg>Обновить</button></div>
     ${MMF.busy && !MMF.data ? `<p class="status-line"><i class="spin"></i>Загружаю цены фондов с Мосбиржи…</p>` : ""}${MMF.err ? `<p class="msg warn-m" style="margin:0">${esc(MMF.err)}</p>` : ""}
     <div class="tbl-wrap"><table class="lab-t mmf-t"><thead><tr><th>Фонд</th><th class="n">1 мес.</th><th class="n">3 мес.</th><th class="n">6 мес.</th><th class="n">1 год</th><th class="n"><span class="dotted" data-tip="Вознаграждение УК, депозитария и прочие расходы фонда, % в год. Уже вычтены из цены пая. Значение по данным УК — проверьте и поправьте при необходимости">Расходы фонда</span></th><th class="n">Цена пая</th><th></th></tr></thead><tbody>
-    ${rows.map((x, i) => { const r = v => v == null ? `<span class="faint">—</span>` : pct(v, 2); return `<tr><td><div class="asset-c"><span class="av sm" style="--ac:${(BROKERS[x.f.b] || BROKERS.other).c}">${esc(x.f.t.slice(0, 3))}</span><span class="mv-n" data-cp="${esc(x.f.t)}"><b>${esc(x.f.t)} · ${esc(x.f.n)}</b><small>${esc(x.f.uk || "")}${x.f.b && BROKERS[x.f.b] ? " · без комиссии в " + BROKERS[x.f.b].name : ""}</small></span></div></td>
+    ${rows.map((x, i) => { const since = x.px && x.px.length ? x.px[0][0] : null, r = v => v == null ? (x.px ? `<button class="link small" data-mmf-calc="${esc(x.f.t)}" data-tip="${esc(since ? "Загружено с " + fmtD(since) + ". Догрузить историю с Мосбиржи и посчитать" : "Загрузить историю с Мосбиржи")}">рассчитать</button>` : `<span class="faint">—</span>`) : pct(v, 2); return `<tr><td><div class="asset-c"><span class="av sm" style="--ac:${(BROKERS[x.f.b] || BROKERS.other).c}">${esc(x.f.t.slice(0, 3))}</span><span class="mv-n" data-cp="${esc(x.f.t)}"><b>${esc(x.f.t)} · ${esc(x.f.n)}</b><small>${esc(x.f.uk || "")}${x.f.b && BROKERS[x.f.b] ? " · без комиссии в " + BROKERS[x.f.b].name : ""}</small></span></div></td>
       <td class="n">${r(x.r1)}</td><td class="n">${r(x.r3)}</td><td class="n">${r(x.r6)}</td><td class="n"><b>${r(x.r12)}</b></td>
       <td class="n"><input class="mmf-in" type="text" inputmode="decimal" data-mmf-fee="${i}" value="${x.f.fee != null ? String(x.f.fee).replace(".", ",") : ""}" placeholder="?"> %</td>
       <td class="n">${x.px ? money(x.px[x.px.length - 1][1], 4) : "—"}</td><td>${i >= MMF_DEF.length ? `<button class="link" data-mmf-del="${i}" aria-label="Убрать">✕</button>` : ""}</td></tr>`; }).join("")}
@@ -4082,6 +4141,7 @@ function renderMmf(){
 }
 document.addEventListener("click", e => { const t = e.target; let b;
   if (t.closest("[data-mmf-reload]")){ loadMmf(true); return; }
+  const mc = t.closest("[data-mmf-calc]"); if (mc){ mmfCalcFull(mc.dataset.mmfCalc, mc); return; }
   if (t.closest("[data-mmf-addbtn]")){ const inp = $("[data-mmf-new]"), v = (inp && inp.value || "").trim().toUpperCase(); if (!/^[A-Z0-9]{2,12}$/.test(v) || S.mmf.funds.some(f => f.t === v)) return;
     S.mmf.funds.push({ t: v, n: v, uk: "", b: "", fee: null }); saveMmf(); loadMmf(false); return; }
   if ((b = t.closest("[data-mmf-del]"))){ S.mmf.funds.splice(+b.dataset.mmfDel, 1); saveMmf(); render(); return; }
@@ -4185,6 +4245,7 @@ function renderCpnCal(D){
   if (ready && weak.length){
     for (const r of T.data){
       if (r.anomal || r.faceUnit !== "RUB" || !(r.ytm > 0) || held.has(r.isin) || !r.freq || !r.nextCpn) continue;
+      if (S.stop.excl && stopReason(r.isin, r.name, r.price)) continue;
       const e = em(r.isin); if (!e) continue; const rk = ratingRank(e.r); if (minRank != null && (rk == null || rk > minRank)) continue;
       if (P.noQual && e.q) continue; if (P.noRisk && e.hr) continue; if (P.ct === "F" && e.ct !== "F") continue; if (P.ct === "I" && e.ct !== "I") continue;
       const near = r.offer || r.mat, yrs = yearsTo(near); if (yrs == null || yrs < 1 || yrs > (+P.maxT || 50)) continue; // must pay through the year
@@ -4230,6 +4291,502 @@ function renderCpnCal(D){
 document.addEventListener("change", e => { const f = e.target.closest && e.target.closest("[data-cc]"); if (!f) return; const k = f.dataset.cc;
   if (k === "target"){ const v = num(f.value); S.cc.target = f.value.trim() && isFinite(v) && v >= 0 ? v : null; }
   else S.cc[k] = f.type === "checkbox" ? f.checked : f.value; saveCc(); render(); });
+
+
+
+/* ======================= tools: «Как зарплата» — bonds that pay every month ======================= */
+const SAL_DEF = { mode: "income", income: 10000, budget: 500000, ofz: true, corp: true, muni: false, minR: "A-", tmin: 1, tmax: 3, ct: "any", freq: "any", minVol: 1, n: 8, noQual: true, noRisk: true, tax: true, maxSh: "", alloc: "even", ex: [], ov: {}, inc: [], allSort: "y", allN: 30, allOpen: false, preset: "", open: "", saved: [] };
+S.sal = Object.assign({}, SAL_DEF, store.get("pf.sal.v1", {}));
+const saveSal = () => store.set("pf.sal.v1", S.sal);
+const SAL_PRESETS = [
+  { id: "safe", n: "Надёжная", d: "ОФЗ и рейтинг от AA-, фиксированный купон, 1–3 года", p: { ofz: true, corp: true, muni: true, minR: "AA-", tmin: 1, tmax: 3, ct: "F", freq: "any", noRisk: true, noQual: true } },
+  { id: "ofz", n: "Только ОФЗ", d: "государственные облигации, 1–7 лет", p: { ofz: true, corp: false, muni: false, minR: "any", tmin: 1, tmax: 7, ct: "any", freq: "any" } },
+  { id: "bal", n: "Сбалансированная", d: "ОФЗ и корпоративные от A-, 1–3 года", p: { ofz: true, corp: true, muni: true, minR: "A-", tmin: 1, tmax: 3, ct: "any", freq: "any", noRisk: true, noQual: true } },
+  { id: "monthly", n: "Ежемесячный купон", d: "только бумаги с выплатой каждый месяц, от A-", p: { ofz: false, corp: true, muni: true, minR: "A-", tmin: 1, tmax: 5, ct: "any", freq: "12", noRisk: true, noQual: true } },
+  { id: "high", n: "Доходная", d: "корпоративные от BBB-, 1–2 года, выше риск", p: { ofz: false, corp: true, muni: false, minR: "BBB-", tmin: 1, tmax: 2, ct: "any", freq: "any", noRisk: true, noQual: true } },
+  { id: "float", n: "Флоатеры", d: "плавающий купон от ключевой ставки, от A-", p: { ofz: true, corp: true, muni: false, minR: "A-", tmin: 1, tmax: 5, ct: "I", freq: "any", noRisk: true, noQual: true } },
+];
+function salMonths(){
+  const now = new Date(), out = [];
+  for (let i = 0; i < 12; i++){ const d = new Date(now.getFullYear(), now.getMonth() + i, 1); out.push({ key: d.getFullYear() + "-" + pad(d.getMonth() + 1), label: MON_SHORT[d.getMonth()] + (d.getMonth() === 0 || i === 0 ? " '" + String(d.getFullYear()).slice(2) : ""), sum: 0, items: [] }); }
+  return out;
+}
+const salRating = r => r.itype === "ofz" ? "AAA" : ((em(r.isin) || {}).r || (typeof ratInfo === "function" && (ratInfo(r.isin) || {}).overall) || "");
+/* coupon dates within the next 12 months, until the offer or maturity (after an offer the coupon is unknown) */
+function salPays(r, months){
+  const pay = new Array(12).fill(0); if (!r.nextCpn || !r.freq) return pay;
+  const idx = Object.fromEntries(months.map((m, i) => [m.key, i])), t = todayIso(), stop = [r.offer, r.mat].filter(Boolean).sort()[0] || r.mat;
+  const cpn = cpnRateNow(r.isin, r.cpnPct), per = cpn && r.face ? r.face * cpn / 100 / r.freq : 0; if (!per) return pay;
+  const step = 365 / r.freq; let d = r.nextCpn, i = 0;
+  while (d <= stop && i < 40){ if (d > t){ const k = idx[d.slice(0, 7)]; if (k != null) pay[k] += per; } i++; d = addDays(r.nextCpn, Math.round(step * i)); }
+  return pay;
+}
+function salCands(P, months){
+  const data = TOOL.bonds.data || [], minRank = P.minR === "any" ? null : ratingRank(P.minR), ex = new Set(P.ex || []), out = [];
+  for (const r of data){
+    if (r.faceUnit !== "RUB" || r.ccy !== "RUB" || !r.freq || !r.nextCpn || ex.has(r.isin)) continue;
+    if (!P[r.itype]) continue;
+    const e = em(r.isin) || {}, fl = e.ct === "I" || /RREFKEYR|RUONIA/.test(e.b || "");
+    if (P.ct === "F" && fl) continue; if (P.ct === "I" && !fl) continue;
+    if (P.freq === "12" && r.freq < 12) continue;
+    if (P.noQual && e.q) continue; if (P.noRisk && e.hr) continue;
+    const near = [r.offer, r.mat].filter(Boolean).sort()[0], yrs = yearsTo(near); if (yrs == null || yrs < (+P.tmin || 0) || yrs > (+P.tmax || 50)) continue;
+    const rt = salRating(r), rk = ratingRank(rt); if (minRank != null && (rk == null || rk > minRank)) continue;
+    if ((r.vol || 0) < (+P.minVol || 0) * 1e6) continue;
+    if (!(r.price >= 50)) continue;
+    let y = r.ytm > 0 && r.ytm <= 40 ? r.ytm : null; if (!y && fl && r.cy > 0 && r.cy < 40) y = r.cy; if (!y) continue;
+    if (S.stop && S.stop.excl && typeof stopReason === "function" && stopReason(r.isin, r.name, r.price)) continue;
+    const pay = salPays(r, months), paid = pay.filter(v => v > 0).length; if (!paid) continue;
+    const unit = r.price / 100 * r.face + (r.nkd || 0); if (!(unit > 0)) continue;
+    out.push({ r, e, rt, y, fl, near, yrs, pay, paid, unit, iss: r.itype === "ofz" ? r.isin : (e.inn || e.e || r.name) });
+  }
+  return out;
+}
+/* choose N bonds that together cover every month, best yield first; then split money so months come out even */
+function salRun(P){
+  const months = salMonths(), all = salCands(P, months), N = Math.max(1, Math.min(60, Math.round(+P.n) || 8)), net = P.tax ? 0.87 : 1;
+  const res = { months, cands: all.length, items: [], gaps: [], N };
+  if (!all.length) return res;
+  all.sort((a, b) => b.y - a.y || (b.r.vol || 0) - (a.r.vol || 0));
+  const pool = all.slice(0, 400), cov = new Array(12).fill(0), used = new Set(), pick = [];
+  res.all = all;
+  /* bonds the user added by hand go first */
+  for (const isin of P.inc || []){ const c = all.find(x => x.r.isin === isin); if (!c || pick.includes(c)) continue; c.forced = true; pick.push(c); used.add(c.iss); c.pay.forEach((v, m) => { if (v > 0) cov[m]++; }); }
+  while (pick.length < N){
+    let best = null, bs = -1;
+    for (const c of pool){ if (used.has(c.iss) || pick.includes(c)) continue;
+      let g = 0; c.pay.forEach((v, m) => { if (v > 0) g += 1 / Math.pow(1 + cov[m], 2); });
+      const s = g + 0.06 * c.y; if (s > bs){ bs = s; best = c; } }
+    if (!best) break; pick.push(best); used.add(best.iss); best.pay.forEach((v, m) => { if (v > 0) cov[m]++; });
+  }
+  res.gaps = months.filter((m, i) => !cov[i]).map(m => m.label);
+  /* allocation */
+  const budget = P.mode === "budget" ? Math.max(0, +P.budget || 0) : Infinity, goal = P.mode === "income" ? Math.max(0, +P.income || 0) / net : null;
+  const capKey = c => c.r.itype === "ofz" ? "ofz" : c.iss, userCap = +P.maxSh > 0 ? Math.min(100, +P.maxSh) / 100 : null;
+  const cap = userCap || Math.max(0.18, 2.2 / Math.max(1, pick.length));
+  const run = (capAbs, floorAbs) => {
+    const qty = new Map(pick.map(c => [c, 0])), inc = new Array(12).fill(0), byIss = new Map(); let spent = 0;
+    const add = (c, k) => { qty.set(c, qty.get(c) + k); spent += c.unit * k; byIss.set(capKey(c), (byIss.get(capKey(c)) || 0) + c.unit * k); c.pay.forEach((v, m) => { inc[m] += v * k; }); };
+    const room = c => Math.floor((Math.min(budget - spent, capAbs - (byIss.get(capKey(c)) || 0))) / c.unit);
+    const short = () => goal != null && inc.some((v, m) => cov[m] && v < goal - 0.5);
+    if (P.alloc === "equal"){
+      /* the same amount in every bond */
+      let per; if (goal != null){ const rate = Math.min(...months.map((_, m) => cov[m] ? pick.reduce((s, c) => s + c.pay[m] / c.unit, 0) : Infinity)); per = isFinite(rate) && rate > 0 ? goal / rate : 0; }
+      else per = budget / pick.length;
+      for (const c of pick){ const k = Math.min(goal != null ? Math.ceil(per / c.unit) : Math.floor(per / c.unit), room(c)); if (k > 0) add(c, k); }
+      for (let it = 0; it < 5000; it++){ if (goal != null && !short()) break;
+        const c = pick.filter(c => room(c) >= 1 && (goal == null || c.pay.some((v, m) => v > 0 && inc[m] < goal - 0.5))).sort((a, b) => qty.get(a) * a.unit - qty.get(b) * b.unit)[0]; if (!c) break; add(c, 1); }
+    } else {
+      /* even income: first a base amount in every bond (so none ends up with a token sum), then one bond at a time where it helps the weakest months most per rouble */
+      if (floorAbs > 0) for (const c of pick){ const k = Math.min(Math.floor(floorAbs / c.unit), room(c)); if (k > 0) add(c, k); }
+      const scale = goal || (budget / 12 * 0.15) || 1000;
+      for (let it = 0; it < 60000; it++){
+        let best = null, bs = 0;
+        for (const c of pick){ if (room(c) < 1) continue; let s = 0;
+          if (goal != null){ c.pay.forEach((v, m) => { if (v > 0) s += Math.min(v, Math.max(0, goal - inc[m])); }); s = s / c.unit * (1 + c.y / 100); }
+          else { c.pay.forEach((v, m) => { if (v > 0) s += v / Math.pow(1 + inc[m] / scale, 2); }); s /= c.unit; }
+          if (s > bs){ bs = s; best = c; } }
+        if (!best) break;
+        let k; if (goal != null){ const r = Math.min(...best.pay.map((v, m) => v > 0 ? Math.max(0, goal - inc[m]) / v : Infinity)); k = isFinite(r) ? Math.max(1, Math.floor(r / 3)) : 1; }
+        else k = Math.max(1, Math.floor((budget - spent) / best.unit / 40));
+        add(best, Math.max(1, Math.min(k, room(best))));
+      }
+    }
+    return { qty, spent, short: short() };
+  };
+  /* the cap is a share of the final sum: for a monthly-income goal the sum is not known up front, so refine it a few times */
+  const fl = Math.min(0.5 / pick.length, cap * 0.8);
+  let capAbs = budget < Infinity ? cap * budget : Infinity, A = run(Infinity, 0);
+  if (budget === Infinity){ for (let i = 0; i < 5; i++){ const T0 = A.spent, nx = run(cap * T0 * 1.02, fl * T0); const changed = Math.abs(nx.spent - T0) > T0 * 0.01; capAbs = cap * T0 * 1.02; A = nx; if (!changed) break; }
+    if (A.short && !userCap){ A = run(Infinity, fl * A.spent); capAbs = Infinity; } }
+  else A = run(capAbs, fl * budget);
+  const qty = A.qty; res.capHit = !!(userCap && (A.short || (budget < Infinity && budget - A.spent > Math.min(...pick.map(c => c.unit)))));
+  res.left = budget < Infinity ? budget - A.spent : 0; res.cap = cap; res.userCap = !!userCap;
+  for (const c of pick){ const q0 = qty.get(c), ov = P.ov && P.ov[c.r.isin]; c.auto = q0; c.qty = ov != null ? Math.max(0, +ov || 0) : q0; }
+  res.items = pick.filter(c => c.qty > 0 || c.forced || (P.ov && P.ov[c.r.isin] != null));
+  return res;
+}
+/* every bond that passed the filters, with a way to put any of them into the selection */
+function salAllPanel(res, months, net){
+  const P = S.sal, inSel = new Set(res.items.map(c => c.r.isin)), srt = P.allSort || "y", lim = P.allN || 30;
+  const key = { y: c => -c.y, t: c => c.yrs, m: c => -c.paid, c: c => -(cpnRateNow(c.r.isin, c.r.cpnPct) || 0), v: c => -(c.r.vol || 0), r: c => { const k = ratingRank(c.rt); return k == null ? 99 : k; } }[srt] || (c => -c.y);
+  const list = [...res.all].sort((a, b) => key(a) - key(b) || b.y - a.y), show = list.slice(0, lim);
+  const typeName = r => r.itype === "ofz" ? "ОФЗ" : r.itype === "muni" ? "муницип." : "корпорат.";
+  return `<div class="panel lab-p"><details class="more" ${P.allOpen ? "open" : ""} data-salall><summary>Все подходящие облигации (${list.length})</summary>
+    <div class="sal-allbar"><label class="fld"><span>Сортировать</span><select data-sal="allSort">${[["y", "По доходности"], ["c", "По купону"], ["t", "По сроку"], ["m", "По числу выплат в году"], ["r", "По рейтингу"], ["v", "По обороту"]].map(([v, n]) => `<option value="${v}" ${srt === v ? "selected" : ""}>${n}</option>`).join("")}</select></label>
+      <p class="small muted" style="margin:0">«В подборку» — бумага попадёт в подборку обязательно, остальные места подберутся под неё. Сейчас в подборке ${res.items.length} из ${list.length}.</p></div>
+    <div class="tbl-wrap"><table class="lab-t sal-t"><thead><tr><th>Облигация</th><th>Рейтинг</th><th>Месяцы выплат</th><th class="n">Доходность</th><th class="n">Купон</th><th class="n">Срок</th><th class="n">Цена 1 шт.</th><th class="n">Оборот</th><th></th></tr></thead><tbody>
+    ${show.map(c => { const on = inSel.has(c.r.isin), forced = (P.inc || []).includes(c.r.isin);
+      return `<tr class="${on ? "pk-on" : ""}"><td><div class="asset-c"><button type="button" class="av sm" style="--ac:${(RGROUPS[ratingGroup(c.rt)] || RGROUPS.none).c}" data-card="${esc(c.r.isin)}" data-card-sec="${esc(c.r.secid)}" data-tip="Карточка бумаги">${esc(String(c.r.short).replace(/[^A-Za-zА-Яа-яЁё0-9]/g, "").slice(0, 3).toUpperCase())}</button><span class="mv-n"${cpA(c.r.isin, c.r.secid)}><b>${esc(c.r.short)}</b><small>${esc(typeName(c.r))}${c.e.e && c.r.itype !== "ofz" ? " · " + esc(c.e.e) : ""}</small></span></div></td>
+      <td>${c.r.itype === "ofz" ? `<span class="rchip" style="--rc:var(--c-div)">ОФЗ</span>` : ratingChip(c.rt)}</td>
+      <td><div class="cc-m">${months.map((m, i) => `<i class="${c.pay[i] > 0 ? "on" : ""}" data-tip="${esc(m.label)}${c.pay[i] > 0 ? " — " + money(c.pay[i] * net, 2) + " на 1 шт." : ""}">${m.label.slice(0, 1).toUpperCase()}</i>`).join("")}</div></td>
+      <td class="n"><b>${pct(c.y, 2)}</b>${c.fl ? ' <small class="faint">флоатер</small>' : ""}</td><td class="n">${pct(cpnRateNow(c.r.isin, c.r.cpnPct) || 0, 2)} <small class="faint">· ${c.r.freq} р/г</small></td>
+      <td class="n nowrap">${fmtD(c.near)} <small class="faint">${c.r.offer ? "оферта" : ""} ${c.yrs.toLocaleString("ru-RU", { maximumFractionDigits: 1 })} г</small></td><td class="n">${money(c.unit)}</td><td class="n">${c.r.vol ? shortMoney(c.r.vol) : "—"}</td>
+      <td>${forced ? `<button class="btn ghost small" data-salinc="${esc(c.r.isin)}" data-tip="Убрать из обязательных">Убрать</button>` : on ? `<span class="small pos nowrap">в подборке</span>` : `<button class="btn ghost small" data-salinc="${esc(c.r.isin)}">В подборку</button>`}</td></tr>`; }).join("")}</tbody></table></div>
+    ${list.length > lim ? `<div style="text-align:center"><button class="btn ghost" data-salmore>Показать ещё ${Math.min(30, list.length - lim)} из ${list.length - lim}</button></div>` : ""}
+  </details></div>`;
+}
+/* totals for a list of {c, qty} */
+function salTotals(items, months, net){
+  const ms = months.map(m => ({ ...m, sum: 0, items: [] })); let cost = 0, yw = 0;
+  for (const c of items){ if (!c.qty) continue; cost += c.unit * c.qty; yw += c.y * c.unit * c.qty; c.pay.forEach((v, m) => { if (v > 0){ ms[m].sum += v * c.qty * net; ms[m].items.push({ n: c.r.short, v: v * c.qty * net }); } }); }
+  const year = ms.reduce((s, m) => s + m.sum, 0), min = Math.min(...ms.map(m => m.sum));
+  return { ms, cost, year, avg: year / 12, min, minM: ms.find(m => m.sum === min), y: cost ? yw / cost : 0, paidM: ms.filter(m => m.sum > 0.5).length };
+}
+/* saved selections: recompute with today's prices */
+function salOpenSaved(sv, months){
+  const data = TOOL.bonds.data || [], items = [], lost = [];
+  for (const it of sv.items){ const r = data.find(x => x.isin === it.isin); if (!r){ lost.push(it.short || it.isin); continue; }
+    const e = em(r.isin) || {}, near = [r.offer, r.mat].filter(Boolean).sort()[0];
+    items.push({ r, e, rt: salRating(r), y: r.ytm > 0 && r.ytm <= 40 ? r.ytm : (r.cy || 0), fl: e.ct === "I", near, yrs: yearsTo(near), pay: salPays(r, months), unit: r.price / 100 * r.face + (r.nkd || 0), qty: +it.qty || 0, iss: e.e || "" }); }
+  return { items, lost };
+}
+function salChart(T, goalNet){
+  const host = $("#v-salary"), W = Math.max(320, Math.min(1100, ((host && host.clientWidth) || (document.querySelector("main") || document.body).clientWidth || 960) - 40)), Hh = 230, pL = 52, pT = 12, pB = 26;
+  const ref = goalNet || T.avg, mx = Math.max(1, ref, ...T.ms.map(m => m.sum)) * 1.08, st = niceStep(mx / 4), top = Math.ceil(mx / st) * st, cw = (W - pL) / 12, bw = Math.min(44, cw * 0.62), Y = v => pT + (1 - v / top) * (Hh - pT - pB);
+  let g = ""; for (let v = 0; v <= top + st / 2; v += st) g += `<line class="gl" x1="${pL}" x2="${W}" y1="${Y(v)}" y2="${Y(v)}" ${v ? 'stroke-dasharray="3 4"' : ""}/><text x="${pL - 6}" y="${Y(v) + 4}" text-anchor="end">${fmtAxis(v)}</text>`;
+  T.ms.forEach((m, i) => { const cx = pL + cw * i + cw / 2, low = goalNet ? m.sum < goalNet * 0.97 : m.sum < T.avg * 0.6;
+    g += `<rect x="${cx - bw / 2}" y="${Y(m.sum)}" width="${bw}" height="${Math.max(0.5, Y(0) - Y(m.sum))}" rx="3" fill="${low ? "var(--warn)" : "var(--c-coupon)"}"/>`;
+    const tip = [`${m.label}: ${money(m.sum)}`, ...m.items.sort((a, b) => b.v - a.v).slice(0, 8).map(x => `· ${x.n}: ${money(x.v)}`)].join("\n");
+    g += `<rect x="${pL + cw * i}" y="${pT}" width="${cw}" height="${Hh - pT - pB}" fill="transparent" data-tip="${esc(tip)}"/><text x="${cx}" y="${Hh - 8}" text-anchor="middle">${cw < 40 ? m.label.slice(0, 1).toUpperCase() : m.label}</text>`; });
+  g += `<line x1="${pL}" x2="${W}" y1="${Y(ref)}" y2="${Y(ref)}" style="stroke:var(--fg);stroke-dasharray:6 4;opacity:.6"/><text x="${W - 4}" y="${Y(ref) - 5}" text-anchor="end" style="font-weight:600">${goalNet ? "цель" : "в среднем"} ${fmtAxis(ref)}</text>`;
+  return `<div class="chart-wrap"><svg class="chart" viewBox="0 0 ${W} ${Hh}">${g}</svg></div>`;
+}
+function renderSalary(){
+  const el = $("#v-salary"), P = S.sal, T = TOOL.bonds;
+  if (!T.data && !T.busy && !T.restoreTried) scrRestore("bonds");
+  if (!EMIS.map && !EMIS.busy && !EMIS.tried){ EMIS.tried = true; setTimeout(() => loadEmissions(false), 0); }
+  const ready = T.data && EMIS.map, net = P.tax ? 0.87 : 1, sv = P.open && P.saved.find(x => x.id === P.open);
+  let res = null, items = [], lost = [], months = salMonths();
+  if (ready){ if (sv){ const o = salOpenSaved(sv, months); items = o.items; lost = o.lost; } else { res = salRun(P); items = res.items; months = res.months; } }
+  const Tt = ready ? salTotals(items, months, net) : null, goalNet = !sv && P.mode === "income" ? +P.income || 0 : null;
+  const sel = (k, opts) => `<select data-sal="${k}">${opts.map(([v, n]) => `<option value="${v}" ${String(P[k]) === String(v) ? "selected" : ""}>${n}</option>`).join("")}</select>`;
+  const chk = (k, n) => `<label class="chk"><input type="checkbox" data-sal="${k}" ${P[k] ? "checked" : ""}> ${n}</label>`;
+  const inp = (k, ph, w) => `<input type="text" inputmode="decimal" data-sal="${k}" value="${esc(String(P[k] ?? ""))}" placeholder="${ph}" style="width:${w || 80}px">`;
+  const upd = `<span class="scr-upd small muted">${T.at ? "Данные на " + new Date(T.at).toLocaleString("ru-RU", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }) : ""}</span><button class="btn ghost scr-reload" data-sreload="bonds" ${T.busy ? "disabled" : ""}>Обновить</button>`;
+  const typeName = r => r.itype === "ofz" ? "ОФЗ" : r.itype === "muni" ? "муницип." : "корпорат.";
+  const rows = items.map(c => `<tr class="${c.qty ? "" : "sal-off"}"><td><div class="asset-c"><button type="button" class="av sm" style="--ac:${(RGROUPS[ratingGroup(c.rt)] || RGROUPS.none).c}" data-card="${esc(c.r.isin)}" data-card-sec="${esc(c.r.secid)}" data-tip="Карточка бумаги">${esc(String(c.r.short).replace(/[^A-Za-zА-Яа-яЁё0-9]/g, "").slice(0, 3).toUpperCase())}</button><span class="mv-n"${cpA(c.r.isin, c.r.secid)}><b>${esc(c.r.short)}</b><small>${esc(typeName(c.r))} · до ${fmtD(c.near)}${c.r.offer ? " (оферта)" : ""}</small></span></div></td>
+      <td>${c.r.itype === "ofz" ? `<span class="rchip" style="--rc:var(--c-div)">ОФЗ</span>` : ratingChip(c.rt)}</td>
+      <td><div class="cc-m">${months.map((m, i) => `<i class="${c.pay[i] > 0 ? "on" : ""}" data-tip="${esc(m.label)}${c.pay[i] > 0 ? " — " + money(c.pay[i] * net, 2) + " на 1 шт." : ""}">${m.label.slice(0, 1).toUpperCase()}</i>`).join("")}</div></td>
+      <td class="n"><b>${pct(c.y, 2)}</b>${c.fl ? ' <small class="faint">флоатер</small>' : ""}</td>
+      <td class="n">${pct(cpnRateNow(c.r.isin, c.r.cpnPct) || 0, 2)} <small class="faint">· ${c.r.freq} р/г</small></td>
+      <td class="n"><input type="text" inputmode="numeric" class="sal-q" data-salq="${esc(c.r.isin)}" value="${c.qty}"${sv ? ` data-salsv="${esc(sv.id)}"` : ""}><small class="faint"> шт.</small></td>
+      <td class="n">${money(c.unit * c.qty)}</td><td class="n">${money(c.pay.reduce((s, v) => s + v, 0) * c.qty * net)}</td>
+      <td class="nowrap"><button class="btn ghost small" data-sbuy="bonds|${esc(c.r.isin)}" data-tip="Записать покупку в портфель">Купить</button>${sv ? "" : `<button class="link" data-salx="${esc(c.r.isin)}" data-tip="Убрать из подбора и найти замену" aria-label="Убрать">✕</button>`}</td></tr>`).join("");
+  const kpi = Tt ? `<div class="lab-kpi">
+      <div><span>Вложить</span><b>${money(Tt.cost)}</b><small>${items.filter(c => c.qty).length} ${plural(items.filter(c => c.qty).length, "бумага", "бумаги", "бумаг")} · цена + НКД</small></div>
+      <div><span>В месяц в среднем</span><b class="pos">${money(Tt.avg)}</b><small>${P.tax ? "после НДФЛ 13%" : "до НДФЛ"}</small></div>
+      <div><span>Самый слабый месяц</span><b class="${Tt.min < (goalNet || Tt.avg) * 0.6 ? "warn-t" : ""}">${money(Tt.min)}</b><small>${Tt.minM ? esc(Tt.minM.label) : ""}</small></div>
+      <div><span>Месяцев с выплатой</span><b class="${Tt.paidM < 12 ? "warn-t" : "pos"}">${Tt.paidM} из 12</b><small>доходность ${pct(Tt.y, 2)} взвешенно</small></div></div>` : "";
+  el.innerHTML = `<div class="view-bar"><div><h1>Как зарплата</h1><span class="sub">облигации, которые вместе платят купоны каждый месяц</span></div></div>
+  <div class="panel lab-p"><div class="panel-head"><h2>Готовые подборки</h2><span class="hinfo" data-tip="Нажмите на подборку — подставятся фильтры. Дальше их можно менять." tabindex="0">?</span></div>
+    <div class="sal-pre">${SAL_PRESETS.map(x => `<button type="button" class="sal-p ${P.preset === x.id && !sv ? "on" : ""}" data-salp="${x.id}"><b>${esc(x.n)}</b><small>${esc(x.d)}</small></button>`).join("")}</div>
+    ${P.saved.length ? `<h3 class="lab-h3" style="margin-top:6px">Мои подборки</h3><div class="sal-sv">${P.saved.map(x => `<div class="${P.open === x.id ? "on" : ""}"><button type="button" class="link" data-salo="${esc(x.id)}"><b>${esc(x.name)}</b></button><small>${fmtD(x.at)} · ${x.items.length} ${plural(x.items.length, "бумага", "бумаги", "бумаг")} · ${money(x.cost)} → ${money(x.avg)}/мес</small><button type="button" class="link" data-saldel="${esc(x.id)}" aria-label="Удалить подборку" data-tip="Удалить">✕</button></div>`).join("")}</div>` : ""}
+  </div>
+  ${sv ? `<div class="panel lab-p sal-open"><div class="panel-head"><h2>Подборка «${esc(sv.name)}»</h2><span class="sub">сохранена ${fmtD(sv.at)} · пересчитана по сегодняшним ценам</span><span class="spacer"></span><button class="btn" data-salback>← К подбору</button></div>
+      ${lost.length ? `<p class="small warn-t" style="margin:0">Больше не торгуются или погашены: ${esc(lost.join(", "))}.</p>` : ""}</div>`
+  : `<div class="panel lab-p"><div class="panel-head"><h2>Условия</h2>${P.ex.length || (P.inc || []).length || Object.keys(P.ov || {}).length ? `<span class="spacer"></span><button class="link" data-salreset>сбросить ручные правки (${P.ex.length + (P.inc || []).length + Object.keys(P.ov || {}).length})</button>` : ""}</div>
+    <div class="seg sal-mode" role="group"><button type="button" aria-pressed="${P.mode === "income"}" data-salm="income">Хочу получать в месяц</button><button type="button" aria-pressed="${P.mode === "budget"}" data-salm="budget">Есть сумма</button></div>
+    <div class="pk-f">
+      ${P.mode === "income" ? `<label class="fld"><span>Купоны в месяц, ₽ ${P.tax ? "(после налога)" : ""}</span>${inp("income", "10000", 120)}</label>` : `<label class="fld"><span>Сумма к вложению, ₽</span>${inp("budget", "500000", 120)}</label>`}
+      <label class="fld"><span>Рейтинг не ниже</span>${sel("minR", [["AAA", "AAA"], ["AA-", "AA-"], ["A-", "A-"], ["BBB-", "BBB-"], ["BB-", "BB-"], ["any", "Любой"]])}</label>
+      <label class="fld"><span>Срок от, лет</span>${inp("tmin", "1", 70)}</label>
+      <label class="fld"><span>Срок до, лет</span>${inp("tmax", "3", 70)}</label>
+      <label class="fld"><span>Купон</span>${sel("ct", [["any", "Любой"], ["F", "Фиксированный"], ["I", "Плавающий"]])}</label>
+      <label class="fld"><span>Частота выплат</span>${sel("freq", [["any", "Любая"], ["12", "Только ежемесячно"]])}</label>
+      <label class="fld"><span>Бумаг в подборке</span>${inp("n", "8", 70)}</label>
+      <label class="fld"><span>Доля на эмитента не больше, %</span>${inp("maxSh", "авто", 80)}</label>
+      <label class="fld"><span>Распределять деньги</span>${sel("alloc", [["even", "Чтобы доход был ровным"], ["equal", "Поровну между бумагами"]])}</label>
+      <label class="fld"><span>Оборот за день от, млн ₽</span>${inp("minVol", "1", 80)}</label>
+    </div>
+    <div class="pk-c">${chk("ofz", "ОФЗ")}${chk("corp", "Корпоративные")}${chk("muni", "Муниципальные")}</div>
+    <div class="pk-c">${chk("noQual", "Без бумаг для квалов")}${chk("noRisk", "Без высокого риска")}${chk("tax", "Считать после НДФЛ 13%")}</div>
+    <p class="small muted" style="margin:0">Срок — до ближайшей оферты или погашения. Доля на эмитента — от всей суммы подборки (все ОФЗ считаются одним эмитентом, Минфином); «авто» — около ${pct(Math.max(18, 220 / Math.max(1, +P.n || 8)), 0)}. Из каждого эмитента — одна бумага${S.stop && S.stop.excl ? ", эмитенты из стоп-листа исключены" : ""}.</p>
+  </div>`}
+  <div class="panel lab-p"><div class="panel-head"><h2>${sv ? "Выплаты по месяцам" : "Подборка"}</h2>${res ? `<span class="sub">подходит ${res.cands} ${plural(res.cands, "бумага", "бумаги", "бумаг")}</span>` : ""}<span class="spacer"></span>${upd}</div>
+    ${!ready ? `<div class="empty">${T.busy || EMIS.busy ? `<i class="spin"></i> Загружаю облигации и рейтинги Мосбиржи…` : `<b>Нет данных скринера</b><span>Нажмите «Обновить», чтобы загрузить облигации Мосбиржи.</span>`}</div>`
+    : !items.length ? `<div class="empty"><b>${sv ? "В подборке не осталось бумаг" : "Ничего не подошло"}</b><span>${sv ? "Все бумаги погашены или не торгуются." : P.mode === "budget" && !(+P.budget > 0) ? "Укажите сумму." : "Ослабьте условия: рейтинг, срок, тип бумаг или оборот."}</span></div>`
+    : `${kpi}${res && res.capHit ? `<p class="small warn-t" style="margin:0">${P.mode === "budget" ? `Не вложено ${money(res.left)}: ` : "Цель выполнена не во всех месяцах: "}мешает ограничение доли на эмитента ${pct(res.cap * 100, 0)}. Увеличьте долю или число бумаг.</p>` : res && P.mode === "budget" && res.left >= 2000 ? `<p class="small muted" style="margin:0">Остаток ${money(res.left)} — меньше цены ещё одной подходящей бумаги или упирается в долю на эмитента.</p>` : ""}${res && res.gaps.length ? `<p class="small warn-t" style="margin:0">Нет выплат в: ${esc(res.gaps.join(", "))}. Под эти условия нет бумаг с купоном в эти месяцы — увеличьте число бумаг или ослабьте фильтры.</p>` : ""}
+      ${salChart(Tt, goalNet)}
+      <div class="tbl-wrap"><table class="lab-t sal-t"><thead><tr><th>Облигация</th><th>Рейтинг</th><th>Месяцы выплат</th><th class="n">Доходность</th><th class="n">Купон</th><th class="n">Кол-во</th><th class="n">Сумма</th><th class="n">Купоны за год</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>
+      <div class="sal-act">${sv ? `<button class="btn" data-salupd="${esc(sv.id)}">Сохранить изменения</button>` : `<input type="text" id="salName" placeholder="Название подборки" maxlength="60" value="${esc(P.preset ? (SAL_PRESETS.find(x => x.id === P.preset) || {}).n || "" : "")}"><button class="btn primary" data-salsave>Сохранить подборку</button>`}<button class="btn ghost" data-salcopy>Скопировать список</button></div>
+      <p class="note">Купоны посчитаны по дате следующей выплаты и частоте из данных Мосбиржи, по текущей ставке купона (у флоатеров — по ключевой ставке сейчас), до ближайшей оферты или погашения. Амортизация не учитывается: у бумаг с амортизацией купоны со временем уменьшаются — проверьте в карточке. Кол-во можно поправить вручную. Это расчёт по фильтрам, а не инвестиционная рекомендация.</p>`}
+  </div>
+  ${res && res.all && res.all.length ? salAllPanel(res, months, net) : ""}`;
+  salRun.last = { items, Tt, months };
+}
+document.addEventListener("toggle", e => { if (e.target.matches && e.target.matches("[data-salall]")){ S.sal.allOpen = e.target.open; if (!e.target.open) S.sal.allN = 30; saveSal(); } }, true);
+document.addEventListener("change", e => { const f = e.target.closest && e.target.closest("[data-sal],[data-salq]"); if (!f) return;
+  if (f.dataset.salq){ const v = Math.max(0, Math.round(num(f.value) || 0));
+    if (f.dataset.salsv){ const sv = S.sal.saved.find(x => x.id === f.dataset.salsv); const it = sv && sv.items.find(x => x.isin === f.dataset.salq); if (it) it.qty = v; }
+    else { S.sal.ov = S.sal.ov || {}; S.sal.ov[f.dataset.salq] = v; }
+    saveSal(); render(); return; }
+  const k = f.dataset.sal;
+  if (k === "n"){ const v = Math.round(num(f.value)); S.sal.n = isFinite(v) && v >= 1 ? Math.min(60, v) : 8; }
+  else if (k === "maxSh"){ const v = num(f.value); S.sal.maxSh = f.value.trim() && isFinite(v) && v > 0 ? Math.min(100, v) : ""; }
+  else if (["income", "budget", "tmin", "tmax", "minVol"].includes(k)){ const v = num(f.value); S.sal[k] = f.value.trim() && isFinite(v) && v >= 0 ? v : SAL_DEF[k]; }
+  else S.sal[k] = f.type === "checkbox" ? f.checked : f.value;
+  if (k === "allSort"){ S.sal.allOpen = true; saveSal(); render(); return; }
+  if (k !== "tax") S.sal.ov = {};
+  S.sal.preset = ""; saveSal(); render(); });
+document.addEventListener("click", e => { const t = e.target; let b;
+  if (!t.closest || !t.closest("#v-salary")) return;
+  if ((b = t.closest("[data-salp]"))){ const x = SAL_PRESETS.find(p => p.id === b.dataset.salp); Object.assign(S.sal, x.p, { preset: x.id, open: "", ov: {} }); saveSal(); render(); return; }
+  if ((b = t.closest("[data-salm]"))){ S.sal.mode = b.dataset.salm; S.sal.ov = {}; saveSal(); render(); return; }
+  if ((b = t.closest("[data-salx]"))){ S.sal.inc = (S.sal.inc || []).filter(x => x !== b.dataset.salx); S.sal.ex = [...new Set([...(S.sal.ex || []), b.dataset.salx])]; delete (S.sal.ov || {})[b.dataset.salx]; saveSal(); render(); return; }
+  if (t.closest("[data-salreset]")){ S.sal.ex = []; S.sal.ov = {}; S.sal.inc = []; saveSal(); render(); return; }
+  if ((b = t.closest("[data-salinc]"))){ const i = b.dataset.salinc, cur = S.sal.inc || []; S.sal.inc = cur.includes(i) ? cur.filter(x => x !== i) : [...cur, i]; S.sal.ex = (S.sal.ex || []).filter(x => x !== i); S.sal.ov = {}; S.sal.allOpen = true; saveSal(); render(); return; }
+  if (t.closest("[data-salmore]")){ S.sal.allN = (S.sal.allN || 30) + 30; S.sal.allOpen = true; saveSal(); render(); return; }
+  if (t.closest("[data-salback]")){ S.sal.open = ""; saveSal(); render(); return; }
+  if ((b = t.closest("[data-salo]"))){ S.sal.open = S.sal.open === b.dataset.salo ? "" : b.dataset.salo; saveSal(); render(); window.scrollTo({ top: 0, behavior: "smooth" }); return; }
+  if ((b = t.closest("[data-saldel]"))){ if (!b.classList.contains("confirm")){ b.classList.add("confirm"); b.textContent = "удалить?"; return; }
+    S.sal.saved = S.sal.saved.filter(x => x.id !== b.dataset.saldel); if (S.sal.open === b.dataset.saldel) S.sal.open = ""; saveSal(); render(); return; }
+  const L = salRun.last; if (!L) return;
+  const snap = () => ({ items: L.items.filter(c => c.qty).map(c => ({ isin: c.r.isin, secid: c.r.secid, short: c.r.short, qty: c.qty })), cost: Math.round(L.Tt.cost), avg: Math.round(L.Tt.avg) });
+  if (t.closest("[data-salsave]")){ const nm = (($("#salName") || {}).value || "").trim() || "Подборка от " + fmtD(todayIso());
+    const s = snap(); if (!s.items.length) return; S.sal.saved.unshift({ id: newSyncId().slice(0, 10), name: nm, at: todayIso(), ...s }); saveSal(); addMsg(`Подборка «${nm}» сохранена — она в «Мои подборки» вверху.`, "ok"); render(); return; }
+  if ((b = t.closest("[data-salupd]"))){ const sv = S.sal.saved.find(x => x.id === b.dataset.salupd); if (sv){ Object.assign(sv, snap(), { at: todayIso() }); saveSal(); addMsg("Подборка обновлена.", "ok"); render(); } return; }
+  if (t.closest("[data-salcopy]")){ const txt = L.items.filter(c => c.qty).map(c => `${c.r.secid}\t${c.r.short}\t${c.qty} шт.`).join("\n") + `\nИтого: ${money(L.Tt.cost)}, в среднем ${money(L.Tt.avg)} в месяц`;
+    copySync(txt) ? addMsg("Список скопирован.", "ok") : addMsg(txt, "ok"); return; }
+});
+
+
+/* ======================= Google helper (Apps Script): relay, storage, ratings, Telegram bot ======================= */
+S.gas = Object.assign({ url: "", key: "", tg: false, bot: "", chat: false, ver: 0, set: null }, store.get("pf.gas.v1", {}));
+const saveGas = () => { try { localStorage.setItem("pf.gas.v1", JSON.stringify(S.gas)); } catch {} }; // only this browser
+const TG_DEF = { cpn: false, offer: 7, amort: 3, mat: 7, rating: true, stop: true, drop: 3, week: true };
+async function gasCall(op, data = {}){
+  if (!S.gas.url) throw new Error("Помощник Google не подключён");
+  let r; try { r = await fetch(S.gas.url, { method: "POST", body: JSON.stringify({ op, key: S.gas.key, ...data }) }); }
+  catch { throw new Error("Помощник Google не отвечает. Проверьте адрес и интернет."); }
+  if (!r.ok) throw new Error("Помощник Google ответил ошибкой " + r.status);
+  let j; try { j = await r.json(); } catch { throw new Error("Помощник Google вернул не то: проверьте, что развёрнуто веб-приложение с доступом «Все»."); }
+  if (j.error) throw new Error(j.error); return j;
+}
+async function gasRelay(path, opts = {}){
+  const h = {}; for (const [k, v] of Object.entries(opts.headers || {})) h[k] = v;
+  const j = await gasCall("relay", { path, method: opts.method || "GET", headers: h, body: typeof opts.body === "string" ? opts.body : null });
+  const st = j.status >= 200 && j.status <= 599 ? j.status : 502;
+  return new Response([204, 304].includes(st) ? null : (j.body ?? ""), { status: st, headers: { "Content-Type": j.ctype || "application/json" } });
+}
+/* the page cannot reach these sites directly: go through the Google helper, else through the Cloudflare worker */
+function relay(path, opts = {}){
+  if (S.gas.url) return gasRelay(path, opts);
+  if (S.sync && S.sync.url) return fetch(S.sync.url.replace(/\/+$/, "") + path, opts);
+  return null;
+}
+const hasRelay = () => !!(S.gas.url || (S.sync && S.sync.url));
+const relayName = () => S.gas.url ? "помощник Google" : "ваш воркер";
+
+/* ---- ratings by agency (channel t.me/issuerRatings via the helper, seed from the «Карта облигаций» table) ---- */
+const RAT = Object.assign({ ev: [], last: 0, seed: {}, at: 0, ver: 1 }, store.get("pf.rat.v1", {}));
+const saveRat = () => { RAT.ver++; RAT.idx = null; try { store.set("pf.rat.v1", { ev: RAT.ev, last: RAT.last, seed: RAT.seed, at: RAT.at, ver: RAT.ver }); } catch {} };
+const AGS = ["Эксперт РА", "АКРА", "НКР", "НРА"], AG_SH = { "Эксперт РА": "ЭРА", "АКРА": "АКРА", "НКР": "НКР", "НРА": "НРА" };
+const ratClean = r => String(r || "").toUpperCase().replace(/^RU/, "").replace(/\.RU$|\(RU\)$/, "").trim();
+function ratIndex(){
+  if (RAT.idx && RAT.idx.emis === EMIS.at) return RAT.idx; const byInn = {}, byIsin = {};
+  for (const x of RAT.ev){ if (x.inn) (byInn[x.inn] || (byInn[x.inn] = [])).push(x); if (x.isin && /^RU/.test(x.isin)) (byIsin[x.isin] || (byIsin[x.isin] = [])).push(x); }
+  return (RAT.idx = { byInn, byIsin, memo: {}, emis: EMIS.at });
+}
+function ratInfo(isin){
+  if (!isin) return null; const I = ratIndex(); if (I.memo[isin] !== undefined) return I.memo[isin];
+  const e = em(isin), sd = RAT.seed[isin] || {}, inn = (e && e.inn) || sd.inn || "";
+  const ag = Object.assign({}, sd.ag || {}), out = {}, evs = [...(inn && I.byInn[inn] || []), ...(I.byIsin[isin] || [])].sort((a, b) => (a.d || "").localeCompare(b.d || "") || a.id - b.id);
+  let ch = sd.prev ? { p: sd.prev, r: null, d: sd.prevD || "", ag: "" } : null;
+  for (const x of evs){ if (!x.ag) continue; if (x.isin && /^RU/.test(x.isin) && x.isin !== isin) continue;
+    if (x.act === "отозван"){ delete ag[x.ag]; continue; }
+    const r = ratClean(x.r); if (r) ag[x.ag] = r; if (x.o) out[x.ag] = x.o;
+    if ((x.act === "понижен" || x.act === "повышен") && x.p) ch = { p: ratClean(x.p), r, d: x.d, ag: x.ag, act: x.act }; }
+  const overall = ag["Эксперт РА"] || ag["АКРА"] || ag["НКР"] || ag["НРА"] || "";
+  if (ch && !ch.r) ch.r = overall;
+  if (ch && ch.d && ch.d < addDays(todayIso(), -365)) ch = null;
+  if (ch && !ch.act){ const a = ratingRank(ch.p), b = ratingRank(ch.r); ch.act = a != null && b != null ? (b > a ? "понижен" : b < a ? "повышен" : "") : ""; if (!ch.act) ch = null; }
+  const res = Object.keys(ag).length || ch ? { ag, out, overall, ch, inn } : null;
+  I.memo[isin] = res; return res;
+}
+function ratAgHtml(isin){ const i = ratInfo(isin); if (!i || !Object.keys(i.ag).length) return dash;
+  return `<span class="ag-l">${AGS.filter(a => i.ag[a]).map(a => `<span class="ag" data-tip="${esc(a + ": " + i.ag[a] + (i.out[a] ? ", прогноз " + i.out[a] : ""))}"><small>${AG_SH[a]}</small>${esc(i.ag[a])}${i.out[a] && /негатив|пересмотр/.test(i.out[a]) ? "<i>!</i>" : ""}</span>`).join("")}</span>`; }
+function ratChHtml(isin){ const i = ratInfo(isin); if (!i || !i.ch) return dash; const c = i.ch, down = c.act === "понижен";
+  return `<span class="${down ? "neg" : "pos"} nowrap" data-tip="${esc(`${c.act} с ${c.p} до ${c.r}${c.ag ? " (" + c.ag + ")" : ""}${c.d ? ", " + fmtD(c.d) : ""}`)}">${down ? "↓" : "↑"} ${esc(c.p)} → ${esc(c.r)}${c.d ? ` <small class="faint">${fmtD(c.d).slice(0, 5)}</small>` : ""}</span>`; }
+async function gasRatings(refresh){
+  if (!S.gas.url || gasRatings.busy) return; gasRatings.busy = true;
+  try { const j = await gasCall("ratings", { since: RAT.last || 0, refresh: !!refresh });
+    const have = new Set(RAT.ev.map(x => x.id)); let n = 0; for (const x of j.ev || []) if (!have.has(x.id)){ RAT.ev.push(x); n++; }
+    RAT.ev.sort((a, b) => a.id - b.id); if (RAT.ev.length > 6000) RAT.ev = RAT.ev.slice(-6000);
+    RAT.last = Math.max(RAT.last || 0, j.last || 0); RAT.at = Date.now(); saveRat(); if (n) render();
+    return n;
+  } finally { gasRatings.busy = false; }
+}
+
+/* ---- stop-list of issuers ---- */
+S.stop = Object.assign({ list: [], excl: true }, store.get("pf.stop.v1", {}));
+const saveStop = () => { store.set("pf.stop.v1", S.stop); STOPM.memo = {}; };
+const STOPM = { memo: {} };
+const normIss = s => " " + String(s || "").toLowerCase().replace(/ё/g, "е").replace(/[«»"'“”„()]/g, " ")
+  .replace(/\b(пао|оао|зао|ао|нао|ооо|мфк|мкк|лк|гк|ук|пкo|пко|акб|кб|банк|группа|холдинг|компания|бо|сфо)\b/g, " ").replace(/[^a-zа-я0-9]+/g, " ").replace(/\s+/g, " ").trim() + " ";
+function stopReason(isin, name, price){
+  const key = isin + "|" + (price || "") + "|" + RAT.ver + "|" + EMIS.at + "|" + S.stop.list.length; if (STOPM.memo[key] !== undefined) return STOPM.memo[key];
+  if (Object.keys(STOPM.memo).length > 20000) STOPM.memo = {};
+  const e = em(isin), nm = normIss((e && e.e) || name || ""), inn = (e && e.inn) || ((RAT.seed[isin] || {}).inn) || "";
+  let why = null;
+  for (const x of S.stop.list){ if ((x.inn && inn && x.inn === inn) || (x.n && nm.includes(normIss(x.n)) && normIss(x.n).trim().length >= 3)){ why = { manual: true, t: "в стоп-листе" + (x.why ? ": " + x.why : "") }; break; } }
+  if (!why){ const i = ratInfo(isin); if (i && /^(D|RD|SD)$/.test(i.overall)) why = { t: "рейтинг " + i.overall + " (дефолт)" }; }
+  if (!why && price != null && price > 0 && price < 60) why = { t: "цена " + pct(price, 0) + " от номинала" };
+  return (STOPM.memo[key] = why);
+}
+const inStop = (isin, name, price) => !!stopReason(isin, name, price);
+
+/* ---- push upcoming events to the helper for the Telegram bot ---- */
+async function gasPushEvents(force){
+  if (!S.gas.url || !S.gas.chat) return;
+  const D = derive("all"), H = valueHoldings(D), t = todayIso(), end = addDays(t, 60);
+  const ev = buildEvents(D).filter(e => e.future && e.date >= t && e.date <= end && ["coupon", "amortization", "maturity", "offer", "dividend"].includes(e.type)).map(e => {
+    const o = { date: e.date, type: e.type, name: e.name, amount: Math.round(e.amount || 0) };
+    if (e.type === "offer"){ const x = ((S.moex[e.isin] || {}).events || []).find(v => v.type === "offer" && v.date === e.date); if (x){ o.start = x.start || ""; o.end = x.end || ""; } }
+    return o; });
+  const held = [...new Map(H.filter(h => h.qty > 0).map(h => { const mx = S.moex[h.isin] || {}, e = em(h.isin);
+    return [h.isin, { isin: h.isin, secid: mx.secid || "", board: mx.board || "", market: mx.bMarket || "", name: mx.shortname || h.name, inn: (e && e.inn) || ((RAT.seed[h.isin] || {}).inn) || "" }]; })).values()];
+  const stop = [...new Set(held.filter(h => inStop(h.isin, h.name, (S.moex[h.isin] || {}).price)).map(h => h.name))];
+  const payload = { events: ev, held, stop }, sig = JSON.stringify(payload).length + "|" + ev.length + "|" + held.length + "|" + stop.join(",") + "|" + t;
+  if (!force && store.get("pf.gas.evsig", "") === sig && Date.now() - store.get("pf.gas.evat", 0) < 12 * 3600e3) return;
+  try { await gasCall("tg_events", payload); store.set("pf.gas.evsig", sig); store.set("pf.gas.evat", Date.now()); } catch {}
+}
+let gasBoot = false;
+function gasAuto(){
+  if (gasBoot || !S.gas.url) return; gasBoot = true;
+  setTimeout(() => { if (Date.now() - (RAT.at || 0) > 3 * 3600e3) gasRatings(false).catch(() => {}); gasPushEvents(false); }, 2500);
+}
+
+/* ---- dialog ---- */
+function openGas(){
+  const dlg = dlgShell("Помощник Google", `<div id="gaBody" style="display:grid;gap:14px"></div>`, "Готово");
+  dlg.querySelector("#mSubmit").hidden = true; const fb = dlg.querySelector(".dlg-foot [data-close]:not(.ghost)"); if (fb) fb.textContent = "Закрыть";
+  dlg.querySelector("#mForm").onsubmit = e => e.preventDefault();
+  const body = dlg.querySelector("#gaBody"); let msg = "", busy = "";
+  const how = `<details class="more" ${S.gas.url ? "" : "open"}><summary>Как установить (≈5 минут, один раз)</summary><ol class="sy-steps">
+    <li>Скачайте файл скрипта кнопкой ниже и откройте его, чтобы скопировать весь текст.</li>
+    <li>Откройте <a href="https://script.google.com/home/projects/create" target="_blank" rel="noopener"><b>script.google.com</b> → «Новый проект»</a>. Сотрите всё в редакторе, вставьте скопированный код, нажмите 💾 «Сохранить». Название проекта — любое, например «Портфель».</li>
+    <li>Справа вверху <b>«Начать развёртывание» → «Новое развёртывание»</b>. Шестерёнка → тип <b>«Веб-приложение»</b>. «Запуск от имени»: <b>Я</b>. «У кого есть доступ»: <b>Все</b>. Нажмите «Начать развёртывание».</li>
+    <li>Google попросит разрешения: «Предоставить доступ» → ваш аккаунт → «Дополнительные настройки» → «Перейти на страницу проекта (небезопасно)» → «Разрешить». Это ваш собственный скрипт: он работает от вашего имени, хранит файлы в папке «Аналитика инвестиций» на вашем Диске и больше ничего не трогает.</li>
+    <li>Скопируйте <b>URL веб-приложения</b> (оканчивается на <code>/exec</code>), вставьте сюда и нажмите «Подключить».</li></ol>
+    <p class="small muted" style="margin:0">Обновить скрипт: вставьте новый код → «Начать развёртывание» → «Управление развёртываниями» → карандаш → версия «Новая» → «Развернуть». Адрес не меняется.</p>
+    <button type="button" class="btn" data-ga="code">Скачать код скрипта</button></details>`;
+  const tgHow = `<details class="more"><summary>Как создать бота</summary><ol class="sy-steps">
+    <li>В Telegram откройте <a href="https://t.me/BotFather" target="_blank" rel="noopener">@BotFather</a> → <code>/newbot</code> → придумайте имя и адрес бота (должен оканчиваться на <code>bot</code>).</li>
+    <li>BotFather пришлёт токен вида <code>123456789:AA…</code>. Вставьте его сюда и нажмите «Подключить бота».</li>
+    <li>Откройте своего бота по ссылке, нажмите «Запустить» (Start), вернитесь сюда и нажмите «Проверить» — придёт сообщение «Бот подключён».</li></ol></details>`;
+  const draw = () => {
+    const s = Object.assign({}, TG_DEF, S.gas.set || {}), on = !!S.gas.url;
+    const chk = (k, n, d) => `<label class="ga-row"><input type="checkbox" data-gs="${k}" ${s[k] !== false && s[k] !== 0 ? "checked" : ""}> <span>${n}</span>${d ? `<span class="ga-d">${d.replace("#", `<input type="text" inputmode="numeric" data-gsn="${k}" value="${typeof s[k] === "number" ? s[k] : TG_DEF[k]}">`)}</span>` : ""}</label>`;
+    body.innerHTML = `<p class="small muted" style="margin:0">Ваш собственный скрипт на серверах Google. Он делает то, что страница в браузере не может: передаёт запросы к Smart-Lab, API брокеров и ИИ, собирает рейтинги агентств из Telegram-канала, хранит синхронизацию на вашем Google Диске и присылает напоминания через вашего Telegram-бота. Бесплатно.</p>
+      ${on ? `<div class="sy-info"><div><span class="k">Скрипт</span><b class="small" style="overflow-wrap:anywhere">${esc(S.gas.url.replace(/^https:\/\/script\.google\.com\/macros\/s\//, "…/").slice(0, 60))}</b></div>
+          <div><span class="k">Ключ доступа</span><b class="num small">${esc(S.gas.key.slice(0, 6))}…</b> <button type="button" class="link" data-ga="copykey">скопировать</button></div>
+          <div><span class="k">Рейтинги агентств</span><b>${RAT.ev.length ? RAT.ev.length + " событий" + (RAT.at ? ", обновлено " + new Date(RAT.at).toLocaleString("ru-RU", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }) : "") : "ещё не загружены"}</b> <button type="button" class="link" data-ga="rat" ${busy ? "disabled" : ""}>обновить</button></div></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn" data-ga="check" ${busy ? "disabled" : ""}>Проверить связь</button><button type="button" class="btn" data-ga="off">Отключить</button></div>`
+      : `<label class="fld"><span>URL веб-приложения</span><input id="gaUrl" placeholder="https://script.google.com/macros/s/…/exec" value="${esc(S.gas.url)}"></label>
+        <label class="fld"><span>Ключ доступа (на втором устройстве — вставьте ключ с первого)</span><input id="gaKey" placeholder="пусто — создать новый" value="" autocomplete="off"></label>
+        <div><button type="button" class="btn primary" data-ga="connect" ${busy ? "disabled" : ""}>Подключить</button></div>`}
+      ${msg ? `<p class="small ${/^✓/.test(msg) ? "pos" : "neg"}" style="margin:0">${esc(msg)}</p>` : ""}${busy ? `<p class="status-line"><i class="spin"></i>${esc(busy)}</p>` : ""}
+      ${how}
+      ${on ? `<h3 class="lab-h3">Telegram-бот</h3>
+        ${!S.gas.tg ? `<label class="fld"><span>Токен бота от @BotFather</span><input id="gaTok" type="password" autocomplete="off" placeholder="123456789:AA…"></label><div><button type="button" class="btn primary" data-ga="tg" ${busy ? "disabled" : ""}>Подключить бота</button></div>${tgHow}`
+        : `<div class="sy-info"><div><span class="k">Бот</span><b><a href="https://t.me/${esc(S.gas.bot)}" target="_blank" rel="noopener">@${esc(S.gas.bot)}</a></b></div><div><span class="k">Чат</span><b>${S.gas.chat ? "подключён" : "нажмите Start у бота, затем «Проверить»"}</b></div></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn ${S.gas.chat ? "" : "primary"}" data-ga="tgcheck" ${busy ? "disabled" : ""}>Проверить</button>${S.gas.chat ? `<button type="button" class="btn" data-ga="tgtest" ${busy ? "disabled" : ""}>Прислать пробную сводку</button>` : ""}<button type="button" class="link" data-ga="tgreset">другой бот</button></div>
+          ${S.gas.chat ? `<div class="ga-set"><p class="small muted" style="margin:0">О чём сообщать (утром около 10:00 МСК, падение цен — около 19:00):</p>
+            ${chk("cpn", "Выплата купона — в день выплаты")}${chk("offer", "Оферта", "за # дн. и в день начала приёма заявок")}${chk("amort", "Амортизация", "за # дн.")}${chk("mat", "Погашение", "за # дн.")}
+            ${chk("rating", "Изменение рейтинга эмитента из портфеля")}${chk("stop", "Эмитент из портфеля попал в стоп-лист")}${chk("drop", "Резкое падение цены за день", "от #%")}${chk("week", "Сводка на неделю по понедельникам")}</div>` : ""}`}` : ""}`;
+  };
+  const run = async (label, fn) => { busy = label; msg = ""; draw(); try { msg = (await fn()) || ""; } catch (e){ msg = e.message; } busy = ""; draw(); };
+  body.onclick = async e => {
+    const b = e.target.closest("[data-ga]"); if (!b) return; const a = b.dataset.ga;
+    if (a === "code"){ const u = URL.createObjectURL(new Blob([GAS_SRC], { type: "text/plain" })), x = document.createElement("a"); x.href = u; x.download = "Code.gs.txt"; document.body.appendChild(x); x.click(); x.remove(); setTimeout(() => URL.revokeObjectURL(u), 4000); return; }
+    if (a === "copykey"){ copySync(S.gas.key) ? addMsg("Ключ доступа скопирован. Вставьте его на другом устройстве.", "ok") : addMsg("Ключ: " + S.gas.key, "ok"); return; }
+    if (a === "connect"){ const url = body.querySelector("#gaUrl").value.trim(), key = body.querySelector("#gaKey").value.trim(); return run("Подключаюсь к скрипту…", async () => {
+      if (!/^https:\/\/script\.google(usercontent)?\.com\/.+\/exec$/.test(url)) throw new Error("Адрес должен начинаться с https://script.google.com/ и оканчиваться на /exec");
+      const prev = { ...S.gas }; S.gas.url = url; S.gas.key = key || (newSyncId() + newSyncId()).slice(0, 40);
+      try { const p = await gasCall("ping"); await gasCall("setup"); Object.assign(S.gas, { ver: p.version, tg: p.tg, chat: p.chat, bot: p.bot }); saveGas(); gasBoot = false; gasAuto(); }
+      catch (err){ S.gas = prev; throw err; }
+      return "✓ Подключено. Ключ доступа сохранён в этом браузере — для другого устройства скопируйте его здесь.";
+    }); }
+    if (a === "check") return run("Проверяю…", async () => { const p = await gasCall("ping"); Object.assign(S.gas, { ver: p.version, tg: p.tg, chat: p.chat, bot: p.bot }); saveGas(); return "✓ Скрипт отвечает, версия " + p.version; });
+    if (a === "rat") return run("Загружаю рейтинги из канала…", async () => { const n = await gasRatings(true); return "✓ Новых событий: " + (n || 0); });
+    if (a === "off"){ if (!b.classList.contains("confirm")){ b.classList.add("confirm"); b.textContent = "Точно отключить?"; return; } S.gas = { url: "", key: "", tg: false, bot: "", chat: false, ver: 0, set: S.gas.set }; saveGas(); msg = ""; draw(); return; }
+    if (a === "tg"){ const token = body.querySelector("#gaTok").value.trim(); if (!/^\d+:[\w-]{20,}$/.test(token)){ msg = "Токен выглядит не так: он вида 123456789:AA… — скопируйте его из сообщения @BotFather целиком."; draw(); return; } return run("Подключаю бота…", async () => { const j = await gasCall("tg_setup", { token }); Object.assign(S.gas, { tg: true, bot: j.bot, chat: false }); saveGas(); window.open("https://t.me/" + j.bot, "_blank", "noopener"); return "✓ Бот @" + j.bot + " подключён. Нажмите у него «Запустить» (Start) и затем «Проверить»."; }); }
+    if (a === "tgcheck") return run("Ищу ваше сообщение боту…", async () => { await gasCall("tg_check"); S.gas.chat = true; saveGas(); await gasCall("tg_settings", { settings: Object.assign({}, TG_DEF, S.gas.set || {}) }); await gasPushEvents(true); return "✓ Чат подключён — проверьте Telegram."; });
+    if (a === "tgtest") return run("Отправляю…", async () => { await gasPushEvents(true); await gasCall("tg_test"); return "✓ Отправлено — проверьте Telegram."; });
+    if (a === "tgreset"){ S.gas.tg = false; S.gas.chat = false; saveGas(); draw(); return; }
+  };
+  body.onchange = async e => {
+    const c = e.target.closest("[data-gs],[data-gsn]"); if (!c) return;
+    const s = Object.assign({}, TG_DEF, S.gas.set || {});
+    if (c.dataset.gs){ const k = c.dataset.gs; s[k] = c.checked ? (typeof TG_DEF[k] === "number" ? (s[k] || TG_DEF[k]) : true) : (typeof TG_DEF[k] === "number" ? 0 : false); }
+    else { const k = c.dataset.gsn, v = Math.max(0, Math.min(60, Math.round(num(c.value) || 0))); s[k] = v; }
+    S.gas.set = s; saveGas(); draw();
+    try { await gasCall("tg_settings", { settings: s }); } catch (err){ addMsg(err.message, "err"); }
+  };
+  draw();
+}
+
+/* ======================= tools: stop-list of issuers ======================= */
+function renderStopList(D){
+  const el = $("#v-stoplist"), H = valueHoldings(D), t = todayIso();
+  if (!TOOL.bonds.data && !TOOL.bonds.busy && !TOOL.bonds.restoreTried) scrRestore("bonds");
+  if (!EMIS.map && !EMIS.busy && !EMIS.tried){ EMIS.tried = true; setTimeout(() => loadEmissions(false), 0); }
+  const heldBad = [...new Map(H.filter(h => h.qty > 0 && (S.moex[h.isin] || {}).kind === "bond").map(h => { const mx = S.moex[h.isin] || {}, w = stopReason(h.isin, h.name, mx.price); return w ? [h.isin, { h, w, nm: mx.shortname || h.name, iss: (em(h.isin) || {}).e || "" }] : null; }).filter(Boolean)).values()];
+  /* automatic candidates across the market: default ratings and deep discounts */
+  const auto = new Map();
+  for (const r of TOOL.bonds.data || []){ const e = em(r.isin); if (!e || !e.e) continue; const w = stopReason(r.isin, r.name, r.price); if (!w || w.manual) continue;
+    const k = e.inn || e.e; if (!auto.has(k)) auto.set(k, { n: e.e, inn: e.inn, why: w.t, cnt: 0 }); auto.get(k).cnt++; }
+  const autoL = [...auto.values()].sort((a, b) => b.cnt - a.cnt).slice(0, 60);
+  el.innerHTML = `<div class="view-bar"><div><h1>Стоп-лист эмитентов</h1><span class="sub">эмитенты, которых не стоит покупать: ваш список и автоматические пометки</span></div></div>
+  ${heldBad.length ? `<div class="panel lab-p"><div class="panel-head"><h2>В вашем портфеле</h2></div>${heldBad.map(x => `<div class="sig sig-high"><i style="background:var(--bad)"></i><div><div class="sig-t"><span class="sig-n" data-card="${esc(x.h.isin)}">${esc(x.nm)}</span> · ${esc(x.iss)}</div><small>${esc(x.w.t)}</small></div></div>`).join("")}</div>` : ""}
+  <div class="panel lab-p"><div class="panel-head"><h2>Мой стоп-лист</h2><span class="sub">${S.stop.list.length}</span></div>
+    <div class="stop-add"><input type="text" id="stN" placeholder="Эмитент или ИНН, например «Самолёт»" maxlength="80"><input type="text" id="stW" placeholder="Причина (необязательно)" maxlength="120"><button class="btn primary" data-st="add">Добавить</button></div>
+    <div class="pk-c"><label class="chk"><input type="checkbox" data-st-excl ${S.stop.excl ? "checked" : ""}> Не показывать эти бумаги в подборках («Подбор облигаций», «Ровный купонный доход») и скринере</label></div>
+    ${S.stop.list.length ? `<div class="stop-list">${S.stop.list.map((x, i) => `<div><b>${esc(x.n || x.inn)}</b>${x.inn && x.n ? ` <small class="faint">ИНН ${esc(x.inn)}</small>` : ""}${x.why ? `<small>${esc(x.why)}</small>` : ""}<button class="link" data-st-del="${i}" aria-label="Убрать">✕</button></div>`).join("")}</div>`
+      : `<div class="empty small"><b>Список пуст</b><span>Добавьте эмитентов вручную или загрузите таблицу «Карта облигаций» (.xlsx) кнопкой «Добавить» вверху — стоп-лист и рейтинги из неё подтянутся.</span></div>`}
+    <p class="note">Совпадение ищется по названию эмитента (без «ПАО», «ООО» и кавычек) или по ИНН. Бумаги эмитентов из списка помечаются в скринере и портфеле, а в блоке «Сигналы» на главной — красным.</p></div>
+  <div class="panel lab-p"><div class="panel-head"><h2>Автоматические пометки</h2><span class="hinfo" data-tip="Эмитенты, у которых рейтинг дефолтный (D, RD, SD) или облигации торгуются ниже 60% от номинала. Помечаются без вашего участия; добавлять ли в свой список — решаете сами." tabindex="0">?</span>${autoL.length ? `<span class="sub">${autoL.length}</span>` : ""}</div>
+    ${!TOOL.bonds.data ? `<div class="empty small">${TOOL.bonds.busy ? `<i class="spin"></i> Загружаю облигации…` : "Нужны данные скринера облигаций — откройте «Скринер облигаций» и нажмите «Обновить»."}</div>`
+      : autoL.length ? `<div class="stop-list">${autoL.map(x => `<div><b>${esc(x.n)}</b><small>${esc(x.why)} · ${x.cnt} ${plural(x.cnt, "выпуск", "выпуска", "выпусков")}</small><button class="link" data-st-auto="${esc(x.n)}|${esc(x.inn || "")}|${esc(x.why)}">в мой список</button></div>`).join("")}</div>` : `<div class="empty small">Сейчас таких эмитентов нет.</div>`}
+  </div>`;
+}
+document.addEventListener("click", e => { const t = e.target; let b;
+  if (t.closest("[data-st='add']")){ const n = ($("#stN").value || "").trim(), w = ($("#stW").value || "").trim(); if (n.length < 2) return; const inn = /^\d{10}(\d{2})?$/.test(n) ? n : "";
+    S.stop.list.unshift({ n: inn ? "" : n, inn, why: w, at: todayIso() }); saveStop(); render(); return; }
+  if ((b = t.closest("[data-st-del]"))){ S.stop.list.splice(+b.dataset.stDel, 1); saveStop(); render(); return; }
+  if ((b = t.closest("[data-st-auto]"))){ const [n, inn, why] = b.dataset.stAuto.split("|"); S.stop.list.unshift({ n, inn, why, at: todayIso() }); saveStop(); render(); return; }
+  if (t.closest("[data-m='gas']")){ const d = t.closest("dialog"); if (d) d.close(); openGas(); }
+});
+document.addEventListener("change", e => { if (e.target.matches("[data-st-excl]")){ S.stop.excl = e.target.checked; saveStop(); render(); } });
+document.addEventListener("keydown", e => { if (e.key === "Enter" && (e.target.id === "stN" || e.target.id === "stW")){ e.preventDefault(); const b = document.querySelector("[data-st='add']"); b && b.click(); } });
+
+/* ---- import from the Google table «Карта облигаций» (.xlsx): stop-list, agency ratings ---- */
+function importBondMap(book){
+  const out = [];
+  const st = book.sheet("Стоп лист");
+  if (st){ const have = new Set(S.stop.list.map(x => normIss(x.n))); let n = 0;
+    for (const r of st.slice(1)){ const nm = String(cellsOf(r)[0] || "").trim(); if (!nm || /^эмитент$/i.test(nm) || have.has(normIss(nm))) continue; S.stop.list.push({ n: nm, inn: "", why: "из таблицы «Карта облигаций»", at: todayIso() }); have.add(normIss(nm)); n++; }
+    saveStop(); out.push(`стоп-лист: +${n}`); }
+  const sp = book.sheet("Справочник");
+  if (sp && sp.length > 1){ const h = sp[0].map(x => String(x || "")), ix = k => h.findIndex(x => x === k); let n = 0;
+    for (const r of sp.slice(1)){ const isin = String(r[ix("ISIN")] || "").trim(); if (!/^RU[0-9A-Z]{10}$/.test(isin)) continue;
+      const ag = {}; for (const a of AGS){ const v = ratClean(r[ix(a)]); if (v && /^[ABCDRS]/.test(v)) ag[a] = v; }
+      const xd = r[ix("Дата изменения рейтинга")], prevD = typeof xd === "number" ? new Date(Date.UTC(1899, 11, 30) + xd * 864e5).toISOString().slice(0, 10) : String(xd || "").slice(0, 10);
+      RAT.seed[isin] = { inn: String(r[ix("ИНН эмитента")] || "").replace(/\D/g, ""), ag, prev: ratClean(r[ix("Прошлый рейтинг")]) || "", prevD }; n++; }
+    out.push(`справочник рейтингов: ${n} выпусков`); }
+  const ra = book.sheet("Рейтинги агентств");
+  if (ra && ra.length > 1){ const h = ra[0].map(x => String(x || "")), ix = k => h.findIndex(x => x === k); const have = new Set(RAT.ev.map(x => x.id)); let n = 0;
+    for (const r of ra.slice(1)){ const id = +r[ix("Пост в канале")] || 0, d = String(r[ix("Дата")] || "").slice(0, 10); if (!d) continue;
+      const x = { id: id || -(n + 1), d, n: String(r[ix("Эмитент (как в канале)")] || ""), inn: String(r[ix("ИНН")] || "").replace(/\D/g, ""), isin: String(r[ix("ISIN выпуска")] || ""), ag: String(r[ix("Агентство")] || ""), r: ratClean(r[ix("Рейтинг")]), o: String(r[ix("Прогноз")] || ""), act: String(r[ix("Действие")] || ""), p: ratClean(r[ix("Прошлый рейтинг")]), url: String(r[ix("Пресс-релиз")] || "") };
+      if (id && have.has(id)) continue; RAT.ev.push(x); n++; if (id) RAT.last = Math.max(RAT.last || 0, id); }
+    RAT.ev.sort((a, b) => (a.d || "").localeCompare(b.d || "") || a.id - b.id); out.push(`события рейтингов: +${n}`); }
+  saveRat();
+  const pf = book.sheet("Портфель"); const np = pf ? pf.slice(1).filter(r => /^RU[0-9A-Z]{10}$/.test(String(r[0] || ""))).length : 0;
+  return out.join(", ") + (np ? `. На листе «Портфель» ${np} ${plural(np, "позиция", "позиции", "позиций")} — их загружайте отчётами брокеров.` : "");
+}
+
+const GAS_SRC = "/**\n * «Аналитика инвестиций» — помощник на Google Apps Script.\n * Работает на серверах Google от вашего имени и делает то, что не может сама страница в браузере:\n *   • передаёт запросы к Smart-Lab, API Т-Банка и Финама, Claude и DeepSeek (браузер их не пускает — CORS);\n *   • хранит зашифрованную копию данных приложения на вашем Google Диске (синхронизация);\n *   • раз в 3 часа читает канал t.me/s/issuerRatings и собирает рейтинги АКРА, Эксперт РА, НКР, НРА;\n *   • через вашего Telegram-бота присылает напоминания: купоны, оферты, амортизации, погашения,\n *     изменения рейтингов, стоп-лист, падение цен и сводку на неделю.\n *\n * Установка: script.google.com → Новый проект → вставьте этот код вместо содержимого Code.gs → Сохранить →\n * Начать развёртывание → Новое развёртывание → тип «Веб-приложение»:\n *   Запуск от имени: «Я», Доступ: «Все» → Развернуть → Разрешить доступ → скопируйте URL (…/exec) в приложение.\n * Данные скрипта видите только вы. Доступ к нему защищён ключом, который задаёт приложение при первом подключении.\n */\n\nconst VERSION = 1;\nconst FOLDER = \"Аналитика инвестиций\";\nconst CH = \"issuerRatings\";\nconst P = PropertiesService.getScriptProperties();\n\n/* ---------- web app entry ---------- */\nfunction doGet(e){ return out_({ ok: true, service: \"pf-gas\", version: VERSION }); }\nfunction doPost(e){\n  let q = {};\n  try { q = JSON.parse(e.postData && e.postData.contents || \"{}\"); } catch (err){ return out_({ error: \"bad json\" }); }\n  try {\n    if (!checkKey_(q.key)) return out_({ error: \"Неверный ключ доступа к скрипту\" });\n    switch (q.op){\n      case \"ping\": return out_({ ok: true, version: VERSION, tg: !!P.getProperty(\"tg_token\"), chat: !!P.getProperty(\"tg_chat\"), bot: P.getProperty(\"tg_bot\") || \"\" });\n      case \"setup\": setupTriggers_(); return out_({ ok: true, version: VERSION });\n      case \"relay\": return out_(relay_(q));\n      case \"get\": return out_(syncGet_(q.id));\n      case \"put\": return out_(syncPut_(q));\n      case \"ratings\": return out_(ratingsSince_(+q.since || 0, !!q.refresh));\n      case \"tg_setup\": return out_(tgSetup_(q.token));\n      case \"tg_check\": return out_(tgCheck_());\n      case \"tg_settings\": P.setProperty(\"tg_settings\", JSON.stringify(q.settings || {})); return out_({ ok: true });\n      case \"tg_events\": saveJson_(\"events.json\", { at: new Date().toISOString(), events: q.events || [], held: q.held || [], stop: q.stop || [] }); return out_({ ok: true });\n      case \"tg_test\": return out_(tgDaily_(true));\n      default: return out_({ error: \"unknown op\" });\n    }\n  } catch (err){ return out_({ error: String(err && err.message || err) }); }\n}\nfunction out_(o){ return ContentService.createTextOutput(JSON.stringify(o)).setMimeType(ContentService.MimeType.JSON); }\nfunction checkKey_(k){\n  if (!k || String(k).length < 24) return false;\n  const h = sha_(k), cur = P.getProperty(\"app_key\");\n  if (!cur){ P.setProperty(\"app_key\", h); return true; } // first device sets the key\n  return cur === h;\n}\nfunction sha_(s){ return Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, s, Utilities.Charset.UTF_8).map(b => (\"0\" + (b & 255).toString(16)).slice(-2)).join(\"\"); }\n\n/* ---------- relay: only these destinations ---------- */\nfunction relay_(q){\n  const path = String(q.path || \"\"), method = String(q.method || \"GET\").toUpperCase();\n  let url = null, m;\n  if ((m = path.match(/^\\/tinvest\\/(UsersService|OperationsService|InstrumentsService)\\/(GetAccounts|GetOperationsByCursor|GetPortfolio|GetPositions|GetInstrumentBy)$/)))\n    url = \"https://invest-public-api.tbank.ru/rest/tinkoff.public.invest.api.contract.v1.\" + m[1] + \"/\" + m[2];\n  else if ((m = path.match(/^\\/finam(\\/v1\\/(sessions(\\/details)?|accounts\\/[^/?]+(\\/(trades|transactions))?|assets\\/[^/?]+)(\\?.*)?)$/))) url = \"https://api.finam.ru\" + m[1];\n  else if ((m = path.match(/^\\/sl(\\/q\\/[A-Za-z0-9._-]{1,20}\\/f\\/(y|q)\\/(MSFO|RSBU)\\/?)$/))) url = \"https://smart-lab.ru\" + m[1];\n  else if (path === \"/an/v1/messages\") url = \"https://api.anthropic.com/v1/messages\";\n  else if (path === \"/ds/chat/completions\") url = \"https://api.deepseek.com/chat/completions\";\n  if (!url) return { status: 404, body: JSON.stringify({ error: \"not allowed\" }), ctype: \"application/json\" };\n  const h = {}, src = q.headers || {};\n  Object.keys(src).forEach(k => { const lk = k.toLowerCase(); if ([\"authorization\", \"x-api-key\", \"anthropic-version\", \"anthropic-beta\", \"accept\"].indexOf(lk) >= 0) h[k] = src[k]; });\n  if (/smart-lab/.test(url)) h[\"User-Agent\"] = \"Mozilla/5.0 (compatible; pf-analytics)\";\n  const opt = { method: method.toLowerCase(), headers: h, muteHttpExceptions: true, followRedirects: true };\n  if (q.body != null && method !== \"GET\"){ opt.payload = q.body; opt.contentType = \"application/json\"; }\n  const r = UrlFetchApp.fetch(url, opt), hd = r.getHeaders();\n  return { status: r.getResponseCode(), body: r.getContentText(), ctype: hd[\"Content-Type\"] || hd[\"content-type\"] || \"application/json\" };\n}\n\n/* ---------- files in Drive folder ---------- */\nfunction folder_(){ const it = DriveApp.getFoldersByName(FOLDER); return it.hasNext() ? it.next() : DriveApp.createFolder(FOLDER); }\nfunction file_(name){ const it = folder_().getFilesByName(name); return it.hasNext() ? it.next() : null; }\nfunction readJson_(name, def){ const f = file_(name); if (!f) return def; try { return JSON.parse(f.getBlob().getDataAsString(\"UTF-8\")); } catch (e){ return def; } }\nfunction saveJson_(name, obj){ const s = JSON.stringify(obj), f = file_(name); if (f) f.setContent(s); else folder_().createFile(name, s, \"application/json\"); }\n\n/* ---------- encrypted sync storage ---------- */\nfunction syncGet_(id){\n  if (!/^[A-Za-z0-9_-]{16,64}$/.test(id || \"\")) return { error: \"bad id\" };\n  const meta = JSON.parse(P.getProperty(\"meta:\" + id) || \"null\"), f = file_(\"sync-\" + id + \".json\");\n  if (!meta || !f) return { empty: true };\n  return { rev: meta.rev, updated: meta.updated, body: f.getBlob().getDataAsString(\"UTF-8\") };\n}\nfunction syncPut_(q){\n  const id = q.id; if (!/^[A-Za-z0-9_-]{16,64}$/.test(id || \"\")) return { error: \"bad id\" };\n  if (!q.wk || String(q.wk).length < 32) return { error: \"no write key\" };\n  const lock = LockService.getScriptLock(); lock.waitLock(20000);\n  try {\n    const meta = JSON.parse(P.getProperty(\"meta:\" + id) || \"null\"), wk = sha_(q.wk);\n    if (meta && meta.wk !== wk) return { error: \"forbidden\", status: 403 };\n    if (meta && +q.base !== meta.rev) return { conflict: true, rev: meta.rev, updated: meta.updated };\n    const body = String(q.body || \"\"); let p; try { p = JSON.parse(body); } catch (e){ return { error: \"bad body\" }; }\n    if (!p || !p.ct || !p.iv) return { error: \"bad body\" };\n    const name = \"sync-\" + id + \".json\", f = file_(name); if (f) f.setContent(body); else folder_().createFile(name, body, \"application/json\");\n    const next = { rev: (meta ? meta.rev : 0) + 1, updated: new Date().toISOString(), wk };\n    P.setProperty(\"meta:\" + id, JSON.stringify(next));\n    return { rev: next.rev, updated: next.updated };\n  } finally { lock.releaseLock(); }\n}\n\n/* ---------- ratings from the Telegram channel ---------- */\nconst AG = [[\"АКРА\", /АКРА|ACRA/i], [\"Эксперт РА\", /Эксперт\\s*РА|RAEX/i], [\"НКР\", /НКР|Национальн\\S*\\s+Кредитн\\S*\\s+Рейтинг/i], [\"НРА\", /НРА|Национальн\\S*\\s+Рейтингов\\S*\\s+Агентств/i]];\nconst ACT = [[\"понижен\", /понизил|понижен|понижени/i], [\"повышен\", /повысил|повышен|повышени/i], [\"отозван\", /отозвал|отозван|отзыв/i], [\"на пересмотре\", /пересмотр/i], [\"подтверждён\", /подтвердил|подтвержд|аффирм/i], [\"присвоен\", /присвоил|присвоен|присвоени/i]];\nconst OUT = [[\"стабильный\", /стабильн/i], [\"позитивный\", /позитивн/i], [\"негативный\", /негативн/i], [\"развивающийся\", /развивающ/i], [\"на пересмотре\", /пересмотр/i]];\nconst RT = /\\b(?:ru|RU)?(AAA|AA[+-]?|A[+-]?|BBB[+-]?|BB[+-]?|B[+-]?|CCC[+-]?|CC|C|RD|SD|D)(?:\\.ru|\\(RU\\)|\\|ru\\||_ru)?(?![A-Za-z])/g;\nfunction parsePost_(id, date, text){\n  const ag = (AG.find(a => a[1].test(text)) || [\"\"])[0], act = (ACT.find(a => a[1].test(text)) || [\"\"])[0], out = (OUT.find(a => a[1].test(text.replace(/рейтинг\\S*\\s+на\\s+пересмотр\\S*/i, \"\"))) || [\"\"])[0];\n  const inn = (text.match(/ИНН\\D{0,6}(\\d{10}|\\d{12})/) || text.match(/\\b(\\d{10}|\\d{12})\\b/) || [])[1] || \"\";\n  const isin = (text.match(/\\bRU[0-9A-Z]{10}\\b/) || [])[0] || \"\";\n  const rates = []; let m; RT.lastIndex = 0; while ((m = RT.exec(text))) rates.push(m[1]);\n  let prev = \"\", rate = \"\";\n  const ch = text.match(/с\\s+(?:уровня\\s+)?(?:ru)?([ABCDRS]{1,3}[+-]?)(?:\\.ru|\\(RU\\))?\\s+до\\s+(?:уровня\\s+)?(?:ru)?([ABCDRS]{1,3}[+-]?)/i);\n  if (ch){ prev = ch[1].toUpperCase(); rate = ch[2].toUpperCase(); } else rate = rates.length ? rates[rates.length - 1] : \"\";\n  const first = text.split(\"\\n\").map(s => s.trim()).filter(Boolean)[0] || \"\";\n  const name = (text.match(/[«\"]([^»\"]{2,60})[»\"]/) || [])[1] || first.replace(/^[^\\wА-Яа-яЁё]+/, \"\").slice(0, 60);\n  const url = (text.match(/https?:\\/\\/\\S+/) || [\"\"])[0];\n  return { id, d: date, n: name, inn, isin, ag, act: act || (prev ? \"изменён\" : \"\"), r: act === \"отозван\" ? \"\" : rate, p: prev, o: out, url, t: text.slice(0, 400) };\n}\nfunction htmlText_(h){ return h.replace(/<br\\s*\\/?>/gi, \"\\n\").replace(/<[^>]+>/g, \"\").replace(/&quot;/g, '\"').replace(/&#39;/g, \"'\").replace(/&amp;/g, \"&\").replace(/&lt;/g, \"<\").replace(/&gt;/g, \">\").replace(/&nbsp;/g, \" \").trim(); }\nfunction fetchChannel_(){\n  const st = readJson_(\"ratings.json\", { last: 0, ev: [] }); let before = \"\", pages = 0, got = [];\n  while (pages < 15){\n    const r = UrlFetchApp.fetch(\"https://t.me/s/\" + CH + (before ? \"?before=\" + before : \"\"), { muteHttpExceptions: true, headers: { \"User-Agent\": \"Mozilla/5.0\" } });\n    if (r.getResponseCode() !== 200) break;\n    const html = r.getContentText(), blocks = html.split('class=\"tgme_widget_message_wrap').slice(1); if (!blocks.length) break;\n    let minId = Infinity, stop = false;\n    for (const b of blocks){\n      const idm = b.match(/data-post=\"[^\"/]+\\/(\\d+)\"/); if (!idm) continue; const id = +idm[1]; minId = Math.min(minId, id);\n      if (id <= st.last){ stop = true; continue; }\n      const tm = b.match(/<div class=\"tgme_widget_message_text[^\"]*\"[^>]*>([\\s\\S]*?)<\\/div>/), dm = b.match(/datetime=\"([^\"]+)\"/);\n      if (!tm) continue;\n      got.push(parsePost_(id, dm ? dm[1].slice(0, 10) : \"\", htmlText_(tm[1])));\n    }\n    pages++; if (stop || !isFinite(minId) || (st.last === 0 && pages >= 3)) break; before = minId;\n  }\n  if (got.length){ st.ev = st.ev.concat(got).sort((a, b) => a.id - b.id).slice(-4000); st.last = Math.max(st.last, ...got.map(x => x.id)); st.at = new Date().toISOString(); saveJson_(\"ratings.json\", st); }\n  return got;\n}\nfunction ratingsSince_(since, refresh){\n  let fresh = [];\n  if (refresh){ try { fresh = fetchChannel_(); } catch (e){} }\n  const st = readJson_(\"ratings.json\", { last: 0, ev: [] });\n  return { last: st.last, at: st.at || \"\", ev: st.ev.filter(x => x.id > since) };\n}\nfunction ratingsJob(){\n  const got = fetchChannel_(); if (!got.length) return;\n  /* rating changes for issuers you hold */\n  const s = settings_(); if (!s.rating) return;\n  const E = readJson_(\"events.json\", { held: [] }), held = E.held || [];\n  const hit = got.filter(x => (x.act === \"понижен\" || x.act === \"повышен\" || x.r === \"D\" || x.r === \"RD\" || x.r === \"SD\") && held.some(h => (x.inn && h.inn === x.inn) || (x.isin && h.isin === x.isin)));\n  for (const x of hit){ const h = held.find(h => (x.inn && h.inn === x.inn) || (x.isin && h.isin === x.isin));\n    tgSend_(`${x.act === \"понижен\" || /^(D|RD|SD)$/.test(x.r) ? \"🔻\" : \"🔺\"} <b>Рейтинг ${x.act || \"изменён\"}<\/b>: ${esc_(h ? h.name : x.n)}\\n${x.ag ? x.ag + \": \" : \"\"}${x.p ? x.p + \" → \" : \"\"}${x.r || \"\"}${x.o ? \" (\" + x.o + \")\" : \"\"}${x.url ? \"\\n\" + x.url : \"\"}`); }\n}\n\n/* ---------- Telegram ---------- */\nfunction settings_(){ return Object.assign({ cpn: false, offer: 7, amort: 3, mat: 7, rating: true, stop: true, drop: 3, week: true }, JSON.parse(P.getProperty(\"tg_settings\") || \"{}\")); }\nfunction tg_(method, payload){\n  const t = P.getProperty(\"tg_token\"); if (!t) throw new Error(\"Бот не подключён\");\n  const r = UrlFetchApp.fetch(\"https://api.telegram.org/bot\" + t + \"/\" + method, { method: \"post\", contentType: \"application/json\", payload: JSON.stringify(payload || {}), muteHttpExceptions: true });\n  const j = JSON.parse(r.getContentText() || \"{}\"); if (!j.ok) throw new Error(\"Telegram: \" + (j.description || r.getResponseCode())); return j.result;\n}\nfunction tgSend_(text){ const c = P.getProperty(\"tg_chat\"); if (!c) return; for (let i = 0; i < text.length; i += 3900) tg_(\"sendMessage\", { chat_id: c, text: text.slice(i, i + 3900), parse_mode: \"HTML\", disable_web_page_preview: true }); }\nfunction esc_(s){ return String(s || \"\").replace(/&/g, \"&amp;\").replace(/<\/g, \"&lt;\").replace(/>/g, \"&gt;\"); }\nfunction tgSetup_(token){\n  if (!/^\\d{5,}:[A-Za-z0-9_-]{30,}$/.test(token || \"\")) return { error: \"Это не похоже на токен бота от @BotFather\" };\n  P.setProperty(\"tg_token\", token); P.deleteProperty(\"tg_chat\");\n  const me = tg_(\"getMe\"); P.setProperty(\"tg_bot\", me.username || \"\"); setupTriggers_();\n  return { ok: true, bot: me.username };\n}\nfunction tgCheck_(){\n  const ups = tg_(\"getUpdates\", { limit: 50, timeout: 0 }) || [];\n  const last = ups.reverse().find(u => u.message && u.message.chat && u.message.chat.type === \"private\");\n  if (!last) return { error: \"Бот ещё не получил от вас сообщение. Откройте бота в Telegram, нажмите «Запустить» (Start) и нажмите «Проверить» ещё раз.\" };\n  P.setProperty(\"tg_chat\", String(last.message.chat.id));\n  tgSend_(\"✅ Бот подключён к «Аналитике инвестиций». Напоминания будут приходить утром около 10:00 МСК.\");\n  return { ok: true, name: [last.message.chat.first_name, last.message.chat.last_name].filter(Boolean).join(\" \") };\n}\nfunction fmtD_(iso){ return iso ? iso.slice(8, 10) + \".\" + iso.slice(5, 7) : \"\"; }\nfunction money_(v){ return Math.round(v || 0).toLocaleString(\"ru-RU\").replace(/,/g, \" \") + \" ₽\"; }\nfunction addDays_(iso, n){ const d = new Date(iso + \"T12:00:00Z\"); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); }\nfunction todayMsk_(){ return Utilities.formatDate(new Date(), \"Europe/Moscow\", \"yyyy-MM-dd\"); }\nconst KN = { coupon: \"Купон\", amortization: \"Амортизация\", maturity: \"Погашение\", offer: \"Оферта\", dividend: \"Дивиденды\" };\n/* morning: reminders + Monday summary */\nfunction morningJob(){ tgDaily_(false); }\nfunction tgDaily_(test){\n  const s = settings_(), E = readJson_(\"events.json\", { events: [], held: [], stop: [] }), t = todayMsk_(), lines = [];\n  for (const e of E.events || []){\n    if (e.type === \"coupon\" && s.cpn && e.date === t) lines.push(`💰 Сегодня купон: <b>${esc_(e.name)}<\/b>${e.amount ? \" — \" + money_(e.amount) : \"\"}`);\n    if (e.type === \"amortization\" && s.amort !== false && e.date === addDays_(t, +s.amort || 0)) lines.push(`↩️ ${+s.amort ? \"Через \" + s.amort + \" дн.\" : \"Сегодня\"} амортизация: <b>${esc_(e.name)}<\/b>${e.amount ? \" — вернётся \" + money_(e.amount) : \"\"} (${fmtD_(e.date)})`);\n    if (e.type === \"maturity\" && s.mat !== false && e.date === addDays_(t, +s.mat || 0)) lines.push(`🏁 ${+s.mat ? \"Через \" + s.mat + \" дн.\" : \"Сегодня\"} погашение: <b>${esc_(e.name)}<\/b>${e.amount ? \" — вернётся \" + money_(e.amount) : \"\"} (${fmtD_(e.date)})`);\n    if (e.type === \"offer\" && s.offer !== false){\n      if (e.date === addDays_(t, +s.offer || 0)) lines.push(`📣 Через ${s.offer} дн. оферта: <b>${esc_(e.name)}<\/b> (${fmtD_(e.date)})${e.start ? \". Заявки с \" + fmtD_(e.start) + (e.end ? \" по \" + fmtD_(e.end) : \"\") : \"\"}`);\n      if (e.start && e.start === t) lines.push(`📝 Сегодня начался приём заявок на оферту: <b>${esc_(e.name)}<\/b>${e.end ? \", до \" + fmtD_(e.end) : \"\"} (оферта ${fmtD_(e.date)})`);\n    }\n  }\n  if (s.stop && (E.stop || []).length){ const seen = JSON.parse(P.getProperty(\"stop_seen\") || \"[]\"), fresh = E.stop.filter(x => seen.indexOf(x) < 0);\n    for (const x of fresh) lines.push(`⛔ Эмитент из вашего портфеля в стоп-листе: <b>${esc_(x)}<\/b>`); P.setProperty(\"stop_seen\", JSON.stringify(E.stop)); }\n  const dow = Utilities.formatDate(new Date(), \"Europe/Moscow\", \"u\");\n  if (s.week && (dow === \"1\" || test)){\n    const wk = (E.events || []).filter(e => e.date >= t && e.date <= addDays_(t, 6)).sort((a, b) => a.date < b.date ? -1 : 1);\n    if (wk.length){ const sum = wk.reduce((a, e) => a + (e.type === \"coupon\" || e.type === \"amortization\" || e.type === \"maturity\" || e.type === \"dividend\" ? e.amount || 0 : 0), 0);\n      lines.push(`\\n📅 <b>Неделя ${fmtD_(t)}–${fmtD_(addDays_(t, 6))}<\/b>: придёт ≈ ${money_(sum)}\\n` + wk.slice(0, 40).map(e => `${fmtD_(e.date)} · ${KN[e.type] || e.type} · ${esc_(e.name)}${e.amount ? \" · \" + money_(e.amount) : \"\"}`).join(\"\\n\")); }\n  }\n  if (test && !lines.length) lines.push(\"Сегодня напоминаний нет. Так будет выглядеть утреннее сообщение, когда появятся события.\");\n  if (lines.length) tgSend_(lines.join(\"\\n\"));\n  return { ok: true, sent: lines.length };\n}\n/* evening: sharp price drops of held bonds and shares */\nfunction eveningJob(){\n  const s = settings_(); if (!(+s.drop > 0)) return;\n  const E = readJson_(\"events.json\", { held: [] }), held = (E.held || []).filter(h => h.secid && h.market);\n  const by = {}; held.forEach(h => (by[h.market] = by[h.market] || []).push(h));\n  const lines = [];\n  Object.keys(by).forEach(mk => { const list = by[mk];\n    for (let i = 0; i < list.length; i += 10){ const part = list.slice(i, i + 10);\n      const r = UrlFetchApp.fetch(`https://iss.moex.com/iss/engines/stock/markets/${mk}/securities.json?iss.meta=off&iss.only=marketdata&marketdata.columns=SECID,BOARDID,LASTTOPREVPRICE,LAST&securities=${part.map(h => h.secid).join(\",\")}`, { muteHttpExceptions: true });\n      if (r.getResponseCode() !== 200) continue; const j = JSON.parse(r.getContentText()), c = j.marketdata.columns, ix = k => c.indexOf(k);\n      j.marketdata.data.forEach(row => { const h = part.find(x => x.secid === row[ix(\"SECID\")] && (!x.board || x.board === row[ix(\"BOARDID\")])); const ch = row[ix(\"LASTTOPREVPRICE\")];\n        if (h && ch != null && ch <= -Math.abs(+s.drop)) lines.push(`📉 <b>${esc_(h.name)}<\/b>: ${ch.toFixed(2).replace(\".\", \",\")}% за день${row[ix(\"LAST\")] ? \", цена \" + String(row[ix(\"LAST\")]).replace(\".\", \",\") : \"\"}`); }); } });\n  if (lines.length) tgSend_(\"<b>Резкое падение цены<\/b>\\n\" + lines.join(\"\\n\"));\n}\n\n/* ---------- triggers ---------- */\nfunction setupTriggers_(){\n  const have = ScriptApp.getProjectTriggers().map(t => t.getHandlerFunction());\n  if (have.indexOf(\"ratingsJob\") < 0) ScriptApp.newTrigger(\"ratingsJob\").timeBased().everyHours(3).create();\n  if (have.indexOf(\"morningJob\") < 0) ScriptApp.newTrigger(\"morningJob\").timeBased().everyDays(1).atHour(10).inTimezone(\"Europe/Moscow\").create();\n  if (have.indexOf(\"eveningJob\") < 0) ScriptApp.newTrigger(\"eveningJob\").timeBased().everyDays(1).atHour(19).inTimezone(\"Europe/Moscow\").create();\n}\n/* run once from the editor if you want to check everything works: ▶ testAll */\nfunction testAll(){ setupTriggers_(); Logger.log(JSON.stringify(fetchChannel_().slice(-3), null, 1)); }\n";
 
 /* ======================= tools: bond screener & dividend stocks ======================= */
 S.scr = store.get("pf.scr.v1", {});
@@ -4346,6 +4903,7 @@ function scrFilterBox(sid, f, st){
   return `<div class="fbox range${v.min != null && v.min !== "" || v.max != null && v.max !== "" ? " on" : ""}"><small>${f.n}${f.unit ? ", " + f.unit : ""}</small><span><input data-fmin="${sid}|${f.id}" inputmode="decimal" placeholder="от" value="${v.min ?? ""}"><i>–</i><input data-fmax="${sid}|${f.id}" inputmode="decimal" placeholder="до" value="${v.max ?? ""}"></span>${x}</div>`;
 }
 function scrApply(cfg, st, rows){
+  if (cfg.id === "bonds" && S.stop.excl && S.stop.list.length) rows = rows.filter(r => !stopReason(r.isin, r.name, null));
   return rows.filter(r => cfg.filters.every(f => { if (!st.show.includes(f.id)) return true; const v = st.f[f.id];
     if (f.kind === "text"){ if (!v) return true; const q = norm(v); return norm(f.hay(r)).includes(q); }
     if (f.kind === "select") return !v || (f.test2 ? f.test2(r, v) : f.get(r) === v);
@@ -4407,6 +4965,8 @@ SCR.bonds = { id: "bonds", title: "Скринер облигаций", sub: "О�
   cols: [
     { id: "emitent", n: "Эмитент", s: r => (em(r.isin) || {}).e || "", f: r => { const e = em(r.isin); return e && e.e ? `<span class="small">${esc(e.e)}</span>` : dash; } },
     { id: "rating", n: "Рейтинг", tip: "Кредитный рейтинг эмитента по данным Мосбиржи", s: r => { const k = ratingRank((em(r.isin) || {}).r); return k == null ? 99 : k; }, f: r => ratingChip((em(r.isin) || {}).r) },
+    { id: "agr", n: "Рейтинги агентств", tip: "АКРА, Эксперт РА (ЭРА), НКР, НРА — из канала t.me/issuerRatings через помощник Google или из таблицы «Карта облигаций». «!» — прогноз негативный или рейтинг на пересмотре", s: r => { const i = ratInfo(r.isin), k = i ? ratingRank(i.overall) : null; return k == null ? 99 : k; }, f: r => ratAgHtml(r.isin) },
+    { id: "rch", n: "Изменение рейтинга", tip: "Повышение или понижение рейтинга за последний год: с какого, до какого, агентство и дата", s: r => { const i = ratInfo(r.isin); return i && i.ch ? (i.ch.act === "понижен" ? "0" : "1") + i.ch.d : "9"; }, f: r => ratChHtml(r.isin) },
     { id: "itype", n: "Тип", s: r => itypeOf(r.isin, r.board, r.name), f: r => ({ ofz: "ОФЗ", corp: "Корпоративная", muni: "Региональная" })[itypeOf(r.isin, r.board, r.name)], tip: "Вид облигации по справочнику Мосбиржи" },
     { id: "ctype", n: "Тип купона", s: r => (em(r.isin) || {}).ct || "", f: r => { const n = cpnTypeName(em(r.isin)); return n ? `<span class="small">${esc(n)}</span>` : dash; } },
     { id: "flags", n: "Особенности", f: r => { const f = flagsOf(r.isin); return f.length ? f.map(x => `<span class="chip ${x === "Высокий риск" ? "riskc" : ""}">${x}</span>`).join(" ") : dash; } },
@@ -4706,6 +5266,7 @@ function openMore(){
     <button type="button" class="more-item" data-m="moex"><b>Обновить данные Мосбиржи</b><small>Заново загрузить цены, купоны, оферты и даты погашения</small></button>
     <button type="button" class="more-item" data-m="ics"><b>Напоминания в календаре телефона</b><small>Скачать файл .ics с выплатами и офертами</small></button>
     <button type="button" class="more-item" data-m="manage"><b>Мои портфели</b><small>Переименовать, собрать счета, удалить</small></button>
+    <button type="button" class="more-item" data-m="gas"><b>Помощник Google</b><small>${S.gas.url ? "Подключён" + (S.gas.chat ? " · Telegram-бот @" + esc(S.gas.bot) : "") : "Telegram-бот, рейтинги агентств, доступ к Smart-Lab и API — свой скрипт на Google, бесплатно"}</small></button>
     <button type="button" class="more-item" data-m="sync"><b>Синхронизация между устройствами</b><small>${syncOn() ? "Включена · " + (prov() === "cf" ? esc(S.sync.url.replace(/^https?:\/\//, "")) : SP_NAME[prov()]) : "Через Яндекс Диск, Google Диск или свой сервер Cloudflare, данные зашифрованы"}</small></button>
     <button type="button" class="more-item" data-m="backup"><b>Сохранить резервную копию</b><small>Все отчёты, ручные записи, портфели и цели в одном файле</small></button>
     <label class="more-item" for="restoreIn"><b>Восстановить из копии</b><small>Загрузить ранее сохранённый файл .json</small></label><input type="file" id="restoreIn" accept=".json" hidden>
@@ -4755,7 +5316,7 @@ function render(){
   renderSwitcher();
   if (S.view === "reports") renderReports();
   const secs = { home: ["portfolio"], portfolio: ["portfolio"], analytics: S.anTab === "report" ? ["analytics"] : ["analytics", "taxes"], goal: ["goal"] }[S.view] || [S.view];
-  for (const v of ["portfolio", "analytics", "goal", "calendar", "taxes", "deals", "reports", "deposits", "bonds", "divs", "bondlab", "bondpick", "mmf", "taxopt", "cpncal"]){ $("#v-" + v).hidden = !secs.includes(v); }
+  for (const v of ["portfolio", "analytics", "goal", "calendar", "taxes", "deals", "reports", "deposits", "bonds", "divs", "bondlab", "bondpick", "mmf", "taxopt", "cpncal", "stoplist", "salary"]){ $("#v-" + v).hidden = !secs.includes(v); }
   document.querySelectorAll("#tabs a").forEach(a => a.setAttribute("aria-current", a.getAttribute("href") === "#" + S.view ? "page" : "false"));
   const inPf = PF_VIEWS.includes(S.view); $("#navPfBtn").classList.toggle("on", inPf);
   $("#navPfBtn").firstChild.textContent = "Портфель";
@@ -4771,7 +5332,9 @@ function render(){
   if (S.view === "mmf") renderMmf();
   if (S.view === "taxopt") renderTaxOpt(derive());
   if (S.view === "cpncal") renderCpnCal(D);
-  const inTools = ["bonds", "divs", "bondlab", "bondpick", "mmf", "taxopt", "cpncal"].includes(S.view); $("#navToolsBtn").classList.toggle("on", inTools);
+  if (S.view === "salary") renderSalary();
+  if (S.view === "stoplist") renderStopList(derive("all"));
+  const inTools = ["bonds", "divs", "bondlab", "bondpick", "mmf", "taxopt", "cpncal", "stoplist", "salary"].includes(S.view); $("#navToolsBtn").classList.toggle("on", inTools);
   $("#navToolsBtn").firstChild.textContent = "Инструменты"; 
   document.querySelectorAll("#toolsMenu a").forEach(a => a.setAttribute("aria-current", a.getAttribute("href") === "#" + S.view ? "page" : "false"));
   $("#btnRefresh").disabled = S.moexBusy || !derive("all").holdings.length; moexIndicator();
@@ -4807,7 +5370,23 @@ async function candles(path, from){
     }
     a = addDays(b, 1);
   }
+  /* candles came back short at the start: fill the gap from the daily trading history */
+  /* candles came back incomplete (late start, stale end or holes): take the daily trading history for the whole range */
+  const have = [...map.keys()].sort();
+  let holes = !have.length || have[0] > addDays(from, 20) || have[have.length - 1] < addDays(today, -7);
+  for (let i = 1; !holes && i < have.length; i++) if (msOf(have[i]) - msOf(have[i - 1]) > 20 * 864e5) holes = true;
+  if (holes){ try { const h = await issHistory(path, from, today); for (const [d, v] of h) if (!map.has(d)) map.set(d, v); } catch {} }
   return [...map.entries()].sort((x, y) => x[0].localeCompare(y[0]));
+}
+async function issHistory(candlesPath, from, till){
+  const path = "history/" + candlesPath.replace(/\/candles\.json$/, ".json"), out = [];
+  for (let start = 0, guard = 0; guard < 80; guard++){
+    const j = await iss(path, `from=${from}&till=${till}&start=${start}&history.columns=TRADEDATE,CLOSE,LEGALCLOSEPRICE`);
+    const rows = tbl(j, "history"); if (!rows.length) break;
+    for (const r of rows){ const v = +(r.close || r.legalcloseprice); if (v > 0) out.push([String(r.tradedate).slice(0, 10), v]); }
+    start += rows.length; const cur = tbl(j, "history.cursor")[0]; if (cur && start >= +cur.total) break;
+  }
+  return out;
 }
 function histNeed(){
   const D = derive("all"), isins = new Set([...D.trades.map(t => t.isin), ...D.holdings.map(h => h.isin)].filter(Boolean));
@@ -5157,15 +5736,15 @@ document.addEventListener("click", e => { if (e.target.closest("#dashCfg")) open
 
 const WORKER_SRC = "// Синхронизация «Аналитика инвестиций» — Cloudflare Worker.\n// Хранит зашифрованные данные приложения в Workers KV. Сервер не видит содержимое:\n// данные шифруются паролем в браузере (AES-GCM), сюда приходит только шифротекст.\n//\n// Привязка KV: переменная PF (Settings → Bindings → KV namespace → Variable name: PF).\n//\n// API:\n//   GET    /v1/<id>   -> зашифрованные данные, заголовки X-Rev и X-Updated (404, если пусто)\n//   PUT    /v1/<id>   -> сохранить; заголовки X-Write-Key (ключ записи) и X-Base-Rev (версия, от которой правили)\n//   DELETE /v1/<id>   -> удалить; заголовок X-Write-Key\n//   POST   /tinvest/<Service>/<Method> -> передаёт запрос в T-Invest API (только чтение: счета, операции, портфель, справочник бумаг)\n//   ANY    /finam/v1/...  -> передаёт запрос в Finam Trade API (только вход, счета, сделки, операции, справочник бумаг)\n//   POST   /an/v1/messages, /ds/chat/completions -> передаёт вопрос ИИ в API Anthropic (Claude) или DeepSeek; ключ приходит из браузера и нигде не хранится\n//   GET    /sl/q/<TICKER>/f/y/<MSFO|RSBU>/ -> страница фундаментальных показателей Smart-Lab (кэш 6 часов)\n\nconst CORS = {\n  \"Access-Control-Allow-Origin\": \"*\",\n  \"Access-Control-Allow-Methods\": \"GET, POST, PUT, DELETE, OPTIONS\",\n  \"Access-Control-Allow-Headers\": \"Content-Type, X-Write-Key, X-Base-Rev, Authorization, x-api-key, anthropic-version, anthropic-beta, anthropic-dangerous-direct-browser-access\",\n  \"Access-Control-Expose-Headers\": \"X-Rev, X-Updated\",\n  \"Access-Control-Max-Age\": \"86400\",\n};\nconst MAX_BYTES = 20 * 1024 * 1024;\n\nconst json = (data, status = 200) =>\n  new Response(JSON.stringify(data), { status, headers: { ...CORS, \"Content-Type\": \"application/json; charset=utf-8\" } });\n\nasync function sha256hex(text) {\n  const buf = await crypto.subtle.digest(\"SHA-256\", new TextEncoder().encode(text));\n  return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, \"0\")).join(\"\");\n}\n\nexport default {\n  async fetch(request, env) {\n    if (request.method === \"OPTIONS\") return new Response(null, { status: 204, headers: CORS });\n    const url = new URL(request.url);\n    const ti = url.pathname.match(/^\\/tinvest\\/(UsersService|OperationsService|InstrumentsService)\\/(GetAccounts|GetOperationsByCursor|GetPortfolio|GetPositions|GetInstrumentBy)$/);\n    if (ti && request.method === \"POST\") {\n      const r = await fetch(\"https://invest-public-api.tbank.ru/rest/tinkoff.public.invest.api.contract.v1.\" + ti[1] + \"/\" + ti[2], {\n        method: \"POST\", headers: { \"Authorization\": request.headers.get(\"Authorization\") || \"\", \"Content-Type\": \"application/json\", \"Accept\": \"application/json\" }, body: await request.text() });\n      return new Response(r.body, { status: r.status, headers: { ...CORS, \"Content-Type\": \"application/json; charset=utf-8\", \"Cache-Control\": \"no-store\" } });\n    }\n    const fp = url.pathname.match(/^\\/finam(\\/v1\\/(sessions(\\/details)?|accounts\\/[^/]+(\\/(trades|transactions))?|assets\\/[^/]+))$/);\n    if (fp) {\n      const isPost = /^\\/v1\\/sessions/.test(fp[1]);\n      if ((isPost && request.method !== \"POST\") || (!isPost && request.method !== \"GET\")) return json({ error: \"method not allowed\" }, 405);\n      const r = await fetch(\"https://api.finam.ru\" + fp[1] + url.search, {\n        method: request.method, headers: { \"Authorization\": request.headers.get(\"Authorization\") || \"\", \"Content-Type\": \"application/json\", \"Accept\": \"application/json\" }, body: isPost ? await request.text() : undefined });\n      return new Response(r.body, { status: r.status, headers: { ...CORS, \"Content-Type\": \"application/json; charset=utf-8\", \"Cache-Control\": \"no-store\" } });\n    }\n    const ai = url.pathname.match(/^\\/(an\\/v1\\/messages|ds\\/chat\\/completions)$/);\n    if (ai) {\n      if (request.method !== \"POST\") return json({ error: \"method not allowed\" }, 405);\n      const target = ai[1] === \"an/v1/messages\" ? \"https://api.anthropic.com/v1/messages\" : \"https://api.deepseek.com/chat/completions\";\n      const h = { \"Content-Type\": \"application/json\" };\n      for (const k of [\"x-api-key\", \"anthropic-version\", \"anthropic-beta\", \"authorization\"]) { const v = request.headers.get(k); if (v) h[k] = v; }\n      const r = await fetch(target, { method: \"POST\", headers: h, body: await request.text() });\n      return new Response(r.body, { status: r.status, headers: { ...CORS, \"Content-Type\": r.headers.get(\"Content-Type\") || \"application/json\", \"Cache-Control\": \"no-store\" } });\n    }\n    const sl = url.pathname.match(/^\\/sl(\\/q\\/[A-Za-z0-9._-]{1,20}\\/f\\/(y|q)\\/(MSFO|RSBU)\\/?)$/);\n    if (sl){\n      if (request.method !== \"GET\") return json({ error: \"method not allowed\" }, 405);\n      const r = await fetch(\"https://smart-lab.ru\" + sl[1], { headers: { \"User-Agent\": \"Mozilla/5.0 (compatible; pf-analytics)\", \"Accept\": \"text/html\" }, cf: { cacheTtl: 21600, cacheEverything: true } });\n      return new Response(r.body, { status: r.status, headers: { ...CORS, \"Content-Type\": \"text/html; charset=utf-8\", \"Cache-Control\": \"public, max-age=21600\" } });\n    }\n    if (!env.PF) return json({ error: \"KV не привязан: добавьте привязку KV с именем PF\" }, 500);\n\n    if (url.pathname === \"/\" || url.pathname === \"/v1\") return json({ ok: true, service: \"pf-sync\", tinvest: true, finam: true, smartlab: true, ai: true });\n    const m = url.pathname.match(/^\\/v1\\/([A-Za-z0-9_-]{16,64})$/);\n    if (!m) return json({ error: \"not found\" }, 404);\n    const key = \"pf:\" + m[1];\n\n    const { value, metadata } = await env.PF.getWithMetadata(key);\n    const meta = metadata || null; // { rev, updated, wk }\n\n    if (request.method === \"GET\") {\n      if (value === null) return json({ error: \"empty\" }, 404);\n      return new Response(value, {\n        headers: { ...CORS, \"Content-Type\": \"application/json; charset=utf-8\", \"Cache-Control\": \"no-store\", \"X-Rev\": String(meta.rev), \"X-Updated\": meta.updated },\n      });\n    }\n\n    const wk = request.headers.get(\"X-Write-Key\") || \"\";\n    if (wk.length < 32) return json({ error: \"no write key\" }, 401);\n    const wkHash = await sha256hex(wk);\n    if (meta && meta.wk !== wkHash) return json({ error: \"forbidden\" }, 403);\n\n    if (request.method === \"PUT\") {\n      const base = Number(request.headers.get(\"X-Base-Rev\") || 0);\n      if (meta && base !== meta.rev) return json({ error: \"conflict\", rev: meta.rev, updated: meta.updated }, 409);\n      const body = await request.text();\n      if (body.length > MAX_BYTES) return json({ error: \"too large\" }, 413);\n      try { const p = JSON.parse(body); if (!p || !p.ct || !p.iv) throw 0; } catch { return json({ error: \"bad body\" }, 400); }\n      const next = { rev: (meta ? meta.rev : 0) + 1, updated: new Date().toISOString(), wk: wkHash };\n      await env.PF.put(key, body, { metadata: next });\n      return json({ rev: next.rev, updated: next.updated });\n    }\n\n    if (request.method === \"DELETE\") {\n      await env.PF.delete(key);\n      return json({ ok: true });\n    }\n\n    return json({ error: \"method not allowed\" }, 405);\n  },\n};\n";
 /* ======================= sync between devices via your own Cloudflare Worker ======================= */
-const SYNC_KEYS = new Set(["pf.reports.v1", "pf.manual.v1", "pf.edits.v1", "pf.goals.v1", "pf.portfolios.v1", "pf.deposits.v1", "pf.settings.v1", "pf.rem.v1", "pf.dash.v1"]);
+const SYNC_KEYS = new Set(["pf.reports.v1", "pf.manual.v1", "pf.edits.v1", "pf.goals.v1", "pf.portfolios.v1", "pf.deposits.v1", "pf.settings.v1", "pf.rem.v1", "pf.dash.v1", "pf.stop.v1", "pf.sal.v1"]);
 S.sync = Object.assign({ url: "", id: "", pass: "", rev: 0, dirty: false, at: null, auto: true }, store.get("pf.sync.v1", {}));
 const SY = { busy: false, applying: false, timer: 0, status: "", err: "", lastPull: 0, key: null, keyFor: "" };
 const saveSync = () => { const { ...x } = S.sync; localStorage.setItem("pf.sync.v1", JSON.stringify(x)); };
 const prov = () => S.sync.prov || "cf";
-const syncOn = () => !!S.sync.pass && (prov() === "cf" ? !!(S.sync.url && S.sync.id) : prov() === "yd" ? !!S.sync.ytoken : !!S.sync.gclient);
+const syncOn = () => !!S.sync.pass && (prov() === "cf" ? !!(S.sync.url && S.sync.id) : prov() === "gs" ? !!(S.gas && S.gas.url && S.sync.id) : prov() === "yd" ? !!S.sync.ytoken : !!S.sync.gclient);
 { const set0 = store.set; store.set = (k, v) => { const track = SYNC_KEYS.has(k) && !SY.applying && syncOn(); let prev = null; if (track) try { prev = localStorage.getItem(k); } catch {} const ok = set0(k, v); if (track){ let now = null; try { now = localStorage.getItem(k); } catch {} if (now !== prev) markDirty(); } return ok; }; }
 function markDirty(){ if (!S.sync.dirty){ S.sync.dirty = true; saveSync(); } paintSync(); if (S.sync.auto){ clearTimeout(SY.timer); SY.timer = setTimeout(() => syncPush(false), 15000); } }
-function backupData(){ return { app: "portfel", v: 1, at: new Date().toISOString(), reports: S.reports, manual: S.manual, edits: S.edits, deposits: S.deposits, settings: S.settings, portfolios: S.portfolios, goals: S.goals, rem: S.rem, active: S.active, dash: S.dash }; }
+function backupData(){ return { app: "portfel", v: 1, at: new Date().toISOString(), reports: S.reports, manual: S.manual, edits: S.edits, deposits: S.deposits, settings: S.settings, portfolios: S.portfolios, goals: S.goals, rem: S.rem, active: S.active, dash: S.dash, stop: S.stop, sal: S.sal }; }
 function applyBackup(d){
   if (!d || d.app !== "portfel" || !Array.isArray(d.reports)) throw new Error("bad");
   S.reports = d.reports; S.deposits = d.deposits || []; saveDeposits(); if (d.settings){ S.settings = Object.assign(S.settings, d.settings); saveSettings(); }
@@ -5173,6 +5752,8 @@ function applyBackup(d){
   S.portfolios = d.portfolios || []; S.goals = d.goals || {}; if (d.rem) S.rem = d.rem; if (d.dash){ S.dash = d.dash; saveDash(); }
   if (!S.portfolios.some(p => p.id === S.active)) S.active = d.active && (d.active === "all" || S.portfolios.some(p => p.id === d.active)) ? d.active : "all";
   S.pfSeen = accountList().map(a => a.key);
+  if (d.sal && typeof d.sal === "object"){ S.sal = Object.assign({}, SAL_DEF, d.sal); saveSal(); }
+  if (d.stop && Array.isArray(d.stop.list)){ S.stop = Object.assign({ list: [], excl: true }, d.stop); saveStop(); }
   saveReports(); saveManual(); savePortfolios(); saveGoals(); store.set("pf.rem.v1", S.rem);
 }
 /* ---- crypto: PBKDF2 → AES-GCM key + write key; gzip before encrypting ---- */
@@ -5203,8 +5784,8 @@ const syncUrl = (u, id) => u.replace(/\/+$/, "") + "/v1/" + encodeURIComponent(i
 function newSyncId(){ return [...crypto.getRandomValues(new Uint8Array(18))].map(b => "abcdefghijkmnpqrstuvwxyz23456789"[b % 32]).join(""); }
 /* ---- storage providers: your Cloudflare Worker, Yandex Disk (app folder), Google Drive (appDataFolder) ---- */
 const SYNC_FILE = "portfel-sync.json";
-const SP_NAME = { cf: "Cloudflare", yd: "Яндекс Диск", gd: "Google Диск" };
-const offlineMsg = () => ({ cf: "Нет связи с сервером синхронизации", yd: "Нет связи с Яндекс Диском (или браузер не пустил запрос)", gd: "Нет связи с Google Диском" })[prov()];
+const SP_NAME = { cf: "Cloudflare", gs: "Помощник Google", yd: "Яндекс Диск", gd: "Google Диск" };
+const offlineMsg = () => ({ gs: "Нет связи с помощником Google", cf: "Нет связи с сервером синхронизации", yd: "Нет связи с Яндекс Диском (или браузер не пустил запрос)", gd: "Нет связи с Google Диском" })[prov()];
 const SP = {};
 SP.cf = {
   async get(){ const r = await fetch(syncUrl(S.sync.url, S.sync.id), { cache: "no-store" }); if (r.status === 404) return null; if (!r.ok) throw new Error("Сервер ответил ошибкой " + r.status);
@@ -5215,6 +5796,16 @@ SP.cf = {
     if (r.status === 409) return { conflict: j };
     if (r.status === 403) throw new Error("Сервер не принял запись: пароль не совпадает с тем, которым создано хранилище.");
     if (!r.ok) throw new Error(j.error ? "Сервер ответил: " + j.error : "Сервер ответил ошибкой " + r.status);
+    return { rev: j.rev, updated: j.updated }; },
+  newer: rev => rev > (S.sync.rev || 0),
+};
+/* your Google Apps Script helper: encrypted file in the «Аналитика инвестиций» folder on your Google Drive */
+SP.gs = {
+  async get(){ const j = await gasCall("get", { id: S.sync.id }); if (j.empty) return null; return { rev: j.rev, updated: j.updated, text: j.body }; },
+  async put(body, base, k){
+    let j; try { j = await gasCall("put", { id: S.sync.id, wk: k.wk, base: base || 0, body }); }
+    catch (e){ if (/forbidden/.test(e.message)) throw new Error("Помощник не принял запись: пароль не совпадает с тем, которым создано хранилище."); throw e; }
+    if (j.conflict) return { conflict: { rev: j.rev, updated: j.updated } };
     return { rev: j.rev, updated: j.updated }; },
   newer: rev => rev > (S.sync.rev || 0),
 };
@@ -5339,7 +5930,7 @@ function openSync(){
   dlg.querySelector("#mSubmit").hidden = true; const fb = dlg.querySelector(".dlg-foot [data-close]:not(.ghost)"); if (fb) fb.textContent = "Закрыть";
   dlg.querySelector("#mForm").onsubmit = e => { e.preventDefault(); };
   const body = dlg.querySelector("#syBody");
-  let tab = S.sync.prov || "cf";
+  let tab = S.sync.prov || (S.gas.url ? "gs" : "cf");
   const howCf = `<details class="more"><summary>Как поднять свой сервер в Cloudflare (бесплатно, ~10 минут)</summary><ol class="sy-steps">
       <li>Зарегистрируйтесь на <b>dash.cloudflare.com</b> (бесплатный план).</li>
       <li><b>Storage &amp; Databases → KV → Create</b>: создайте хранилище, например <code>pf-sync</code>.</li>
@@ -5363,7 +5954,7 @@ function openSync(){
       <li>Придумайте пароль шифрования и нажмите <b>«Войти через Google и подключить»</b>. Google предупредит, что приложение не проверено — это ваше же приложение: «Продолжить».</li></ol>
       <p class="small muted" style="margin:0">Приложение получает доступ только к своей скрытой папке на Диске, ваши файлы ему не видны. Вход действует час; когда он истечёт, значок облака попросит войти снова одним нажатием.</p></details>`;
   const passHint = `<p class="small muted" style="margin:0">Данные шифруются этим паролем прямо в браузере, в хранилище уходит только шифротекст. Пароль не восстановить — запомните его. На всех устройствах пароль должен быть один.</p>`;
-  const tabs = () => `<div class="hper sy-tabs">${["cf", "yd", "gd"].map(p => `<button type="button" class="${tab === p ? "on" : ""}" data-sytab="${p}">${SP_NAME[p]}</button>`).join("")}</div>`;
+  const tabs = () => `<div class="hper sy-tabs">${["gs", "cf", "yd", "gd"].map(p => `<button type="button" class="${tab === p ? "on" : ""}" data-sytab="${p}">${SP_NAME[p]}</button>`).join("")}</div>`;
   const draw = () => {
     if (!syncOn()){
       const err = `<p class="small neg" id="syErr" style="margin:0">${esc(SY.err)}</p>`;
@@ -5373,6 +5964,12 @@ function openSync(){
           <label class="fld"><span>Пароль</span><input id="syPass" type="password" autocomplete="new-password" placeholder="не короче 8 символов"></label></div>
         <p class="small muted" style="margin:0">Первое устройство: оставьте код пустым — приложение создаст хранилище и отправит туда ваши данные. Другие устройства: введите тот же адрес, код и пароль — данные загрузятся с сервера.</p>
         ${err}<div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn primary" data-sy="connect">Подключить</button><button type="button" class="btn" data-sy="test">Проверить адрес</button></div>${howCf}`;
+      if (tab === "gs") body.innerHTML = tabs() + (!S.gas.url ? `<p class="small muted" style="margin:0">Хранилище на вашем Google Диске через ваш собственный скрипт Google: регистрироваться нигде не нужно, данные шифруются паролем в браузере.</p><div><button type="button" class="btn primary" data-sy="gasopen">Сначала подключите помощник Google</button></div>`
+        : `<p class="small muted" style="margin:0">Данные шифруются паролем в браузере и сохраняются файлом в папке «Аналитика инвестиций» на вашем Google Диске через ваш скрипт.</p>
+        <div class="fld2"><label class="fld"><span>Код хранилища</span><input id="syId" placeholder="пусто — создать новое" value="${esc(S.sync.prov === "gs" ? S.sync.id || "" : "")}" autocomplete="off"></label>
+          <label class="fld"><span>Пароль</span><input id="syPass" type="password" autocomplete="new-password" placeholder="не короче 8 символов"></label></div>
+        <p class="small muted" style="margin:0">Первое устройство: код оставьте пустым. На других устройствах подключите тот же помощник Google (адрес и ключ), затем введите этот код и пароль.</p>
+        ${err}<div><button type="button" class="btn primary" data-sy="gsconnect">Подключить</button></div>`);
       if (tab === "yd") body.innerHTML = tabs() + `<div class="fld2"><label class="fld"><span>ClientID приложения (для получения токена)</span><input id="syYc" value="${esc(S.sync.ycid || "")}" placeholder="например, 1a2b3c…" autocomplete="off"></label>
           <div class="fld" style="align-self:end"><button type="button" class="btn" data-sy="ytoken">Получить токен ↗</button></div></div>
         <div class="fld2"><label class="fld"><span>OAuth-токен</span><input id="syYt" type="password" autocomplete="off" placeholder="y0_…" value="${esc(S.sync.ytoken || "")}"></label>
@@ -5385,13 +5982,13 @@ function openSync(){
       return;
     }
     const p = prov(), st = SY.busy ? SY.status : SY.err ? `<span class="neg">${esc(SY.err)}</span>` : S.sync.dirty ? "есть неотправленные изменения" : "всё синхронизировано";
-    body.innerHTML = `<div class="sy-info"><div><span class="k">Хранилище</span><b>${p === "cf" ? esc(S.sync.url.replace(/^https?:\/\//, "")) : SP_NAME[p] + (p === "yd" ? " · папка «Приложения»" : " · скрытая папка приложения")}</b></div>
-        ${p === "cf" ? `<div><span class="k">Код хранилища</span><b class="num">${esc(S.sync.id)}</b> <button type="button" class="link" data-sy="copy">скопировать</button></div>` : ""}
+    body.innerHTML = `<div class="sy-info"><div><span class="k">Хранилище</span><b>${p === "cf" ? esc(S.sync.url.replace(/^https?:\/\//, "")) : p === "gs" ? "Помощник Google · папка «Аналитика инвестиций» на Диске" : SP_NAME[p] + (p === "yd" ? " · папка «Приложения»" : " · скрытая папка приложения")}</b></div>
+        ${p === "cf" || p === "gs" ? `<div><span class="k">Код хранилища</span><b class="num">${esc(S.sync.id)}</b> <button type="button" class="link" data-sy="copy">скопировать</button></div>` : ""}
         <div><span class="k">Состояние</span><b>${st}</b></div>
         <div><span class="k">Последняя синхронизация</span><b>${S.sync.at ? new Date(S.sync.at).toLocaleString("ru-RU") : "—"}</b>${p === "cf" && S.sync.rev ? ` <small class="faint">версия ${S.sync.rev}</small>` : ""}</div></div>
       <label class="chk"><input type="checkbox" id="syAuto" ${S.sync.auto ? "checked" : ""}> Отправлять изменения автоматически и забирать новое при открытии</label>
       <div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn primary" data-sy="now" ${SY.busy ? "disabled" : ""}>Синхронизировать сейчас</button><button type="button" class="btn" data-sy="pull" ${SY.busy ? "disabled" : ""}>Загрузить из хранилища</button><button type="button" class="btn" data-sy="off">Отключить на этом устройстве</button></div>
-      <p class="small muted" style="margin:0">${p === "cf" ? "Чтобы подключить другое устройство, откройте там приложение, нажмите на облако и введите этот адрес, код и тот же пароль." : p === "yd" ? "На другом устройстве выберите «Яндекс Диск», вставьте токен и тот же пароль." : "На другом устройстве выберите «Google Диск», вставьте тот же Client ID и пароль, войдите тем же аккаунтом Google."} Пароль хранится только в этом браузере.</p>
+      <p class="small muted" style="margin:0">${p === "gs" ? "На другом устройстве подключите тот же помощник Google (адрес и ключ), затем вкладка «Помощник Google» здесь — этот код и тот же пароль." : p === "cf" ? "Чтобы подключить другое устройство, откройте там приложение, нажмите на облако и введите этот адрес, код и тот же пароль." : p === "yd" ? "На другом устройстве выберите «Яндекс Диск», вставьте токен и тот же пароль." : "На другом устройстве выберите «Google Диск», вставьте тот же Client ID и пароль, войдите тем же аккаунтом Google."} Пароль хранится только в этом браузере.</p>
       ${p === "cf" ? howCf : ""}`;
   };
   syncDlgOpen = draw; dlg.addEventListener("close", () => { syncDlgOpen = null; }, { once: true });
@@ -5422,6 +6019,20 @@ function openSync(){
       paintSync(); draw(); addMsg("Синхронизация отключена. Данные на этом устройстве остались.", "ok"); return; }
     if (a === "ytoken"){ const cid = body.querySelector("#syYc").value.trim(); if (!/^[0-9a-f]{20,40}$/i.test(cid)){ SY.err = "Вставьте ClientID приложения из oauth.yandex.ru."; draw(); return; }
       S.sync.ycid = cid; saveSync(); window.open("https://oauth.yandex.ru/authorize?response_type=token&client_id=" + encodeURIComponent(cid), "_blank", "noopener"); return; }
+    if (a === "gasopen"){ const d = b.closest("dialog"); if (d) d.close(); openGas(); return; }
+    if (a === "gsconnect"){
+      const err2 = t => { SY.err = t; const q = body.querySelector("#syErr"); if (q) q.textContent = t; };
+      const pass = body.querySelector("#syPass").value, id0 = body.querySelector("#syId").value.trim();
+      if (pass.length < 8) return err2("Пароль — не короче 8 символов.");
+      if (id0 && !/^[A-Za-z0-9_-]{16,64}$/.test(id0)) return err2("Код хранилища — 16–64 латинских буквы и цифр.");
+      b.disabled = true; b.textContent = "Подключаю…";
+      const keep = { url: S.sync.url, ycid: S.sync.ycid, gclient: S.sync.gclient };
+      S.sync = { ...keep, prov: "gs", id: id0 || newSyncId(), pass, rev: 0, dirty: false, at: null, auto: true }; SY.key = null; SY.err = "";
+      if (id0) await syncPull({ force: true, quiet: true, mustExist: true }); else await syncPush(false, 0);
+      if (SY.err){ const e2 = SY.err; S.sync = { ...keep, prov: "gs", id: id0, pass: "", rev: 0, dirty: false, at: null, auto: true }; saveSync(); paintSync(); draw(); return err2(e2); }
+      addMsg(id0 ? "Подключено. Данные загружены с Google Диска." : "Хранилище создано на вашем Google Диске. Сохраните код хранилища и пароль.", "ok");
+      saveSync(); paintSync(); draw(); return;
+    }
     if (a === "yconnect") return connectDrive(b, () => { const t = body.querySelector("#syYt").value.trim(); if (t.length < 20) return "Вставьте OAuth-токен Яндекса."; S.sync.prov = "yd"; S.sync.ytoken = t; const cid = body.querySelector("#syYc").value.trim(); if (cid) S.sync.ycid = cid; });
     if (a === "gconnect") return connectDrive(b, () => { const c = body.querySelector("#syGc").value.trim(); if (!/\.apps\.googleusercontent\.com$/.test(c)) return "Client ID должен оканчиваться на .apps.googleusercontent.com"; S.sync.prov = "gd"; S.sync.gclient = c; });
     const url = (body.querySelector("#syUrl") || {}).value?.trim().replace(/\/+$/, "") || "";
@@ -5529,7 +6140,7 @@ const qv = x => x == null ? 0 : (+x.units || 0) + (+x.nano || 0) / 1e9; // Quota
 const mskDate = ts => { const d = new Date(Date.parse(ts) + 3 * 3600e3).toISOString(); return [d.slice(0, 10), d.slice(11, 19)]; };
 async function tapiCall(method, body){
   const opts = { method: "POST", headers: { "Authorization": "Bearer " + S.tapi.token, "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(body || {}) };
-  const viaWorker = () => S.sync && S.sync.url ? fetch(S.sync.url.replace(/\/+$/, "") + "/tinvest/" + method, opts) : null;
+  const viaWorker = () => relay("/tinvest/" + method, opts);
   let r;
   if (S.tapi.via !== "worker"){
     try { r = await fetch(TAPI_BASE + method, opts); S.tapi.via = "direct"; }
@@ -5705,7 +6316,7 @@ const fv = x => x == null ? 0 : typeof x === "object" ? (x.value != null ? +x.va
 async function fapiRaw(method, path, body, auth){
   const h = { "Content-Type": "application/json", "Accept": "application/json" }; if (auth) h.Authorization = auth;
   const opts = { method, headers: h }; if (body) opts.body = JSON.stringify(body);
-  const viaWorker = () => S.sync && S.sync.url ? fetch(S.sync.url.replace(/\/+$/, "") + "/finam" + path, opts) : null;
+  const viaWorker = () => relay("/finam" + path, opts);
   if (S.fapi.via === "worker"){ const w = viaWorker(); if (w) return w; S.fapi.via = ""; }
   try { const r = await fetch(FAPI_BASE + path, opts); S.fapi.via = "direct"; return r; }
   catch { const w = viaWorker(); if (!w) throw new Error("Браузер не пустил запрос к API Финама (ограничение CORS). Включите синхронизацию через ваш воркер Cloudflare — он передаст запросы — или загружайте отчёты файлами."); S.fapi.via = "worker"; return w; }
@@ -6005,6 +6616,7 @@ async function handleFiles(files){
   for (const f of files){
     try {
       const r = await parseFile(f);
+      if (r.bondMap){ addMsg(`${f.name}: таблица «Карта облигаций» — ${importBondMap(r.bondMap)}`, "ok"); render(); continue; }
       if (!r.trades.length && !r.cash.length && !r.positions.length) throw new Error("В отчёте не нашлось сделок, операций и позиций.");
       S.reports = S.reports.filter(x => x.id !== r.id); S.reports.push(r); added++;
       addMsg(`${BROKERS[r.broker].name}: ${r.trades.length} ${plural(r.trades.length, "сделка", "сделки", "сделок")}, ${r.cash.length} операций с деньгами, ${(n => n + " " + plural(n, "позиция", "позиции", "позиций"))(r.positions.filter(p => p.qty > 0).length)} на ${fmtD(r.to)}.`, "ok");
@@ -6021,10 +6633,11 @@ const drop = $("#drop"), ov = $("#dropOverlay");
 document.addEventListener("drop", e => { if (e.dataTransfer && e.dataTransfer.files.length){ e.preventDefault(); handleFiles([...e.dataTransfer.files]); } });
 $("#btnRefresh").onclick = () => refreshMoex(true);
 function autoMoex(){ if (MOEX_VIEWS.includes(S.view) && document.visibilityState !== "hidden") refreshMoex(false); if (["analytics", "portfolio"].includes(S.view) && derive("all").holdings.some(h => (S.moex[h.isin] || {}).kind === "bond")) loadEmissions(false); }
-function route(){ const h = location.hash.replace("#", ""); S.view = h === "assets" ? "portfolio" : h === "taxes" ? "analytics" : ["home", "analytics", "portfolio", "calendar", "deals", "goal", "reports", "deposits", "bonds", "divs", "bondlab", "bondpick", "mmf", "taxopt", "cpncal"].includes(h) ? h : "home"; closeDrops(); render(); autoMoex(); }
+function route(){ const h = location.hash.replace("#", ""); S.view = h === "assets" ? "portfolio" : h === "taxes" ? "analytics" : ["home", "analytics", "portfolio", "calendar", "deals", "goal", "reports", "deposits", "bonds", "divs", "bondlab", "bondpick", "mmf", "taxopt", "cpncal", "stoplist", "salary"].includes(h) ? h : "home"; closeDrops(); render(); autoMoex(); }
 addEventListener("hashchange", route);
 S.moexAt = store.get("pf.moexAt", 0);
 route();
+setTimeout(() => { try { gasAuto(); } catch {} }, 0);
 document.addEventListener("visibilitychange", autoMoex);
 
 /* ======================= security card: MOEX data + Smart-Lab fundamentals ======================= */
@@ -6120,6 +6733,7 @@ function scFacts(c){
       kv("Купон", c.s.couponpercent != null ? pct(+c.s.couponpercent, 2) + (c.s.couponvalue ? " · " + money(+c.s.couponvalue, 2, c.faceUnit) : "") : null),
       kv("Выплат в год", c.s.couponperiod ? Math.round(365 / c.s.couponperiod) : null), kv("Номинал", c.face ? money(c.face, 2, c.faceUnit) : null), kv("НКД", c.s.accruedint != null ? money(+c.s.accruedint, 2, c.faceUnit) : null),
       kv("Погашение", c.matdate && c.matdate !== "0000-00-00" ? fmtD(c.matdate) : null), kv("Оферта", offer ? fmtD(offer.date) : null),
+      kv("Рейтинги агентств", ratInfo(c.isin) && Object.keys(ratInfo(c.isin).ag).length ? ratAgHtml(c.isin) + (ratInfo(c.isin).ch ? " " + ratChHtml(c.isin) : "") : null), kv("Стоп-лист", stopReason(c.isin, c.name, c.price) ? `<span class="neg">${esc(stopReason(c.isin, c.name, c.price).t)}</span>` : null),
       kv("Дюрация", c.m.duration ? Math.round(c.m.duration) + " дн." : null), kv("Объём выпуска", c.issueSize && c.face ? scBig(c.issueSize * c.face * (fxRate(c.faceUnit) || 1)) : null));
   } else out.push(kv("Лот", c.s.lotsize ? scInt(c.s.lotsize) + " шт." : null), kv("Оборот сегодня", c.m.valtoday ? scBig(+c.m.valtoday) : null));
   out.push(kv("Уровень листинга", c.list ? c.list : null), kv("Только для квалов", c.qual ? "да" : null), kv("Эмитент", c.issuer ? esc(c.issuer) : null), kv("ИНН", c.inn ? esc(c.inn) : null), kv("Тип", c.typeName ? esc(c.typeName) : null));
@@ -6168,7 +6782,7 @@ function slParse(html){
 async function slFetch(tk, std){
   const path = `/q/${encodeURIComponent(tk)}/f/y/${std}/`;
   const tries = [["Smart-Lab", () => fetch("https://smart-lab.ru" + path, { cache: "no-store", credentials: "omit" })]];
-  if (S.sync && S.sync.url) tries.push(["воркер", () => fetch(S.sync.url.replace(/\/+$/, "") + "/sl" + path)]);
+  if (hasRelay()) tries.push(["воркер", () => relay("/sl" + path)]);
   let err = null;
   for (const [src, go] of tries){
     try { const r = await go(); if (r.status === 404) { err = new Error("notfound"); continue; } if (!r.ok) throw new Error("HTTP " + r.status);
@@ -6199,7 +6813,7 @@ function scPaintFund(c){
     const e = SC.ferr;
     body = !e ? "" : e === "notfound" ? `<div class="empty small">На Smart-Lab нет ${SC.std === "MSFO" ? "МСФО" : "РСБУ"}-отчётности по ${esc(tk)}. Попробуйте другой стандарт.</div>`
       : e === "noworkerroute" ? `<div class="empty small">Ваш воркер Cloudflare ещё не умеет загружать Smart-Lab. Скачайте свежий код воркера в окне синхронизации (иконка облака) и обновите его в Cloudflare.</div>`
-      : `<div class="empty small"><b>Smart-Lab не отдал данные браузеру</b><span>Сайт не разрешает другим страницам читать свои таблицы (ограничение CORS).${S.sync && S.sync.url ? " Через ваш воркер тоже не получилось: обновите его код из окна синхронизации." : " Их можно загружать через ваш воркер Cloudflare — подключите синхронизацию (иконка облака вверху)."} Пока можно <a href="${url}" target="_blank" rel="noopener">открыть таблицу на Smart-Lab ↗</a>.</span><button type="button" class="btn small" data-sc-retry>Попробовать ещё раз</button></div>`;
+      : `<div class="empty small"><b>Smart-Lab не отдал данные браузеру</b><span>Сайт не разрешает другим страницам читать свои таблицы (ограничение CORS).${hasRelay() ? " Через " + relayName() + " тоже не получилось" + (S.gas.url ? "." : ": обновите код воркера из окна синхронизации.") : " Их можно загружать через помощник Google (Ещё → Помощник Google) или ваш воркер Cloudflare."} Пока можно <a href="${url}" target="_blank" rel="noopener">открыть таблицу на Smart-Lab ↗</a>.</span><button type="button" class="btn small" data-sc-retry>Попробовать ещё раз</button></div>`;
   } else {
     const n = f.cols.length, take = Math.min(n, 7), idx = [...Array(take)].map((_, i) => n - take + i);
     const rows = SC.all ? f.rows : f.rows.filter(r => SL_KEY.some(re => re.test(r.n)));
@@ -6216,7 +6830,7 @@ function scPaintFund(c){
     body = `<h4 class="sc-rh">${esc(sel.n)}</h4><div class="chart-wrap"><svg class="chart" viewBox="0 0 ${W} ${h}">${g}</svg></div>
       <div class="tbl-wrap sc-ft"><table class="t"><thead><tr><th></th>${idx.map(i => `<th class="n">${esc(f.cols[i])}</th>`).join("")}</tr></thead><tbody>
       ${list.map(r => `<tr class="${r === sel ? "on" : ""}" data-sc-row="${esc(r.n)}"><td>${esc(r.n)}</td>${idx.map(i => `<td class="n">${slFmt(r.v[i], r.p)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>
-      <div class="sc-ff small muted"><label class="chk"><input type="checkbox" data-sc-all ${SC.all ? "checked" : ""}> Все строки (${f.rows.length})</label><span class="spacer"></span><span>Источник: Smart-Lab${f.src === "воркер" ? " через ваш воркер" : ""}, ${new Date(f.at).toLocaleDateString("ru-RU")}${f.ccy ? " · валюта отчёта " + esc(f.ccy) : ""}</span> <button type="button" class="link" data-sc-retry>обновить</button></div>`;
+      <div class="sc-ff small muted"><label class="chk"><input type="checkbox" data-sc-all ${SC.all ? "checked" : ""}> Все строки (${f.rows.length})</label><span class="spacer"></span><span>Источник: Smart-Lab${f.src === "воркер" ? " через " + relayName() : ""}, ${new Date(f.at).toLocaleDateString("ru-RU")}${f.ccy ? " · валюта отчёта " + esc(f.ccy) : ""}</span> <button type="button" class="link" data-sc-retry>обновить</button></div>`;
   }
   host.innerHTML = head + body;
 }
@@ -6364,7 +6978,7 @@ function aiOpenChat(p, q, c){
   addMsg(`${AI_P[p].n}: вопрос с данными карточки скопирован.${p === "claude" && url.includes("?q=") ? " Он уже подставлен в чат — нажмите «Отправить»." : " Вставьте его в чат (Ctrl+V или долгое нажатие → Вставить)."}`, "ok");
 }
 async function aiFetch(p, url, wpath, opts){
-  const viaWorker = () => S.sync && S.sync.url ? fetch(S.sync.url.replace(/\/+$/, "") + wpath, opts) : null;
+  const viaWorker = () => relay(wpath, opts);
   if (AI.via[p] === "worker"){ const w = viaWorker(); if (w) return w; }
   try { const r = await fetch(url, opts); AI.via[p] = "direct"; return r; }
   catch (e){ const w = viaWorker(); if (!w) throw new Error(`Браузер не пустил запрос к ${AI_P[p].n} (ограничение CORS или нет интернета). Можно подключить синхронизацию через ваш воркер Cloudflare — он передаст запрос.`); AI.via[p] = "worker"; return w; }
