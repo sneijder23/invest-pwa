@@ -7030,7 +7030,18 @@ function aiMd(src){
   flushP(); flushL(); return out.join("");
 }
 function aiPrompt(q, c){ return AI_SYS + "\n\nВопрос: " + q + "\n\nДанные:\n" + aiContext(c); }
-function copySync(text){ try { const ta = document.createElement("textarea"); ta.value = text; ta.style.cssText = "position:fixed;opacity:0"; document.body.appendChild(ta); ta.select(); const ok = document.execCommand("copy"); ta.remove(); return ok; } catch { return false; } }
+/* copy inside the open modal dialog (outside it the page is inert and the copy would take whatever is selected), restore focus and selection */
+function copySync(text){
+  const host = [...document.querySelectorAll("dialog[open]")].pop() || document.body, prev = document.activeElement;
+  let ok = false;
+  try { const ta = document.createElement("textarea"); ta.value = text; ta.readOnly = true; ta.setAttribute("aria-hidden", "true");
+    ta.style.cssText = "position:fixed;left:0;top:0;width:1px;height:1px;opacity:0;font-size:16px";
+    host.appendChild(ta); ta.focus({ preventScroll: true }); ta.select(); ta.setSelectionRange(0, text.length);
+    ok = document.execCommand("copy") && (document.getSelection() + "" === text || ta.selectionEnd - ta.selectionStart === text.length); ta.remove(); } catch {}
+  try { if (prev && prev.focus) prev.focus({ preventScroll: true }); } catch {}
+  if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).catch(() => {});
+  return ok || !!(navigator.clipboard && window.isSecureContext);
+}
 /* no key: copy the prompt and open the chat */
 function aiOpenChat(p, q, c){
   const text = aiPrompt(q, c), ok = copySync(text);
