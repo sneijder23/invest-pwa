@@ -639,6 +639,7 @@ th.sortable button:hover{color:var(--fg)}
 .cc-m i{display:inline-grid;place-items:center;width:15px;height:18px;border-radius:3px;background:var(--surface-2);color:var(--faint);font:600 9.5px var(--f-body);font-style:normal}
 .cc-m i.on{background:color-mix(in srgb,var(--c-coupon) 25%,transparent);color:var(--fg)}
 .cc-m i.hit{background:var(--warn);color:#fff}
+.sy-diag{display:grid;gap:3px;padding:10px 12px;border:1px solid var(--line);border-radius:8px;font-size:13.5px}
 .sal-pre{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,200px),1fr));gap:8px}
 @media (max-width:560px){.sal-pre{grid-template-columns:1fr 1fr}.sal-p{padding:8px 10px}.sal-p small{font-size:11.5px}}
 .sal-p{display:grid;gap:2px;text-align:left;padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:transparent;color:var(--fg);cursor:pointer;font-size:14px}
@@ -5811,22 +5812,26 @@ SP.gs = {
 };
 /* Yandex Disk REST API, app folder only (scope cloud_api:disk.app_folder) */
 const YD_API = "https://cloud-api.yandex.net/v1/disk/resources", ydPath = () => encodeURIComponent("app:/" + SYNC_FILE);
+/* a network failure (no internet, phone just woke up, CORS) comes as TypeError: remember which step it was */
+const isNetErr = e => e && (e.net || e instanceof TypeError || /fetch|NetworkError|Load failed|network/i.test(e.message || ""));
+async function netStep(step, fn){ try { return await fn(); } catch (e){ if (isNetErr(e) && !e.net){ const x = new Error("net"); x.net = true; x.step = step; throw x; } throw e; } }
 async function ydFetch(url, opts = {}){
-  const r = await fetch(url, { ...opts, cache: "no-store", headers: { ...(opts.headers || {}), Authorization: "OAuth " + S.sync.ytoken } });
+  const step = opts.step || "запрос к cloud-api.yandex.net"; delete opts.step;
+  const r = await netStep(step, () => fetch(url, { ...opts, cache: "no-store", headers: { ...(opts.headers || {}), Authorization: "OAuth " + S.sync.ytoken } }));
   if (r.status === 401 || r.status === 403) throw new Error("Яндекс Диск не принял токен. Получите новый токен в окне синхронизации.");
   return r;
 }
-async function ydMeta(){ const r = await ydFetch(`${YD_API}?path=${ydPath()}&fields=md5,modified,revision`); if (r.status === 404) return null; if (!r.ok) throw new Error("Яндекс Диск ответил ошибкой " + r.status);
+async function ydMeta(){ const r = await ydFetch(`${YD_API}?path=${ydPath()}&fields=md5,modified,revision`, { step: "проверка файла на Диске" }); if (r.status === 404) return null; if (!r.ok) throw new Error("Яндекс Диск ответил ошибкой " + r.status);
   const j = await r.json(); return { rev: String(j.revision || j.md5 || j.modified), updated: j.modified }; }
 SP.yd = {
   async get(){ const m = await ydMeta(); if (!m) return null;
-    const d = await ydFetch(`${YD_API}/download?path=${ydPath()}`); if (!d.ok) throw new Error("Яндекс Диск не отдал файл: ошибка " + d.status);
-    const { href } = await d.json(); const t = await fetch(href, { cache: "no-store" }); if (!t.ok) throw new Error("Яндекс Диск не отдал файл: ошибка " + t.status);
+    const d = await ydFetch(`${YD_API}/download?path=${ydPath()}`, { step: "получение ссылки на скачивание" }); if (!d.ok) throw new Error("Яндекс Диск не отдал файл: ошибка " + d.status);
+    const { href } = await d.json(); const t = await netStep("скачивание файла (downloader.disk.yandex.ru)", () => fetch(href, { cache: "no-store" })); if (!t.ok) throw new Error("Яндекс Диск не отдал файл: ошибка " + t.status);
     return { ...m, text: await t.text() }; },
   async put(body, base){
     const m = await ydMeta(); if (m && base && String(m.rev) !== String(base)) return { conflict: { rev: m.rev, updated: m.updated } };
-    const u = await ydFetch(`${YD_API}/upload?path=${ydPath()}&overwrite=true`); if (!u.ok) throw new Error("Яндекс Диск не дал загрузить файл: ошибка " + u.status);
-    const { href } = await u.json(); const p = await fetch(href, { method: "PUT", body: new Blob([body], { type: "application/json" }) });
+    const u = await ydFetch(`${YD_API}/upload?path=${ydPath()}&overwrite=true`, { step: "получение ссылки на загрузку" }); if (!u.ok) throw new Error("Яндекс Диск не дал загрузить файл: ошибка " + u.status);
+    const { href } = await u.json(); const p = await netStep("загрузка файла (uploader.disk.yandex.net)", () => fetch(href, { method: "PUT", body: new Blob([body], { type: "application/json" }) }));
     if (!p.ok && p.status !== 201 && p.status !== 202) throw new Error("Яндекс Диск не принял файл: ошибка " + p.status);
     for (let i = 0; i < 4; i++){ const m2 = await ydMeta(); if (m2 && (!m || m2.rev !== m.rev)) return m2; await new Promise(r => setTimeout(r, 700)); }
     const m3 = await ydMeta(); if (!m3) throw new Error("Файл на Яндекс Диске не появился"); return m3; },
@@ -5884,8 +5889,16 @@ async function syncPush(force, baseRev){
     const res = await SP[prov()].put(body, baseRev ?? S.sync.rev, k);
     if (res.conflict){ SY.busy = false; SY.status = ""; paintSync(); return syncConflict(res.conflict); }
     S.sync.rev = res.rev; S.sync.at = res.updated; S.sync.dirty = false; saveSync(); SY.status = "";
-  } catch (e){ SY.err = e.message && !/fetch|NetworkError|Load failed/i.test(e.message) ? e.message : offlineMsg(); SY.status = ""; }
+  } catch (e){ SY.err = isNetErr(e) ? syncNetMsg(e, "push") : e.message; SY.status = ""; }
+  if (!SY.err) SY.retry = 0;
   SY.busy = false; paintSync(); refreshSyncDlg();
+}
+/* network errors: say which step failed, and quietly try again a few times (typical right after the phone wakes up) */
+function syncNetMsg(e, what){
+  const n = SY.retry = (SY.retry || 0) + 1, wait = [5, 20, 60][n - 1];
+  clearTimeout(SY.retryT);
+  if (wait) SY.retryT = setTimeout(() => { if (syncOn() && !SY.busy) (what === "push" || S.sync.dirty ? syncPush(false) : syncPull({ quiet: true })); }, wait * 1000);
+  return offlineMsg() + (e.step ? " — шаг: " + e.step : "") + (navigator.onLine === false ? ". Телефон сейчас без интернета" : "") + (wait ? `. Повторю через ${wait} с` : ". Нажмите «Проверить связь», чтобы узнать, на каком шаге сбой");
 }
 async function syncPull(opts = {}){
   if (!syncOn() || SY.busy) return; SY.busy = true; SY.status = "Проверяю хранилище…"; SY.err = ""; paintSync(); SY.lastPull = Date.now();
@@ -5903,9 +5916,32 @@ async function syncPull(opts = {}){
       if (!opts.quiet) addMsg("Данные обновлены из хранилища синхронизации (" + SP_NAME[prov()] + ").", "ok");
     }
     SY.status = "";
-  } catch (e){ SY.err = e.pass ? e.message : /JSON|bad/.test(e.message) ? "В хранилище не те данные" : e.message && !/fetch|NetworkError|Load failed/i.test(e.message) ? e.message : offlineMsg(); SY.status = ""; }
+  } catch (e){ SY.err = e.pass ? e.message : /JSON|bad/.test(e.message) ? "В хранилище не те данные" : isNetErr(e) ? syncNetMsg(e, "pull") : e.message; SY.status = ""; }
+  if (!SY.err) SY.retry = 0;
   SY.busy = false; paintSync(); refreshSyncDlg();
   if (!SY.err && S.sync.dirty && S.sync.auto) syncPush(false);
+}
+/* step-by-step check of Yandex Disk, nothing is changed on the Disk */
+async function syncDiag(body, draw){
+  const rows = [], put = (ok, n, d) => { rows.push(`<div class="${ok === null ? "muted" : ok ? "pos" : "neg"}">${ok === null ? "…" : ok ? "✓" : "✕"} ${esc(n)}${d ? ` <small class="faint">${esc(d)}</small>` : ""}</div>`); SY.diag = rows.join(""); draw(); };
+  const net = e => isNetErr(e) ? "нет ответа: нет интернета, или браузер не пустил запрос" : e.message;
+  SY.diag = "<div class='muted'>Проверяю…</div>"; draw();
+  put(navigator.onLine !== false, "Интернет на устройстве", navigator.onLine === false ? "браузер сообщает, что сети нет" : "");
+  let href = null;
+  try { const r = await fetch(`${YD_API}?path=${ydPath()}&fields=md5,modified,revision,size`, { cache: "no-store", headers: { Authorization: "OAuth " + S.sync.ytoken } });
+    if (r.status === 401 || r.status === 403){ put(false, "Токен Яндекса", "Диск не принял токен — получите новый"); return; }
+    if (r.status === 404){ put(true, "Токен Яндекса", "принят"); put(null, "Файл синхронизации", "на Диске ещё нет — будет создан при отправке"); }
+    else if (!r.ok){ put(false, "Запрос к Диску", "ошибка " + r.status); return; }
+    else { const j = await r.json(); put(true, "Токен и файл на Диске", `изменён ${new Date(j.modified).toLocaleString("ru-RU")}, ${Math.round((j.size || 0) / 1024)} КБ`);
+      const d = await fetch(`${YD_API}/download?path=${ydPath()}`, { cache: "no-store", headers: { Authorization: "OAuth " + S.sync.ytoken } });
+      if (!d.ok){ put(false, "Ссылка на скачивание", "ошибка " + d.status); } else { href = (await d.json()).href; put(true, "Ссылка на скачивание", ""); } }
+  } catch (e){ put(false, "Связь с cloud-api.yandex.net", net(e)); return; }
+  if (href){ try { const t = await fetch(href, { cache: "no-store" }); const txt = t.ok ? await t.text() : ""; put(t.ok, "Скачивание файла", t.ok ? Math.round(txt.length / 1024) + " КБ получено" : "ошибка " + t.status); }
+    catch (e){ put(false, "Скачивание файла с downloader.disk.yandex.ru", net(e)); } }
+  try { const u = await fetch(`${YD_API}/upload?path=${encodeURIComponent("app:/portfel-check.tmp")}&overwrite=true`, { cache: "no-store", headers: { Authorization: "OAuth " + S.sync.ytoken } });
+    put(u.ok, "Разрешение на загрузку", u.ok ? "" : "ошибка " + u.status); }
+  catch (e){ put(false, "Разрешение на загрузку", net(e)); }
+  rows.push(`<p class="small muted" style="margin:4px 0 0">Если ✕ стоит у скачивания или загрузки, а остальное ✓ — пришлите мне этот список.</p>`); SY.diag = rows.join(""); draw();
 }
 function syncConflict(j){
   const when = j.updated ? new Date(j.updated).toLocaleString("ru-RU", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }) : "недавно";
@@ -5987,7 +6023,8 @@ function openSync(){
         <div><span class="k">Состояние</span><b>${st}</b></div>
         <div><span class="k">Последняя синхронизация</span><b>${S.sync.at ? new Date(S.sync.at).toLocaleString("ru-RU") : "—"}</b>${p === "cf" && S.sync.rev ? ` <small class="faint">версия ${S.sync.rev}</small>` : ""}</div></div>
       <label class="chk"><input type="checkbox" id="syAuto" ${S.sync.auto ? "checked" : ""}> Отправлять изменения автоматически и забирать новое при открытии</label>
-      <div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn primary" data-sy="now" ${SY.busy ? "disabled" : ""}>Синхронизировать сейчас</button><button type="button" class="btn" data-sy="pull" ${SY.busy ? "disabled" : ""}>Загрузить из хранилища</button><button type="button" class="btn" data-sy="off">Отключить на этом устройстве</button></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn primary" data-sy="now" ${SY.busy ? "disabled" : ""}>Синхронизировать сейчас</button><button type="button" class="btn" data-sy="pull" ${SY.busy ? "disabled" : ""}>Загрузить из хранилища</button><button type="button" class="btn" data-sy="off">Отключить на этом устройстве</button>${p === "yd" ? `<button type="button" class="btn ghost" data-sy="diag" ${SY.busy ? "disabled" : ""}>Проверить связь</button>` : ""}</div>
+      ${SY.diag ? `<div class="sy-diag">${SY.diag}</div>` : ""}
       <p class="small muted" style="margin:0">${p === "gs" ? "На другом устройстве подключите тот же помощник Google (адрес и ключ), затем вкладка «Помощник Google» здесь — этот код и тот же пароль." : p === "cf" ? "Чтобы подключить другое устройство, откройте там приложение, нажмите на облако и введите этот адрес, код и тот же пароль." : p === "yd" ? "На другом устройстве выберите «Яндекс Диск», вставьте токен и тот же пароль." : "На другом устройстве выберите «Google Диск», вставьте тот же Client ID и пароль, войдите тем же аккаунтом Google."} Пароль хранится только в этом браузере.</p>
       ${p === "cf" ? howCf : ""}`;
   };
@@ -6012,7 +6049,8 @@ function openSync(){
     const b = e.target.closest("[data-sy]"); if (!b) return; const a = b.dataset.sy;
     if (a === "code"){ const blob = new Blob([WORKER_SRC], { type: "text/javascript" }), u = URL.createObjectURL(blob), x = document.createElement("a"); x.href = u; x.download = "pf-sync-worker.js"; document.body.appendChild(x); x.click(); x.remove(); setTimeout(() => URL.revokeObjectURL(u), 4000); return; }
     if (a === "copy"){ try { await navigator.clipboard.writeText(S.sync.id); addMsg("Код хранилища скопирован.", "ok"); } catch { addMsg("Код: " + S.sync.id, "ok"); } return; }
-    if (a === "now"){ SY.gesture = true; try { if (S.sync.dirty) await syncPush(false); else await syncPull({}); } finally { SY.gesture = false; } draw(); return; }
+    if (a === "diag") return syncDiag(body, draw);
+    if (a === "now"){ SY.retry = 0; clearTimeout(SY.retryT); SY.gesture = true; try { if (S.sync.dirty) await syncPush(false); else await syncPull({}); } finally { SY.gesture = false; } draw(); return; }
     if (a === "pull"){ if (!b.classList.contains("confirm")){ b.classList.add("confirm"); b.textContent = "Заменить данные этого устройства?"; return; } S.sync.dirty = false; SY.gesture = true; try { await syncPull({ force: true }); } finally { SY.gesture = false; } draw(); return; }
     if (a === "off"){ if (!b.classList.contains("confirm")){ b.classList.add("confirm"); b.textContent = "Точно отключить?"; return; }
       S.sync = { url: S.sync.url, prov: S.sync.prov, ycid: S.sync.ycid, gclient: S.sync.gclient, id: "", pass: "", rev: 0, dirty: false, at: null, auto: true }; saveSync(); SY.key = null; SY.err = ""; GD.token = ""; try { localStorage.removeItem("pf.gdtok.v1"); } catch {}
@@ -6063,7 +6101,7 @@ function openSync(){
 }
 document.addEventListener("click", e => { if (e.target.closest("#syncBtn")) openSync(); });
 document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible" && syncOn() && S.sync.auto && Date.now() - SY.lastPull > 60e3) syncPull({}); });
-window.addEventListener("online", () => { if (syncOn() && S.sync.auto) (S.sync.dirty ? syncPush(false) : syncPull({})); });
+window.addEventListener("online", () => { SY.retry = 0; clearTimeout(SY.retryT); if (syncOn() && S.sync.auto) (S.sync.dirty ? syncPush(false) : syncPull({})); });
 setTimeout(() => { paintSync(); if (syncOn() && S.sync.auto) syncPull({}); }, 300);
 
 /* ======================= Bank of Russia key rate ======================= */
