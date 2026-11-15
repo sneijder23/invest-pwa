@@ -653,6 +653,14 @@ th.sortable button:hover{color:var(--fg)}
 .sal-mode{justify-self:start;align-self:start}
 .sal-q{width:56px!important;text-align:right;padding:3px 6px!important;font:inherit}
 .sal-t tr.sal-off td{opacity:.5}
+.sal-rec{margin-top:4px;align-self:start;border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent);border-radius:999px;padding:2px 9px;font:inherit;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap}
+.sal-rec.ok{border-color:transparent;background:transparent;color:var(--pos);padding-left:0;cursor:default}
+.sal-apply{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.sal-rec{justify-self:start}
+@media (max-width:560px){.sal-cond .pk-f{grid-template-columns:1fr 1fr!important}.sal-cond .pk-f .fld{min-width:0}.sal-cond .pk-f input,.sal-cond .pk-f select{width:100%!important;min-width:0}.sal-apply .btn{flex:1}}
+.btn.pending{animation:salPulse 1.4s ease-in-out infinite}
+@keyframes salPulse{50%{box-shadow:0 0 0 4px var(--accent-soft)}}
+@media (prefers-reduced-motion:reduce){.btn.pending{animation:none}}
 .sal-allbar{display:flex;gap:8px 16px;flex-wrap:wrap;align-items:end;margin:10px 0}
 .sal-allbar .fld{min-width:190px}
 .sal-act{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
@@ -3935,7 +3943,7 @@ function renderBondPick(D){
       <label class="fld"><span>Срок до оферты/погашения</span>${sel("term", [["gaps", "Под пробелы портфеля"], ["range", "Свой диапазон"]])}</label>
       ${P.term === "range" ? `<label class="fld"><span>От, лет</span>${inp("tmin", "0", 70)}</label><label class="fld"><span>До, лет</span>${inp("tmax", "3", 70)}</label>` : ""}
       <label class="fld"><span>Купон</span>${sel("ct", [["any", "Любой"], ["F", "Фиксированный"], ["I", "Плавающий"]])}</label>
-      <label class="fld"><span>Оборот за день от, млн ₽</span>${inp("minVol", "1", 80)}</label>
+      <label class="fld"><span>Оборот в день от, млн</span>${inp("minVol", "1", 80)}</label>
       <label class="fld"><span>Сумма к вложению, ₽</span>${inp("budget", "100000", 110)}</label>
       <label class="fld"><span>На сколько бумаг разделить</span>${sel("n", [[3, "3"], [5, "5"], [7, "7"], [10, "10"]])}</label>
       <label class="fld"><span>Сортировать</span>${sel("sort", [["ytm", "По доходности"], ["rel", "По спреду к рынку"], ["liq", "По ликвидности"]])}</label>
@@ -4296,8 +4304,9 @@ document.addEventListener("change", e => { const f = e.target.closest && e.targe
 
 
 /* ======================= tools: «Как зарплата» — bonds that pay every month ======================= */
-const SAL_DEF = { mode: "income", income: 10000, budget: 500000, ofz: true, corp: true, muni: false, minR: "A-", tmin: 1, tmax: 3, ct: "any", freq: "any", minVol: 1, n: 8, noQual: true, noRisk: true, tax: true, maxSh: "", alloc: "even", ex: [], ov: {}, inc: [], allSort: "y", allN: 30, allOpen: false, preset: "", open: "", saved: [] };
+const SAL_DEF = { mode: "income", income: 10000, budget: 500000, ofz: true, corp: true, muni: false, minR: "A-", tmin: 1, tmax: 3, ct: "any", freq: "any", minVol: 0, yType: "ytm", yMin: "", yMax: "", n: 8, noQual: true, noRisk: true, tax: true, maxSh: "", alloc: "even", ex: [], ov: {}, inc: [], allSort: "y", allN: 30, allOpen: false, preset: "", open: "", saved: [] };
 S.sal = Object.assign({}, SAL_DEF, store.get("pf.sal.v1", {}));
+if (!S.sal.v){ if (+S.sal.minVol === 1) S.sal.minVol = 0; S.sal.v = 2; }
 const saveSal = () => store.set("pf.sal.v1", S.sal);
 const SAL_PRESETS = [
   { id: "safe", n: "Надёжная", d: "ОФЗ и рейтинг от AA-, фиксированный купон, 1–3 года", p: { ofz: true, corp: true, muni: true, minR: "AA-", tmin: 1, tmax: 3, ct: "F", freq: "any", noRisk: true, noQual: true } },
@@ -4336,6 +4345,7 @@ function salCands(P, months){
     if ((r.vol || 0) < (+P.minVol || 0) * 1e6) continue;
     if (!(r.price >= 50)) continue;
     let y = r.ytm > 0 && r.ytm <= 40 ? r.ytm : null; if (!y && fl && r.cy > 0 && r.cy < 40) y = r.cy; if (!y) continue;
+    { const yv = P.yType === "cy" ? r.cy : y; if (P.yMin !== "" && P.yMin != null && !(yv >= +P.yMin)) continue; if (P.yMax !== "" && P.yMax != null && !(yv <= +P.yMax)) continue; }
     if (S.stop && S.stop.excl && typeof stopReason === "function" && stopReason(r.isin, r.name, r.price)) continue;
     const pay = salPays(r, months), paid = pay.filter(v => v > 0).length; if (!paid) continue;
     const unit = r.price / 100 * r.face + (r.nkd || 0); if (!(unit > 0)) continue;
@@ -4363,7 +4373,7 @@ function salRun(P){
   res.gaps = months.filter((m, i) => !cov[i]).map(m => m.label);
   /* allocation */
   const budget = P.mode === "budget" ? Math.max(0, +P.budget || 0) : Infinity, goal = P.mode === "income" ? Math.max(0, +P.income || 0) / net : null;
-  const capKey = c => c.r.itype === "ofz" ? "ofz" : c.iss, userCap = +P.maxSh > 0 ? Math.min(100, +P.maxSh) / 100 : null;
+  const capKey = c => c.iss, userCap = +P.maxSh > 0 ? Math.min(100, +P.maxSh) / 100 : null;
   const cap = userCap || Math.max(0.18, 2.2 / Math.max(1, pick.length));
   const run = (capAbs, floorAbs) => {
     const qty = new Map(pick.map(c => [c, 0])), inc = new Array(12).fill(0), byIss = new Map(); let spent = 0;
@@ -4450,8 +4460,24 @@ function salChart(T, goalNet){
     g += `<rect x="${cx - bw / 2}" y="${Y(m.sum)}" width="${bw}" height="${Math.max(0.5, Y(0) - Y(m.sum))}" rx="3" fill="${low ? "var(--warn)" : "var(--c-coupon)"}"/>`;
     const tip = [`${m.label}: ${money(m.sum)}`, ...m.items.sort((a, b) => b.v - a.v).slice(0, 8).map(x => `· ${x.n}: ${money(x.v)}`)].join("\n");
     g += `<rect x="${pL + cw * i}" y="${pT}" width="${cw}" height="${Hh - pT - pB}" fill="transparent" data-tip="${esc(tip)}"/><text x="${cx}" y="${Hh - 8}" text-anchor="middle">${cw < 40 ? m.label.slice(0, 1).toUpperCase() : m.label}</text>`; });
-  g += `<line x1="${pL}" x2="${W}" y1="${Y(ref)}" y2="${Y(ref)}" style="stroke:var(--fg);stroke-dasharray:6 4;opacity:.6"/><text x="${W - 4}" y="${Y(ref) - 5}" text-anchor="end" style="font-weight:600">${goalNet ? "цель" : "в среднем"} ${fmtAxis(ref)}</text>`;
+  g += `<line x1="${pL}" x2="${W}" y1="${Y(ref)}" y2="${Y(ref)}" style="stroke:var(--fg);stroke-dasharray:6 4;opacity:.6"/><text x="${W - 4}" y="${Y(ref) - 5}" text-anchor="end" style="font-weight:600;paint-order:stroke;stroke:var(--surface);stroke-width:4px;stroke-linejoin:round">${goalNet ? "цель" : "в среднем"} ${fmtAxis(ref)}</text>`;
   return `<div class="chart-wrap"><svg class="chart" viewBox="0 0 ${W} ${Hh}">${g}</svg></div>`;
+}
+const salAuto = { done: false };
+/* how many bonds give the best yield while still paying every month it is possible to cover */
+function salRecommend(P){
+  const key = JSON.stringify({ ...P, n: 0, ov: 0, saved: 0, open: 0, allN: 0, allOpen: 0, allSort: 0, preset: 0 }) + "|" + (TOOL.bonds.at || 0) + "|" + (EMIS.at || 0);
+  if (salRecommend.k === key) return salRecommend.v;
+  const net = P.tax ? 0.87 : 1, months = salMonths(), rows = [];
+  for (let n = 2; n <= 16; n++){ const r = salRun({ ...P, n, ov: {} }); if (!r.items.length) continue; const t = salTotals(r.items, months, net);
+    rows.push({ n, paid: t.paidM, y: t.y, cnt: r.items.filter(c => c.qty).length, ofzOnly: r.items.every(c => c.r.itype === "ofz") }); if (r.cands <= n) break; }
+  let v = null;
+  if (rows.length){ const maxPaid = Math.max(...rows.map(r => r.paid));
+    /* at least 4 issuers when corporate bonds are in: one default should not take a quarter of the money */
+    const ok = rows.filter(r => r.paid === maxPaid && (r.ofzOnly || r.n >= 4)), pool = ok.length ? ok : rows.filter(r => r.paid === maxPaid);
+    const best = pool.reduce((a, b) => b.y > a.y + 0.05 ? b : a);
+    v = { n: best.n, y: best.y, tip: `Лучшая средняя доходность (${pct(best.y, 2)}), при которой выплаты идут в ${maxPaid} из 12 месяцев${best.ofzOnly ? "" : ", не меньше 4 эмитентов"}. Проверено от 2 до ${rows[rows.length - 1].n} бумаг.` }; }
+  salRecommend.k = key; salRecommend.v = v; return v;
 }
 function renderSalary(){
   const el = $("#v-salary"), P = S.sal, T = TOOL.bonds;
@@ -4459,7 +4485,9 @@ function renderSalary(){
   if (!EMIS.map && !EMIS.busy && !EMIS.tried){ EMIS.tried = true; setTimeout(() => loadEmissions(false), 0); }
   const ready = T.data && EMIS.map, net = P.tax ? 0.87 : 1, sv = P.open && P.saved.find(x => x.id === P.open);
   let res = null, items = [], lost = [], months = salMonths();
+  if (T.data && !T.busy && T.restoreTried && Date.now() - (T.at || 0) > 30 * 60e3 && !salAuto.done){ salAuto.done = true; setTimeout(() => { if (!T.busy){ SCR.bonds.load(true); render(); } }, 0); }
   if (ready){ if (sv){ const o = salOpenSaved(sv, months); items = o.items; lost = o.lost; } else { res = salRun(P); items = res.items; months = res.months; } }
+  const rec = ready && !sv && res && res.cands > 2 ? salRecommend(P) : null;
   const Tt = ready ? salTotals(items, months, net) : null, goalNet = !sv && P.mode === "income" ? +P.income || 0 : null;
   const sel = (k, opts) => `<select data-sal="${k}">${opts.map(([v, n]) => `<option value="${v}" ${String(P[k]) === String(v) ? "selected" : ""}>${n}</option>`).join("")}</select>`;
   const chk = (k, n) => `<label class="chk"><input type="checkbox" data-sal="${k}" ${P[k] ? "checked" : ""}> ${n}</label>`;
@@ -4486,7 +4514,7 @@ function renderSalary(){
   </div>
   ${sv ? `<div class="panel lab-p sal-open"><div class="panel-head"><h2>Подборка «${esc(sv.name)}»</h2><span class="sub">сохранена ${fmtD(sv.at)} · пересчитана по сегодняшним ценам</span><span class="spacer"></span><button class="btn" data-salback>← К подбору</button></div>
       ${lost.length ? `<p class="small warn-t" style="margin:0">Больше не торгуются или погашены: ${esc(lost.join(", "))}.</p>` : ""}</div>`
-  : `<div class="panel lab-p"><div class="panel-head"><h2>Условия</h2>${P.ex.length || (P.inc || []).length || Object.keys(P.ov || {}).length ? `<span class="spacer"></span><button class="link" data-salreset>сбросить ручные правки (${P.ex.length + (P.inc || []).length + Object.keys(P.ov || {}).length})</button>` : ""}</div>
+  : `<div class="panel lab-p sal-cond"><div class="panel-head"><h2>Условия</h2>${P.ex.length || (P.inc || []).length || Object.keys(P.ov || {}).length ? `<span class="spacer"></span><button class="link" data-salreset>сбросить ручные правки (${P.ex.length + (P.inc || []).length + Object.keys(P.ov || {}).length})</button>` : ""}</div>
     <div class="seg sal-mode" role="group"><button type="button" aria-pressed="${P.mode === "income"}" data-salm="income">Хочу получать в месяц</button><button type="button" aria-pressed="${P.mode === "budget"}" data-salm="budget">Есть сумма</button></div>
     <div class="pk-f">
       ${P.mode === "income" ? `<label class="fld"><span>Купоны в месяц, ₽ ${P.tax ? "(после налога)" : ""}</span>${inp("income", "10000", 120)}</label>` : `<label class="fld"><span>Сумма к вложению, ₽</span>${inp("budget", "500000", 120)}</label>`}
@@ -4495,14 +4523,18 @@ function renderSalary(){
       <label class="fld"><span>Срок до, лет</span>${inp("tmax", "3", 70)}</label>
       <label class="fld"><span>Купон</span>${sel("ct", [["any", "Любой"], ["F", "Фиксированный"], ["I", "Плавающий"]])}</label>
       <label class="fld"><span>Частота выплат</span>${sel("freq", [["any", "Любая"], ["12", "Только ежемесячно"]])}</label>
-      <label class="fld"><span>Бумаг в подборке</span>${inp("n", "8", 70)}</label>
-      <label class="fld"><span>Доля на эмитента не больше, %</span>${inp("maxSh", "авто", 80)}</label>
+      <label class="fld"><span>Бумаг в подборке</span>${inp("n", "8", 70)}${rec ? `<button type="button" class="sal-rec ${rec.n === (Math.round(+P.n) || 8) ? "ok" : ""}" data-salrec="${rec.n}" data-tip="${esc(rec.tip)}">${rec.n === (Math.round(+P.n) || 8) ? "✓ рекомендовано" : "рекомендуем " + rec.n} · ${pct(rec.y, 1)}</button>` : ""}</label>
+      <label class="fld"><span>Доля эмитента до, %</span>${inp("maxSh", "авто", 80)}</label>
       <label class="fld"><span>Распределять деньги</span>${sel("alloc", [["even", "Чтобы доход был ровным"], ["equal", "Поровну между бумагами"]])}</label>
-      <label class="fld"><span>Оборот за день от, млн ₽</span>${inp("minVol", "1", 80)}</label>
+      <label class="fld"><span>Оборот в день от, млн</span>${inp("minVol", "0", 80)}</label>
+      <label class="fld"><span>Доходность</span>${sel("yType", [["ytm", "К погашению / оферте"], ["cy", "Купонная (текущая)"]])}</label>
+      <label class="fld"><span>Доходность от, %</span>${inp("yMin", "любая", 80)}</label>
+      <label class="fld"><span>Доходность до, %</span>${inp("yMax", "любая", 80)}</label>
     </div>
     <div class="pk-c">${chk("ofz", "ОФЗ")}${chk("corp", "Корпоративные")}${chk("muni", "Муниципальные")}</div>
     <div class="pk-c">${chk("noQual", "Без бумаг для квалов")}${chk("noRisk", "Без высокого риска")}${chk("tax", "Считать после НДФЛ 13%")}</div>
-    <p class="small muted" style="margin:0">Срок — до ближайшей оферты или погашения. Доля на эмитента — от всей суммы подборки (все ОФЗ считаются одним эмитентом, Минфином); «авто» — около ${pct(Math.max(18, 220 / Math.max(1, +P.n || 8)), 0)}. Из каждого эмитента — одна бумага${S.stop && S.stop.excl ? ", эмитенты из стоп-листа исключены" : ""}.</p>
+    <div class="sal-apply"><button type="button" class="btn primary" data-salapply>Применить</button><span class="small muted">или Enter в любом поле</span></div>
+    <p class="small muted" style="margin:0">Срок — до ближайшей оферты или погашения. Доля на эмитента — от всей суммы подборки (каждый выпуск ОФЗ считается отдельно); «авто» — около ${pct(Math.max(18, 220 / Math.max(1, +P.n || 8)), 0)}. Из каждого эмитента — одна бумага${S.stop && S.stop.excl ? ", эмитенты из стоп-листа исключены" : ""}.</p>
   </div>`}
   <div class="panel lab-p"><div class="panel-head"><h2>${sv ? "Выплаты по месяцам" : "Подборка"}</h2>${res ? `<span class="sub">подходит ${res.cands} ${plural(res.cands, "бумага", "бумаги", "бумаг")}</span>` : ""}<span class="spacer"></span>${upd}</div>
     ${!ready ? `<div class="empty">${T.busy || EMIS.busy ? `<i class="spin"></i> Загружаю облигации и рейтинги Мосбиржи…` : `<b>Нет данных скринера</b><span>Нажмите «Обновить», чтобы загрузить облигации Мосбиржи.</span>`}</div>`
@@ -4517,16 +4549,28 @@ function renderSalary(){
   salRun.last = { items, Tt, months };
 }
 document.addEventListener("toggle", e => { if (e.target.matches && e.target.matches("[data-salall]")){ S.sal.allOpen = e.target.open; if (!e.target.open) S.sal.allN = 30; saveSal(); } }, true);
+/* one field → S.sal; returns the key */
+function salSet(f){
+  const k = f.dataset.sal;
+  if (k === "n"){ const v = Math.round(num(f.value)); S.sal.n = isFinite(v) && v >= 1 ? Math.min(60, v) : 8; }
+  else if (k === "maxSh"){ const v = num(f.value); S.sal.maxSh = f.value.trim() && isFinite(v) && v > 0 ? Math.min(100, v) : ""; }
+  else if (k === "yMin" || k === "yMax"){ const v = num(f.value); S.sal[k] = f.value.trim() && isFinite(v) && v >= 0 ? v : ""; }
+  else if (["income", "budget", "tmin", "tmax", "minVol"].includes(k)){ const v = num(f.value); S.sal[k] = f.value.trim() && isFinite(v) && v >= 0 ? v : SAL_DEF[k]; }
+  else S.sal[k] = f.type === "checkbox" ? f.checked : f.value;
+  return k;
+}
+function salApply(){ document.querySelectorAll('#v-salary .sal-cond input[type="text"][data-sal]').forEach(salSet); S.sal.ov = {}; S.sal.preset = ""; saveSal(); render(); }
+document.addEventListener("input", e => { if (e.target.matches && e.target.matches('#v-salary .sal-cond input[type="text"][data-sal]')){ const b = document.querySelector("[data-salapply]"); if (b){ b.classList.add("pending"); b.textContent = "Применить изменения"; } } });
+document.addEventListener("keydown", e => { if (e.key === "Enter" && e.target.matches && e.target.matches('#v-salary input[type="text"][data-sal]')){ e.preventDefault(); salApply(); } });
 document.addEventListener("change", e => { const f = e.target.closest && e.target.closest("[data-sal],[data-salq]"); if (!f) return;
   if (f.dataset.salq){ const v = Math.max(0, Math.round(num(f.value) || 0));
     if (f.dataset.salsv){ const sv = S.sal.saved.find(x => x.id === f.dataset.salsv); const it = sv && sv.items.find(x => x.isin === f.dataset.salq); if (it) it.qty = v; }
     else { S.sal.ov = S.sal.ov || {}; S.sal.ov[f.dataset.salq] = v; }
     saveSal(); render(); return; }
-  const k = f.dataset.sal;
-  if (k === "n"){ const v = Math.round(num(f.value)); S.sal.n = isFinite(v) && v >= 1 ? Math.min(60, v) : 8; }
-  else if (k === "maxSh"){ const v = num(f.value); S.sal.maxSh = f.value.trim() && isFinite(v) && v > 0 ? Math.min(100, v) : ""; }
-  else if (["income", "budget", "tmin", "tmax", "minVol"].includes(k)){ const v = num(f.value); S.sal[k] = f.value.trim() && isFinite(v) && v >= 0 ? v : SAL_DEF[k]; }
-  else S.sal[k] = f.type === "checkbox" ? f.checked : f.value;
+  /* typed numbers in «Условия» wait for «Применить» (or Enter): re-rendering on blur would eat what is being typed in the next field */
+  if (f.closest(".sal-cond") && f.matches('input[type="text"]')) return;
+  if (f.closest(".sal-cond")) document.querySelectorAll('#v-salary .sal-cond input[type="text"][data-sal]').forEach(salSet);
+  const k = salSet(f);
   if (k === "allSort"){ S.sal.allOpen = true; saveSal(); render(); return; }
   if (k !== "tax") S.sal.ov = {};
   S.sal.preset = ""; saveSal(); render(); });
@@ -4535,6 +4579,8 @@ document.addEventListener("click", e => { const t = e.target; let b;
   if ((b = t.closest("[data-salp]"))){ const x = SAL_PRESETS.find(p => p.id === b.dataset.salp); Object.assign(S.sal, x.p, { preset: x.id, open: "", ov: {} }); saveSal(); render(); return; }
   if ((b = t.closest("[data-salm]"))){ S.sal.mode = b.dataset.salm; S.sal.ov = {}; saveSal(); render(); return; }
   if ((b = t.closest("[data-salx]"))){ S.sal.inc = (S.sal.inc || []).filter(x => x !== b.dataset.salx); S.sal.ex = [...new Set([...(S.sal.ex || []), b.dataset.salx])]; delete (S.sal.ov || {})[b.dataset.salx]; saveSal(); render(); return; }
+  if (t.closest("[data-salapply]")){ salApply(); return; }
+  if ((b = t.closest("[data-salrec]"))){ S.sal.n = +b.dataset.salrec; S.sal.ov = {}; saveSal(); render(); return; }
   if (t.closest("[data-salreset]")){ S.sal.ex = []; S.sal.ov = {}; S.sal.inc = []; saveSal(); render(); return; }
   if ((b = t.closest("[data-salinc]"))){ const i = b.dataset.salinc, cur = S.sal.inc || []; S.sal.inc = cur.includes(i) ? cur.filter(x => x !== i) : [...cur, i]; S.sal.ex = (S.sal.ex || []).filter(x => x !== i); S.sal.ov = {}; S.sal.allOpen = true; saveSal(); render(); return; }
   if (t.closest("[data-salmore]")){ S.sal.allN = (S.sal.allN || 30) + 30; S.sal.allOpen = true; saveSal(); render(); return; }
