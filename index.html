@@ -70,10 +70,22 @@ nav.tabs a{padding:7px 12px;border-radius:8px;color:var(--muted);text-decoration
 nav.tabs a:hover{background:var(--surface-2);color:var(--fg)}
 nav.tabs a[aria-current="page"]{background:var(--accent-soft);color:var(--fg)}
 .top-actions{display:flex;gap:8px}
-@media (max-width:899px){.top-actions{flex-wrap:wrap}}
+/* narrow screens: portfolio + action icons on the first row, sections on the second */
+@media (max-width:1023px){
+  .top .wrap{gap:8px 10px}
+  .brand{order:1;flex:1 1 0;min-width:0;margin-right:0}
+  .pf-btn{max-width:100%;min-width:0;flex:0 1 auto}
+  .pf-btn #pfName{min-width:0}
+  .top-actions{order:2;flex-wrap:nowrap;gap:6px;flex:none}
+  .top-actions .bl,.top-actions .mx-time{display:none}
+  .top-actions .btn{padding-inline:9px}
+  nav.tabs{order:3;flex-basis:100%;margin-inline:-4px}
+}
 @media (max-width:560px){.top-actions .bl{display:none}.top-actions .btn{padding-inline:10px}}
 /* desktop between tablet and wide: keep header on one line by dropping button words */
-@media (min-width:900px) and (max-width:1340px){.top .wrap{gap:14px}nav.tabs a,nav.tabs .tab-drop{padding-inline:9px}.top-actions .bl{display:none}.top-actions .btn{padding-inline:10px}}
+@media (max-width:420px){.top-actions{gap:4px}.top-actions .btn{padding-inline:7px}.pf-btn{font-size:14px;gap:6px}}
+@media (min-width:1024px){.top .wrap{gap:14px}nav.tabs a,nav.tabs .tab-drop{padding-inline:9px}#btnRefresh .bl{display:none}}
+@media (min-width:1024px) and (max-width:1179px){.top-actions .bl{display:none}.top-actions .mx-time{display:none}.top-actions .btn{padding-inline:10px}}
 .theme-btn{padding:7px 9px}
 .theme-btn svg{width:18px;height:18px}
 :root{color-scheme:light}
