@@ -6368,7 +6368,7 @@ function tapiPanel(dlg, body){
   draw();
 }
 /* ---- one window for all API connections ---- */
-function paintApi(){ paintTapi(); const el = $("#faStatus"); if (el) el.innerHTML = FA.busy ? `<i class="spin"></i>${esc(FA.status)}` : FA.err ? `<span class="neg">${esc(FA.err)}</span>` : S.fapi.at ? "Последняя загрузка: " + new Date(S.fapi.at).toLocaleString("ru-RU") : ""; }
+function paintApi(){ paintTapi(); const el = $("#faStatus"); if (el) el.innerHTML = FA.busy ? `<i class="spin"></i>${esc(FA.status)}` : FA.err ? `<span class="neg" style="white-space:pre-line">${esc(FA.err)}</span>` : S.fapi.at ? "Последняя загрузка: " + new Date(S.fapi.at).toLocaleString("ru-RU") : ""; }
 function openApi(broker){
   const dlg = dlgShell("Отчёт по API", `<div class="api-seg" role="tablist">${[["tbank", "Т-Банк"], ["finam", "Финам"]].map(([k, n]) => `<button type="button" role="tab" data-api="${k}"><i class="dot" style="background:${BROKERS[k].c}"></i>${n}<small>${(k === "tbank" ? S.tapi.token : S.fapi.secret) ? "подключён" : "не подключён"}</small></button>`).join("")}</div><div id="apiBody" style="display:grid;gap:12px"></div>`, "Загрузить");
   const body = dlg.querySelector("#apiBody");
@@ -6400,9 +6400,9 @@ function fapiPanel(dlg, body){
     const sec = body.querySelector("#faTok").value.trim(); if (!sec) return formErr(dlg, "Вставьте токен.");
     if (sec !== S.fapi.secret){ S.fapi.secret = sec; S.fapi.auth = ""; FA.jwt = ""; }
     b.disabled = true; FA.err = ""; FA.busy = true; FA.status = "Проверяю токен…"; paintApi();
-    try { const jwt = await fapiJwt(true); const d = await fapiCall("POST", "/v1/sessions/details", { token: jwt });
+    try { const jwt = await fapiJwt(true); const d = await fapiDetails(jwt);
       accounts = (d.account_ids || []).map(id => ({ id: String(id) })); if (d.readonly === false) addMsg("Этот токен даёт право торговать. Для приложения хватит токена только на чтение.", "warn"); saveFapi(); }
-    catch (er){ FA.err = er.message; }
+    catch (er){ FA.err = er.message + fapiDiagText(); }
     FA.busy = false; FA.status = ""; draw(); };
   dlg.querySelector("#mForm").onsubmit = async e => { e.preventDefault();
     if (!accounts){ body.querySelector("[data-fa]").click(); return; }
@@ -6439,20 +6439,38 @@ async function fapiJwt(force){
   try { const d = JSON.parse(atob(j.token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/"))); if (d.exp) FA.exp = d.exp * 1000; } catch {}
   return FA.jwt;
 }
+/* token info: the docs say the key goes in the body here, so first ask without the Authorization header */
+async function fapiDetails(jwt){
+  FA.diag = { secLen: (S.fapi.secret || "").length, jwtLen: (jwt || "").length, jwtOk: /^[\w-]+\.[\w-]+\.[\w-]*$/.test(jwt || ""), steps: [] };
+  const r = await fapiRaw("POST", "/v1/sessions/details", { token: jwt }, null);
+  const j = await r.json().catch(() => ({})); FA.diag.steps.push("details без заголовка: " + r.status + (j.message ? " " + String(j.message).slice(0, 60) : ""));
+  if (r.ok) return j;
+  try { const d = await fapiCall("POST", "/v1/sessions/details", { token: jwt }); FA.diag.steps.push("details с заголовком: ок (" + (S.fapi.auth || "plain") + ")"); return d; }
+  catch (e){ FA.diag.steps.push("details с заголовком: ошибка"); throw e; }
+}
+function fapiDiagText(){
+  const d = FA.diag; if (!d) return "";
+  return `\n\nДля проверки: токен (secret) — ${d.secLen} симв.${d.secLen && d.secLen < 100 ? " (это коротко: токен Finam Trade API обычно длинная строка — проверьте, что скопирован сам токен целиком, а не его название или ID)" : ""}; ключ от Финама получен — ${d.jwtLen} симв.${d.jwtLen && !d.jwtOk ? ", не похож на JWT" : ""}; запросы идут ${S.fapi.via === "worker" ? "через помощника" : "напрямую"}; ${d.steps.join("; ")}.`;
+}
 async function fapiCall(method, path, body){
-  for (let attempt = 0; attempt < 3; attempt++){
-    const jwt = await fapiJwt(attempt > 0);
-    // the docs do not say whether the access key goes with "Bearer"; try the plain key first, then with the prefix
-    const auth = S.fapi.auth === "bearer" ? "Bearer " + jwt : jwt;
-    const r = await fapiRaw(method, path, body && "token" in body ? { ...body, token: jwt } : body, auth);
-    if (r.status === 401 && attempt === 0 && !S.fapi.auth){ S.fapi.auth = "bearer"; continue; }
-    if (r.status === 401){ FA.jwt = ""; continue; }
+  /* the access key (JWT) goes in Authorization either as is or with "Bearer"; Finam answers a wrong form with 401 or with 400 "Token is invalid or malformed" */
+  const tried = new Set(); let fresh = false, lastMsg = "";
+  for (let attempt = 0; attempt < 6; attempt++){
+    const jwt = await fapiJwt(false), scheme = S.fapi.auth === "bearer" ? "bearer" : "plain";
+    tried.add(scheme);
+    const r = await fapiRaw(method, path, body && "token" in body ? { ...body, token: jwt } : body, scheme === "bearer" ? "Bearer " + jwt : jwt);
     if (r.status === 429){ await new Promise(res => setTimeout(res, 3000 * (attempt + 1))); continue; }
-    const j = await r.json().catch(() => ({}));
-    if (!r.ok) throw new Error("API Финама ответил ошибкой " + r.status + (j.message ? ": " + j.message : ""));
+    const j = await r.json().catch(() => ({})), msg = j.message || j.error || "";
+    if (r.status === 401 || (r.status === 400 && /token|jwt|auth/i.test(msg))){
+      lastMsg = msg;
+      if (!tried.has(scheme === "bearer" ? "plain" : "bearer")){ S.fapi.auth = scheme === "bearer" ? "plain" : "bearer"; saveFapi(); continue; }
+      if (!fresh){ fresh = true; FA.jwt = ""; tried.clear(); await fapiJwt(true); continue; }
+      throw new Error("API Финама не принимает ключ доступа" + (lastMsg ? " (" + lastMsg + ")" : "") + ". Выпустите новый токен на api.finam.ru → Токены и вставьте его заново.");
+    }
+    if (!r.ok) throw new Error("API Финама ответил ошибкой " + r.status + (msg ? ": " + msg : ""));
     return j;
   }
-  throw new Error("API Финама не принял ключ доступа. Проверьте токен.");
+  throw new Error("API Финама не ответил: слишком много запросов. Попробуйте через минуту.");
 }
 async function fapiAsset(symbol, accountId){
   if (!symbol) return null; if (FA.inst[symbol]) return FA.inst[symbol];
@@ -6462,13 +6480,30 @@ async function fapiAsset(symbol, accountId){
   } catch (e){ if (/Токен|ключ/.test(e.message)) throw e; return null; }
 }
 /* trades and transactions are queried by time window; split a window when it comes back full */
+const FAPI_MIN = Date.parse("2023-06-23T00:00:00+03:00");
 async function fapiWindowed(path, key, from, onStep){
   const out = [], LIMIT = 1000, MS = 864e5;
-  const run = async (a, b) => { const q = `?limit=${LIMIT}&interval.start_time=${new Date(a).toISOString()}&interval.end_time=${new Date(b).toISOString()}`;
-    const j = await fapiCall("GET", path + q); const list = j[key] || [];
-    if (list.length >= LIMIT && b - a > MS){ const mid = a + Math.floor((b - a) / 2); await run(a, mid); await run(mid, b); } else out.push(...list); };
-  let a = Date.parse(from + "T00:00:00+03:00"); const end = Date.now() + 60e3;
-  while (a < end){ const b = Math.min(end, a + 30 * MS); await run(a, b); onStep && onStep(`${key === "trades" ? "сделки" : "операции"}: ${out.length}`); a = b; }
+  /* Finam sometimes answers 500 («Failed to get transactions») for a period: retry, then split it, and at one day try a smaller page; skip only what still fails */
+  const run = async (a, b, lim = LIMIT, tries = 0) => { const q = `?limit=${lim}&interval.start_time=${new Date(a).toISOString()}&interval.end_time=${new Date(b).toISOString()}`;
+    let j;
+    try { j = await fapiCall("GET", path + q); }
+    catch (e){
+      if (!/ошибкой 5\d\d|не ответил/.test(e.message)) throw e;
+      if (tries < 1){ await new Promise(r => setTimeout(r, 1200)); return run(a, b, lim, tries + 1); }
+      if (b - a > MS){ const mid = a + Math.floor((b - a) / 2); await run(a, mid, lim); await run(mid, b, lim); return; }
+      if (lim > 100) return run(a, b, 100, 1);
+      FA.skip = FA.skip || []; FA.skip.push({ what: key === "trades" ? "сделки" : "операции", d: mskDate(new Date(a).toISOString())[0], msg: e.message.replace(/^API Финама ответил ошибкой /, "") }); return; }
+    const list = j[key] || [];
+    if (list.length >= lim && b - a > MS){ const mid = a + Math.floor((b - a) / 2); await run(a, mid, lim); await run(mid, b, lim); } else out.push(...list); };
+  /* Finam keeps API history only from a certain date (23.06.2023 at the time of writing) and names it in the error: start there */
+  let a = Math.max(Date.parse(from + "T00:00:00+03:00"), S.fapi.minTs || FAPI_MIN); const end = Date.now() + 60e3;
+  if (Date.parse(from + "T00:00:00+03:00") < a) FA.cut = a;
+  while (a < end){ const b = Math.min(end, a + 30 * MS);
+    try { await run(a, b); }
+    catch (e){ const m = String(e.message).match(/must be greater than (?:seconds:\s*)?(\d{9,11})/i);
+      if (!m) throw e; const ts = (+m[1] + 1) * 1000; if (ts <= a || ts > end) throw e;
+      S.fapi.minTs = ts; saveFapi(); FA.cut = ts; a = ts; continue; }
+    onStep && onStep(`${key === "trades" ? "сделки" : "операции"}: ${out.length}`); a = b; }
   return out;
 }
 const F_TRADE_TX = /trade|сделк|покупк|продаж/i;
@@ -6513,12 +6548,13 @@ async function fapiImportAccount(a, onStep){
     const qty = fv(p.quantity); if (!qty) continue; const px = fv(p.current_price), bond = /bond/.test(ins.type), unit = bond && ins.face && px < 300 ? px / 100 * ins.face : px;
     r.positions.push({ isin: ins.isin, name: ins.name, qty, ccy: ins.ccy || "RUB", price: unit, face: ins.face || 0, nkd: 0, valueRub: qty * unit }); }
   r.skipped = skipped;
+  if (FA.cut && FA.cut > Date.parse(r.from + "T00:00:00+03:00")) r.from = mskDate(new Date(FA.cut).toISOString())[0];
   return finishReport(r);
 }
 async function fapiSync(quiet){
   if (FA.busy || !S.fapi.secret || !S.fapi.accts.some(a => a.on)) return;
   FA.busy = true; FA.err = ""; FA.status = "Загружаю данные из API Финама…"; paintApi();
-  let added = 0, skipped = 0;
+  let added = 0, skipped = 0; FA.cut = 0; FA.skip = [];
   try {
     for (const a of S.fapi.accts.filter(x => x.on)){
       const r = await fapiImportAccount(a, s => { FA.status = `${a.id}: ${s}`; paintApi(); }); skipped += r.skipped || 0;
@@ -6526,6 +6562,9 @@ async function fapiSync(quiet){
     }
     S.fapi.at = Date.now(); saveFapi(); saveReports(); render(); refreshMoex(false);
     if (!quiet) addMsg(`API Финама: обновлено счетов — ${added}.` + (skipped ? ` Без ISIN пропущено записей: ${skipped}.` : ""), "ok");
+    if (!quiet && FA.skip.length){ const ds = [...new Set(FA.skip.map(x => fmtD(x.d)))];
+      addMsg(`Финам не отдал ${[...new Set(FA.skip.map(x => x.what))].join(" и ")} за ${ds.length} ${plural(ds.length, "день", "дня", "дней")} (${ds.slice(0, 6).join(", ")}${ds.length > 6 ? " и др." : ""}) — у него сбой: ${FA.skip[0].msg}. Остальное загружено. Нажмите «Загрузить» позже, чтобы дозагрузить, или добавьте эти дни отчётом брокера.`, "warn"); }
+    if (!quiet && FA.cut) addMsg(`Финам отдаёт по API операции только с ${fmtD(mskDate(new Date(FA.cut).toISOString())[0])}. Более ранние сделки и выплаты добавьте отчётом брокера: личный кабинет Финама → отчёт за нужный период в HTML → «Добавить».`, "warn");
   } catch (e){ FA.err = e.message; if (!quiet) addMsg(e.message, "err"); }
   FA.busy = false; FA.status = ""; paintApi();
 }
