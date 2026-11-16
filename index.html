@@ -673,6 +673,28 @@ th.sortable button:hover{color:var(--fg)}
 .btn.pending{animation:salPulse 1.4s ease-in-out infinite}
 @keyframes salPulse{50%{box-shadow:0 0 0 4px var(--accent-soft)}}
 @media (prefers-reduced-motion:reduce){.btn.pending{animation:none}}
+.sc-iss{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface-2);color:var(--fg);font:inherit;cursor:pointer}
+.sc-iss:hover{border-color:var(--accent)}
+.sc-iss-i{display:grid;place-items:center;width:30px;height:30px;border-radius:8px;background:var(--accent-soft);color:var(--accent);flex:none}
+.sc-iss-i svg{width:17px;height:17px}
+.sc-iss-t{display:grid;gap:1px;flex:1;min-width:0}
+.sc-iss-t b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sc-iss-t small{color:var(--muted);font-size:12px}
+.sc-iss-a{color:var(--accent);font-size:18px;flex:none}
+.iss-q{position:relative}
+.iss-q input{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:var(--surface-2);color:var(--fg);font:inherit;font-size:15px}
+.iss-sug{position:absolute;left:0;right:0;top:calc(100% + 4px);z-index:20;background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.14);max-height:320px;overflow:auto}
+.iss-sug button{display:grid;gap:1px;width:100%;text-align:left;padding:8px 12px;border:0;background:transparent;color:var(--fg);font:inherit;cursor:pointer}
+.iss-sug button:hover,.iss-sug button:focus-visible{background:var(--surface-2)}
+.iss-sug small{color:var(--muted);font-size:12px}
+.iss-chips{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.iss-chip{border:1px solid var(--line);background:transparent;color:var(--fg);border-radius:999px;padding:4px 10px;font:inherit;font-size:13px;cursor:pointer}
+.iss-chip:hover{background:var(--surface-2)}
+.iss-chip.on{border-color:var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:600}
+.iss-rat{display:flex;gap:6px 10px;flex-wrap:wrap;align-items:center}
+.iss-held{font-size:11px;font-weight:600;color:var(--pos);border:1px solid currentColor;border-radius:999px;padding:0 6px;margin-left:4px;vertical-align:1px}
+#v-issuer .hleg{flex-wrap:wrap;justify-content:center;gap:4px 14px}
+.iss-links{display:flex;gap:8px 18px;flex-wrap:wrap;font-size:14px}
 .sal-allbar{display:flex;gap:8px 16px;flex-wrap:wrap;align-items:end;margin:10px 0}
 .sal-allbar .fld{min-width:190px}
 .sal-act{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
@@ -966,6 +988,7 @@ details.more summary{cursor:pointer;color:var(--muted);font-size:13px;margin-top
   <section class="view" id="v-cpncal" hidden></section>
   <section class="view" id="v-stoplist" hidden></section>
   <section class="view" id="v-salary" hidden></section>
+  <section class="view" id="v-issuer" hidden></section>
   <section class="view" id="v-calendar" hidden></section>
   <section class="view" id="v-taxes" hidden></section>
   <section class="view" id="v-deals" hidden></section>
@@ -986,6 +1009,7 @@ details.more summary{cursor:pointer;color:var(--muted);font-size:13px;margin-top
   <a role="menuitem" href="#mmf"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6.5c0-1.7 2.2-3 5-3s5 1.3 5 3v3.5c0 1.7-2.2 3-5 3s-5-1.3-5-3z M3 6.5c0 1.7 2.2 3 5 3s5-1.3 5-3 M6.5 2.5h3"/></svg>Фонды-копилки</a>
   <a role="menuitem" href="#cpncal"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 4h11v9.5h-11z M2.5 7h11 M5.5 2.5v3 M10.5 2.5v3 M5 10.5h2 M9 10.5h2"/></svg>Ровный купонный доход</a>
   <a role="menuitem" href="#salary"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 4.5h11v8h-11z M2.5 7h11 M5 10h2.5 M10.5 10h1"/></svg>Как зарплата</a>
+  <a role="menuitem" href="#issuer"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 13.5h11 M3.5 13.5V6.5l4.5-3 4.5 3v7 M6 13.5v-3h4v3 M6 8.5h.01 M10 8.5h.01"/></svg>Эмитент</a>
   <a role="menuitem" href="#taxopt"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2.5h8v11l-2-1.2-2 1.2-2-1.2-2 1.2z M6 6h4 M6 8.5h4"/></svg>Налоги до конца года</a>
   <a role="menuitem" href="#stoplist"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="8" cy="8" r="5.5"/><path d="M4.2 11.8l7.6-7.6"/></svg>Стоп-лист эмитентов</a>
 </div>
@@ -4611,6 +4635,194 @@ document.addEventListener("click", e => { const t = e.target; let b;
 });
 
 
+
+/* ======================= tools: issuer — all its bonds, future payments and offers by month, company figures ======================= */
+S.iss = Object.assign({ inn: "", hz: "24", recent: [] }, store.get("pf.iss.v1", {}));
+const saveIss = () => store.set("pf.iss.v1", S.iss);
+const ISU = { q: "", sched: {}, busy: "", err: "", shares: store.get("pf.shinn.v1", null), shBusy: false, fc: null };
+/* every bond issue of the issuer, from the MOEX emissions list (one row per ISIN) */
+function issIssues(inn){
+  const out = [], seen = new Set();
+  for (const [k, e] of Object.entries(EMIS.map || {})){ if (e.inn !== inn || k.length !== 12 || seen.has(k)) continue; seen.add(k); out.push({ isin: k, e }); }
+  return out;
+}
+/* issuers for the search box: name, INN, number of issues */
+function issIndex(){
+  if (ISU.idx && ISU.idx.at === EMIS.at) return ISU.idx.list;
+  const m = new Map();
+  for (const [k, e] of Object.entries(EMIS.map || {})){ if (!e.inn || k.length !== 12) continue; const x = m.get(e.inn) || { inn: e.inn, n: e.e || e.inn, cnt: 0, isins: [] }; x.cnt++; x.isins.push(k); m.set(e.inn, x); }
+  const list = [...m.values()].sort((a, b) => b.cnt - a.cnt);
+  ISU.idx = { at: EMIS.at, list }; return list;
+}
+function issSearch(q){
+  q = q.trim().toLowerCase(); if (q.length < 2) return [];
+  const data = TOOL.bonds.data || [], bySec = new Map(data.map(r => [r.secid.toLowerCase(), r.isin]));
+  const hit = bySec.get(q) || (/^[a-z]{2}[0-9a-z]{10}$/i.test(q) ? q.toUpperCase() : null), hitInn = hit && EMIS.map[hit] && EMIS.map[hit].inn;
+  return issIndex().filter(x => x.inn === hitInn || x.inn.startsWith(q) || x.n.toLowerCase().includes(q) || x.isins.some(i => i.toLowerCase() === q)).slice(0, 12);
+}
+/* payments of one issue from MOEX bondization; money = per-bond value × number of bonds in the issue */
+async function issSched(isin, secid){
+  const c = ISU.sched[isin]; if (c && Date.now() - c.at < 6 * 3600e3) return c;
+  const b = await iss("statistics/engines/stock/markets/bonds/bondization/" + encodeURIComponent(secid || isin) + ".json", "limit=unlimited&iss.only=coupons,amortizations,offers");
+  const t = todayIso(), fx = u => fxRate(ccyNorm(u || "RUB")) || 1, rows = [];
+  const cnt = x => { const iv = num(x.issuevalue), f0 = num(x.initialfacevalue) || num(x.facevalue); return iv && f0 ? iv / f0 : null; };
+  let n = null, lastCpn = null, face = null, unit = "RUB";
+  const cps = tbl(b, "coupons").sort((a, b) => String(a.coupondate).localeCompare(String(b.coupondate)));
+  for (const x of cps){ n = n || cnt(x); unit = x.faceunit || unit; face = num(x.facevalue) || face;
+    let v = num(x.value_rub) || (num(x.value) ? num(x.value) * fx(x.faceunit) : null), est = false;
+    if (v) lastCpn = v; else if (x.coupondate > t && lastCpn){ v = lastCpn; est = true; }
+    if (x.coupondate > t && v) rows.push({ d: x.coupondate, k: "cpn", per: v, est }); }
+  for (const x of tbl(b, "amortizations")){ n = n || cnt(x); if (!(x.amortdate > t)) continue;
+    const v = num(x.value_rub) || (num(x.value) ? num(x.value) * fx(x.faceunit) : num(x.valueprc) && num(x.initialfacevalue) ? num(x.valueprc) / 100 * num(x.initialfacevalue) * fx(x.faceunit) : null);
+    if (v) rows.push({ d: x.amortdate, k: x.data_source === "maturity" ? "mat" : "amort", per: v }); }
+  for (const x of tbl(b, "offers")){ n = n || cnt(x); if (!(x.offerdate > t)) continue;
+    rows.push({ d: x.offerdate, k: "offer", per: (num(x.facevalue) || face || 0) * fx(x.faceunit), from: x.offerdatestart || "", to: x.offerdateend || "", type: x.offertype || "" }); }
+  const out = { at: Date.now(), n, rows };
+  ISU.sched[isin] = out; return out;
+}
+/* shares with the issuer's INN, to find the company's figures on Smart-Lab */
+async function issShares(){
+  if (ISU.shares && Date.now() - ISU.shares.at < 7 * 864e5) return ISU.shares.map;
+  if (ISU.shBusy) return null; ISU.shBusy = true;
+  try { const map = {};
+    for (let start = 0; start < 3000; start += 100){
+      const j = await iss("securities.json", `engine=stock&market=shares&is_trading=1&limit=100&start=${start}&securities.columns=secid,shortname,type,primary_boardid,emitent_inn`);
+      const rows = tbl(j, "securities"); if (!rows.length) break;
+      for (const r of rows){ if (!r.emitent_inn || !/^(common_share|preferred_share)$/.test(r.type)) continue; const k = String(r.emitent_inn), cur = map[k];
+        const score = (r.type === "common_share" ? 2 : 0) + (r.primary_boardid === "TQBR" ? 1 : 0);
+        if (!cur || score > cur.s) map[k] = { secid: r.secid, n: r.shortname, type: r.type, s: score }; }
+      if (rows.length < 100) break; }
+    ISU.shares = { at: Date.now(), map }; store.set("pf.shinn.v1", ISU.shares); return map; }
+  catch { return null; } finally { ISU.shBusy = false; }
+}
+async function issLoad(inn){
+  if (ISU.busy === inn) return; ISU.busy = inn; ISU.err = ""; render();
+  try {
+    const list = issIssues(inn), data = TOOL.bonds.data || [], q = [...list];
+    const work = async () => { while (q.length){ const x = q.shift(); const r = data.find(d => d.isin === x.isin); try { await issSched(x.isin, r && r.secid); } catch { ISU.sched[x.isin] = { at: Date.now(), n: null, rows: [], err: 1 }; } } };
+    await Promise.all([...Array(Math.min(6, q.length || 1))].map(work));
+    if (list.every(x => (ISU.sched[x.isin] || {}).err)) ISU.err = "Мосбиржа не отдала график выплат. Проверьте интернет и нажмите «Обновить».";
+    const sh = await issShares(); const s = sh && sh[inn];
+    ISU.fc = s ? { kind: "share", secid: s.secid, type: s.type, short: s.n, host: "isFund" } : null;
+    if (ISU.fc) slLoad(ISU.fc);
+  } catch (e){ ISU.err = e.message; }
+  ISU.busy = ""; render();
+}
+function issPick(inn){
+  S.iss.inn = inn; S.iss.recent = [inn, ...(S.iss.recent || []).filter(x => x !== inn)].slice(0, 8); saveIss();
+  ISU.q = ""; ISU.fc = null; if (location.hash !== "#issuer") location.hash = "issuer"; else render();
+  setTimeout(() => issLoad(inn), 0);
+}
+const ISS_K = { cpn: ["Купоны", "var(--c-coupon)"], amort: ["Амортизация", "var(--c-amort)"], mat: ["Погашения", "var(--c-redeem, var(--bad))"], offer: ["Оферты", "var(--c-offer)"] };
+function issChart(months, hz){
+  const host = $("#v-issuer"), W = Math.max(340, Math.min(1100, ((host && host.clientWidth) || 960) - 40)), Hh = 260, pL = 58, pT = 14, pB = 26;
+  const list = months.slice(0, hz), cw = (W - pL) / Math.max(1, list.length), bw = Math.min(30, cw * 0.36);
+  const mx = Math.max(1, ...list.map(m => Math.max(m.cpn + m.amort + m.mat, m.offer))) * 1.08, st = niceStep(mx / 4), top = Math.ceil(mx / st) * st, Y = v => pT + (1 - v / top) * (Hh - pT - pB);
+  let g = ""; for (let v = 0; v <= top + st / 2; v += st) g += `<line class="gl" x1="${pL}" x2="${W}" y1="${Y(v)}" y2="${Y(v)}" ${v ? 'stroke-dasharray="3 4"' : ""}/><text x="${pL - 6}" y="${Y(v) + 4}" text-anchor="end">${fmtAxis(v)}</text>`;
+  const every = Math.ceil(list.length / Math.max(1, Math.floor((W - pL) / 44)));
+  list.forEach((m, i) => { const x0 = pL + cw * i, cx = x0 + cw / 2; let y = Y(0);
+    const pay = m.offer > 0 ? cx - bw / 2 - 1 : cx - bw / 2;
+    for (const k of ["cpn", "amort", "mat"]){ if (!(m[k] > 0)) continue; const h = Y(0) - Y(m[k]); y -= h; g += `<rect x="${m.offer > 0 ? cx - bw - 1 : pay}" y="${y}" width="${bw}" height="${Math.max(0.5, h)}" fill="${ISS_K[k][1]}"/>`; }
+    if (m.offer > 0) g += `<rect x="${cx + 1}" y="${Y(m.offer)}" width="${bw}" height="${Math.max(0.5, Y(0) - Y(m.offer))}" fill="none" stroke="${ISS_K.offer[1]}" stroke-width="1.5" stroke-dasharray="3 2"/>`;
+    const tip = [`${m.label}: выплаты ${money(m.cpn + m.amort + m.mat)}`, m.cpn ? `· купоны ${money(m.cpn)}` : "", m.amort ? `· амортизация ${money(m.amort)}` : "", m.mat ? `· погашения ${money(m.mat)}` : "", m.offer ? `· оферты: можно предъявить до ${money(m.offer)}` : "",
+      ...m.items.sort((a, b) => b.v - a.v).slice(0, 8).map(x => `  ${x.n}: ${x.k} ${money(x.v)}`)].filter(Boolean).join("\n");
+    g += `<rect x="${x0}" y="${pT}" width="${cw}" height="${Hh - pT - pB}" fill="transparent" data-tip="${esc(tip)}"/>`;
+    if (i % every === 0) g += `<text x="${cx}" y="${Hh - 8}" text-anchor="middle">${m.label}</text>`; });
+  return `<div class="chart-wrap"><svg class="chart" viewBox="0 0 ${W} ${Hh}">${g}</svg></div>
+    <div class="hleg">${["cpn", "amort", "mat"].map(k => `<span><i style="background:${ISS_K[k][1]}"></i>${ISS_K[k][0]}</span>`).join("")}<span><i style="background:transparent;border:1.5px dashed ${ISS_K.offer[1]}"></i>Оферты</span></div>`;
+}
+function renderIssuer(D){
+  const el = $("#v-issuer"), T = TOOL.bonds;
+  if (!T.data && !T.busy && !T.restoreTried) scrRestore("bonds");
+  if (!EMIS.map && !EMIS.busy && !EMIS.tried){ EMIS.tried = true; setTimeout(() => loadEmissions(false), 0); }
+  const ready = !!EMIS.map, inn = S.iss.inn;
+  /* issuers of bonds in the portfolio */
+  const heldIsins = new Set((D && D.holdings || []).filter(h => h.qty > 1e-9).map(h => h.isin)), held = new Map();
+  if (ready) for (const i of heldIsins){ const e = EMIS.map[i]; if (e && e.inn) held.set(e.inn, e.e || e.inn); }
+  const chips = (arr, lbl) => arr.length ? `<div class="iss-chips"><span class="small muted">${lbl}</span>${arr.map(([k, n]) => `<button type="button" class="iss-chip ${k === inn ? "on" : ""}" data-isspick="${esc(k)}">${esc(n)}</button>`).join("")}</div>` : "";
+  const recent = (S.iss.recent || []).filter(k => !held.has(k)).map(k => { const x = issIndex().find(y => y.inn === k); return x ? [k, x.n] : null; }).filter(Boolean);
+  let body = "";
+  if (!ready) body = `<div class="panel"><div class="empty">${EMIS.busy ? `<i class="spin"></i> Загружаю список эмитентов Мосбиржи…` : `<b>Нет списка эмитентов</b><span>Нажмите «Обновить» в скринере облигаций или проверьте интернет.</span>`}</div></div>`;
+  else if (!inn) body = `<div class="panel"><div class="empty"><b>Выберите эмитента</b><span>Начните вводить название компании, тикер или ISIN облигации, ИНН — или нажмите на эмитента из вашего портфеля.</span></div></div>`;
+  else {
+    const list = issIssues(inn), info = issIndex().find(x => x.inn === inn) || { n: inn, cnt: list.length }, data = TOOL.bonds.data || [], t = todayIso();
+    if (!list.every(x => ISU.sched[x.isin]) && ISU.busy !== inn) setTimeout(() => issLoad(inn), 0);
+    /* months ahead */
+    const months = []; const now = new Date();
+    for (let i = 0; i < 120; i++){ const d = new Date(now.getFullYear(), now.getMonth() + i, 1); months.push({ key: d.getFullYear() + "-" + pad(d.getMonth() + 1), label: MON_SHORT[d.getMonth()] + (d.getMonth() === 0 || i === 0 ? " '" + String(d.getFullYear()).slice(2) : ""), cpn: 0, amort: 0, mat: 0, offer: 0, items: [] }); }
+    const mIdx = Object.fromEntries(months.map((m, i) => [m.key, i]));
+    const rows = []; let debt = 0, est = false, noN = 0, lastM = 0;
+    for (const x of list){
+      const r = data.find(d => d.isin === x.isin), s = ISU.sched[x.isin] || { rows: [], n: null }, n = s.n;
+      const facePer = r ? r.face : null, outst = n && facePer ? n * facePer * (fxRate(r.faceUnit) || 1) : null; if (outst) debt += outst;
+      if (s.rows.length && !n) noN++;
+      for (const p of s.rows){ const k = mIdx[p.d.slice(0, 7)]; if (k == null || !n) continue; const v = p.per * n; months[k][p.k] += v; lastM = Math.max(lastM, k); if (p.est) est = true;
+        months[k].items.push({ n: r ? r.short : x.isin, k: { cpn: "купон", amort: "амортизация", mat: "погашение", offer: "оферта" }[p.k], v }); }
+      const near = s.rows.filter(p => p.k === "offer" || p.k === "mat").sort((a, b) => a.d.localeCompare(b.d))[0];
+      rows.push({ x, r, s, n, outst, near, mat: (s.rows.find(p => p.k === "mat") || {}).d || (r && r.mat), offer: (s.rows.find(p => p.k === "offer") || {}).d || (r && r.offer), held: heldIsins.has(x.isin) });
+    }
+    rows.sort((a, b) => String(a.near ? a.near.d : a.mat || "9").localeCompare(String(b.near ? b.near.d : b.mat || "9")));
+    const y12 = months.slice(0, 12), sum = (arr, k) => arr.reduce((s, m) => s + m[k], 0);
+    const pay12 = sum(y12, "cpn") + sum(y12, "amort") + sum(y12, "mat"), prin12 = sum(y12, "amort") + sum(y12, "mat"), off12 = sum(y12, "offer");
+    const peak = y12.reduce((a, m) => (m.cpn + m.amort + m.mat > a.cpn + a.amort + a.mat ? m : a), y12[0]);
+    const nextEv = rows.filter(r => r.near).map(r => ({ ...r.near, n: r.r ? r.r.short : r.x.isin })).sort((a, b) => a.d.localeCompare(b.d))[0];
+    const hz = S.iss.hz === "all" ? Math.max(12, lastM + 1) : +S.iss.hz;
+    const ri = typeof ratInfo === "function" && list[0] ? ratInfo(list[0].isin) : null, rt = (list.find(x => x.e.r) || { e: {} }).e.r;
+    const stop = typeof stopReason === "function" && list[0] ? stopReason(list[0].isin, info.n, null) : null;
+    const loading = ISU.busy === inn;
+    const typeName = r => !r ? "" : r.itype === "ofz" ? "ОФЗ" : r.itype === "muni" ? "муницип." : "корпорат.";
+    body = `<div class="panel lab-p"><div class="panel-head"><h2>${esc(info.n)}</h2><span class="sub">ИНН ${esc(inn)} · ${list.length} ${plural(list.length, "выпуск", "выпуска", "выпусков")} на Мосбирже${held.has(inn) ? ` · <b class="pos">есть в портфеле</b>` : ""}</span><span class="spacer"></span><button class="btn ghost" data-issreload ${loading ? "disabled" : ""}>Обновить</button></div>
+      <div class="iss-rat">${rt ? `<span class="small muted">Рейтинг Мосбиржи</span> ${ratingChip(rt)}` : ""}${ri && ri.ag && Object.keys(ri.ag).length ? `<span class="small muted">Агентства</span> ${ratAgHtml(list[0].isin)}${ri.ch ? " " + ratChHtml(list[0].isin) : ""}` : ""}${stop ? `<span class="rchip stop-chip" data-tip="${esc(stop.t || "")}">стоп-лист</span>` : ""}</div>
+      ${loading ? `<p class="status-line"><i class="spin"></i>Загружаю графики выплат по ${list.length} ${plural(list.length, "выпуску", "выпускам", "выпускам")}…</p>` : ""}${ISU.err ? `<p class="small neg" style="margin:0">${esc(ISU.err)}</p>` : ""}
+      <div class="lab-kpi">
+        <div><span>Долг на бирже</span><b>${debt ? shortMoney(debt) : "—"}</b><small>номинал в обращении по ${rows.filter(r => r.outst).length} ${plural(rows.filter(r => r.outst).length, "выпуску", "выпускам", "выпускам")}</small></div>
+        <div><span>Выплаты за 12 мес.</span><b>${shortMoney(pay12)}</b><small>из них долг ${shortMoney(prin12)}, купоны ${shortMoney(pay12 - prin12)}</small></div>
+        <div><span>Оферты за 12 мес.</span><b class="${off12 > 0 ? "warn-t" : ""}">${off12 ? shortMoney(off12) : "нет"}</b><small>столько могут предъявить к выкупу</small></div>
+        <div><span>Ближайшее событие</span><b>${nextEv ? fmtD(nextEv.d) : "—"}</b><small>${nextEv ? (nextEv.k === "offer" ? "оферта" : "погашение") + " · " + esc(nextEv.n) : "погашений и оферт нет"}</small></div>
+      </div>
+      <p class="small muted" style="margin:0">Самый тяжёлый месяц в ближайший год: <b>${esc(peak.label)}</b> — ${money(peak.cpn + peak.amort + peak.mat)}${peak.offer ? ` + оферты до ${money(peak.offer)}` : ""}.</p>
+    </div>
+    <div class="panel lab-p"><div class="panel-head"><h2>Выплаты и оферты по месяцам</h2><span class="hinfo" data-tip="Сколько эмитент должен заплатить держателям всех своих облигаций на Мосбирже: купоны, амортизация и погашения. Пунктир — оферты: столько номинала держатели могут предъявить к выкупу (худший случай). Суммы — выплата на одну облигацию × число облигаций в выпуске при размещении; выкупленные эмитентом облигации не вычтены." tabindex="0">?</span><span class="spacer"></span>
+      <div class="hper">${[["12", "12м"], ["24", "24м"], ["36", "36м"], ["all", "все"]].map(([k, n]) => `<button class="${S.iss.hz === k ? "on" : ""}" data-isshz="${k}">${n}</button>`).join("")}</div></div>
+      ${issChart(months, hz)}
+      ${est || noN ? `<p class="note">${est ? "Будущие купоны, которые ещё не объявлены (флоатеры, переменный купон), взяты равными последнему известному. " : ""}${noN ? `По ${noN} ${plural(noN, "выпуску", "выпускам", "выпускам")} Мосбиржа не сообщила объём — их суммы не учтены.` : ""}</p>` : ""}
+    </div>
+    <div class="panel lab-p"><div class="panel-head"><h2>Выпуски</h2>${!T.data ? `<span class="sub">цены появятся после загрузки скринера</span><span class="spacer"></span><button class="btn ghost" data-sreload="bonds" ${T.busy ? "disabled" : ""}>Загрузить цены</button>` : ""}</div>
+      <div class="tbl-wrap"><table class="lab-t iss-t"><thead><tr><th>Выпуск</th><th class="n">Объём</th><th class="n">Купон</th><th class="n">Цена</th><th class="n">Доходность</th><th class="n">Оферта</th><th class="n">Погашение</th></tr></thead><tbody>
+      ${rows.map(({ x, r, outst, mat, offer, held: h }) => `<tr><td><div class="asset-c"><button type="button" class="av sm" data-card="${esc(x.isin)}" data-card-sec="${esc(r ? r.secid : "")}" data-tip="Карточка бумаги">${esc(String(r ? r.short : x.isin).replace(/[^A-Za-zА-Яа-яЁё0-9]/g, "").slice(0, 3).toUpperCase())}</button><span class="mv-n"${cpA(x.isin, r ? r.secid : "")}><b>${esc(r ? r.short : x.isin)}${h ? ` <span class="iss-held" data-tip="Есть в портфеле">в портфеле</span>` : ""}</b><small>${esc(x.isin)}${r ? " · " + typeName(r) : ""}${x.e.ct === "I" ? " · флоатер" : ""}</small></span></div></td>
+        <td class="n">${outst ? shortMoney(outst) : "—"}</td><td class="n">${r && r.cpnPct ? pct(cpnRateNow(x.isin, r.cpnPct) || r.cpnPct, 2) + ` <small class="faint">· ${r.freq || "?"} р/г</small>` : "—"}</td>
+        <td class="n">${r && r.price ? pct(r.price, 2) : "—"}</td><td class="n">${r && r.ytm > 0 ? `<b>${pct(r.ytm, 2)}</b>` : "—"}</td>
+        <td class="n">${offer ? fmtD(offer) : "—"}</td><td class="n">${mat ? fmtD(mat) : "—"}</td></tr>`).join("")}</tbody></table></div>
+    </div>
+    <div class="panel lab-p">${ISU.fc ? "" : `<div class="panel-head"><h2>Показатели компании</h2></div>`}
+      ${ISU.fc ? `<div id="isFund" class="sc-fund"></div><p class="small muted" style="margin:0">Отчётность компании по её акциям ${esc(ISU.fc.secid)} на Smart-Lab.</p>`
+        : loading || ISU.shBusy ? `<p class="status-line"><i class="spin"></i>Ищу акции компании, чтобы взять отчётность…</p>`
+        : `<p class="small muted" style="margin:0">Акций этой компании на Мосбирже нет, поэтому сводной отчётности в приложении нет. Отчётность и сведения о компании:</p>`}
+      <div class="iss-links"><a href="https://www.e-disclosure.ru/poisk-po-kompaniyam?query=${encodeURIComponent(inn)}" target="_blank" rel="noopener">Раскрытие информации (e-disclosure) ↗</a><a href="https://www.rusprofile.ru/search?query=${encodeURIComponent(inn)}" target="_blank" rel="noopener">Rusprofile: выручка, прибыль, суды ↗</a><a href="https://smart-lab.ru/q/bonds/?q=${encodeURIComponent(info.n)}" target="_blank" rel="noopener">Облигации на Smart-Lab ↗</a></div>
+    </div>`;
+  }
+  el.innerHTML = `<div class="view-bar"><div><h1>Эмитент</h1><span class="sub">все облигации компании, её будущие выплаты и оферты, рейтинги и отчётность</span></div></div>
+    <div class="panel lab-p iss-search"><div class="iss-q"><input type="search" id="issQ" placeholder="Название, тикер или ISIN облигации, ИНН" value="${esc(ISU.q)}" autocomplete="off"><div class="iss-sug" id="issSug" ${issSugHtml() ? "" : "hidden"}>${issSugHtml()}</div></div>
+      ${chips([...held.entries()], "Из портфеля:")}${chips(recent, "Недавние:")}</div>
+    ${body}`;
+  if (ISU.fc && document.getElementById("isFund")) scPaintFund(ISU.fc);
+}
+function issSugHtml(){ const sres = ISU.q ? issSearch(ISU.q) : [];
+  return sres.length ? sres.map(x => `<button type="button" data-isspick="${esc(x.inn)}"><b>${esc(x.n)}</b><small>ИНН ${esc(x.inn)} · ${x.cnt} ${plural(x.cnt, "выпуск", "выпуска", "выпусков")}</small></button>`).join("") : ISU.q.trim().length >= 2 && EMIS.map ? `<p class="small muted" style="margin:8px 12px">Не нашлось. Попробуйте часть названия.</p>` : ""; }
+document.addEventListener("input", e => { if (e.target.id === "issQ"){ ISU.q = e.target.value; const s = $("#issSug"); if (s){ const h = issSugHtml(); s.innerHTML = h; s.hidden = !h; } } });
+document.addEventListener("keydown", e => { if (e.target.id === "issQ" && e.key === "Enter"){ const b = document.querySelector("#issSug [data-isspick]"); if (b){ e.preventDefault(); b.click(); } } });
+document.addEventListener("click", e => { const t = e.target; let b;
+  if ((b = t.closest && t.closest("[data-goiss]"))){ const d = b.closest("dialog"); if (d) d.close(); issPick(b.dataset.goiss); return; }
+  if (!t.closest || !t.closest("#v-issuer")) return;
+  if ((b = t.closest("[data-isspick]"))){ issPick(b.dataset.isspick); return; }
+  if ((b = t.closest("[data-isshz]"))){ S.iss.hz = b.dataset.isshz; saveIss(); render(); return; }
+  if (t.closest("[data-issreload]")){ for (const x of issIssues(S.iss.inn)) delete ISU.sched[x.isin]; issLoad(S.iss.inn); return; }
+  const c = ISU.fc; if (!c) return;
+  const st = t.closest("[data-sc-std]"); if (st){ SC.std = st.dataset.scStd; store.set("pf.sc.std", SC.std); SC.ferr = ""; scPaintFund(c); slLoad(c); return; }
+  const row = t.closest("[data-sc-row]"); if (row){ SC.row = row.dataset.scRow; scPaintFund(c); return; }
+});
+
+
 /* ======================= Google helper (Apps Script): relay, storage, ratings, Telegram bot ======================= */
 S.gas = Object.assign({ url: "", key: "", tg: false, bot: "", chat: false, ver: 0, set: null }, store.get("pf.gas.v1", {}));
 const saveGas = () => { try { localStorage.setItem("pf.gas.v1", JSON.stringify(S.gas)); } catch {} }; // only this browser
@@ -4912,6 +5124,15 @@ async function loadBonds(force){
   T.busy = false; render();
 }
 /* ---- data: dividend stocks ---- */
+/* blue chips (MOEXBC) and the Moscow Exchange index (IMOEX): loaded first; the list itself is cached for a week */
+const BC_FALLBACK = ["SBER", "SBERP", "LKOH", "GAZP", "GMKN", "NVTK", "ROSN", "TATN", "TATNP", "PLZL", "YDEX", "SNGS", "SNGSP", "CHMF", "NLMK", "MTSS", "MGNT", "ALRS", "PHOR", "T", "VTBR", "MOEX", "IRAO", "RUAL", "AFLT", "OZON", "X5"];
+async function divIndexSets(){
+  const c = store.get("pf.idxm.v1", null); if (c && Date.now() - c.at < 7 * 864e5 && c.bc && c.bc.length) return { bc: new Set(c.bc), imx: new Set(c.imx) };
+  const get = async id => { try { const j = await iss(`statistics/engines/stock/markets/index/analytics/${id}.json`, "limit=100&iss.only=analytics"); return [...new Set(tbl(j, "analytics").map(r => r.secids || r.ticker).filter(Boolean))]; } catch { return []; } };
+  const [bc, imx] = await Promise.all([get("MOEXBC"), get("IMOEX")]);
+  if (bc.length || imx.length) store.set("pf.idxm.v1", { at: Date.now(), bc, imx });
+  return { bc: new Set(bc.length ? bc : BC_FALLBACK), imx: new Set(imx.length ? imx : BC_FALLBACK) };
+}
 async function loadDivs(force){
   const T = TOOL.divs; if (T.busy || (!force && T.data)) return;
   T.busy = true; T.status = "Загружаю акции Мосбиржи…"; render();
@@ -4919,11 +5140,15 @@ async function loadDivs(force){
     const j = await iss("engines/stock/markets/shares/boards/TQBR/securities.json", "iss.only=securities,marketdata&securities.columns=SECID,SHORTNAME,SECNAME,ISIN,PREVPRICE,LOTSIZE,SECTYPE,CURRENCYID,ISSUESIZE&marketdata.columns=SECID,LAST,LCURRENTPRICE,ISSUECAPITALIZATION,VALTODAY");
     const md = new Map(tbl(j, "marketdata").map(m => [m.secid, m]));
     const list = tbl(j, "securities").map(s => { const m = md.get(s.secid) || {}; return { secid: s.secid, isin: s.isin, short: s.shortname, name: s.secname || s.shortname, pref: String(s.sectype) === "2" || /-п$|\bап\b|пр(\.|ив)/i.test(s.shortname || ""), price: m.last || m.lcurrentprice || s.prevprice || null, cap: m.issuecapitalization || (s.issuesize && (m.last || s.prevprice) ? s.issuesize * (m.last || s.prevprice) : null), vol: m.valtoday || 0, ccy: ccyNorm(s.currencyid) }; }).filter(x => x.price);
-    const cache = store.get("pf.divs.v2", {}), fresh = Date.now() - (force ? 6 : 24) * 3600e3;
+    const cache = store.get("pf.divs.v2", {}), sets = await divIndexSets();
+    for (const x of list){ x.bc = sets.bc.has(x.secid); x.imx = x.bc || sets.imx.has(x.secid); }
     T.list = list; T.cache = cache;
-    /* liquid names first, so SBER/LKOH etc. appear right away */
-    const need = list.filter(x => !cache[x.secid] || cache[x.secid].at < fresh).sort((a, b) => b.vol - a.vol);
-    T.total = need.length; T.done = 0; T.failed = [];
+    /* dividend history barely changes: index stocks are refreshed every 12 h (6 h on «Обновить»), the rest once a week (a day on «Обновить») */
+    const now = Date.now(), old = x => { const c = cache[x.secid]; if (!c) return true; const age = now - c.at; return x.imx ? age > (force ? 6 : 12) * 3600e3 : age > (force ? 24 : 7 * 24) * 3600e3; };
+    const rank = x => (x.bc ? 0 : x.imx ? 1 : 2);
+    const need = list.filter(old).sort((a, b) => rank(a) - rank(b) || b.vol - a.vol);
+    const first = need.filter(x => x.imx).length;
+    T.total = need.length; T.done = 0; T.failed = []; T.first = first;
     T.data = buildDivRows(list, cache); render();
     const fetchOne = async x => {
       for (let a = 0; a < 3; a++){
@@ -4937,8 +5162,10 @@ async function loadDivs(force){
     const queue = [...need];
     const work = async () => { while (queue.length){ const x = queue.shift();
       if (!(await fetchOne(x))) T.failed.push(x.secid);
-      T.done++; T.status = `Загружаю историю дивидендов: ${T.done} из ${T.total}`; if (T.done % 10 === 0){ T.data = buildDivRows(list, cache); render(); } } };
-    await Promise.all([work(), work(), work(), work()]);
+      T.done++;
+      T.status = T.done <= first ? `Голубые фишки и индекс Мосбиржи: ${T.done} из ${first}` : `Голубые фишки готовы, остальные акции догружаются в фоне: ${T.done - first} из ${T.total - first}`;
+      if (T.done === first || T.done % 10 === 0){ T.data = buildDivRows(list, cache); render(); if (T.done === first) store.set("pf.divs.v2", cache); } } };
+    await Promise.all([work(), work(), work(), work(), work(), work()]);
     store.set("pf.divs.v2", cache);
     T.data = buildDivRows(list, cache); T.at = Date.now(); idbSet("scr.divs", { at: T.at, list });
     const nf = T.failed.length;
@@ -5055,11 +5282,12 @@ SCR.bonds = { id: "bonds", title: "Скринер облигаций", sub: "О�
   ],
   note: "Цены, доходности, рейтинги эмитентов и тип купона по данным Мосбиржи. Купон флоатеров на ключевую ставку посчитан как ставка из настроек плюс спред. Доходность выше 40% годовых или цена ниже 50% номинала обычно означает высокий риск дефолта: такие выпуски скрыты фильтром «Скрыть аномальные»." };
 SCR.divs = { id: "divs", title: "Топ дивидендных акций", sub: "Акции Мосбиржи по дивидендной доходности и истории выплат", found: "Найдено компаний", firstCol: "Компания", load: loadDivs,
-  color: r => r.pref ? "var(--c-amort)" : "var(--c-offer)", sub2: r => r.secid,
-  def: { show: ["q", "kind", "dy", "paid"], f: { paid: { min: "3" } }, cols: ["kind", "price", "dy", "div12", "g5", "streak", "next"], sort: { key: "dy", dir: -1 }, size: 25 },
+  color: r => r.pref ? "var(--c-amort)" : "var(--c-offer)", sub2: r => r.secid + (r.bc ? " · голубая фишка" : r.imx ? " · в индексе" : ""),
+  def: { show: ["q", "kind", "idx", "dy", "paid"], f: { paid: { min: "3" } }, cols: ["kind", "price", "dy", "div12", "g5", "streak", "next"], sort: { key: "dy", dir: -1 }, size: 25 },
   filters: [
     { id: "q", n: "Название или тикер", kind: "text", ph: "Например, SBER", hay: r => r.short + " " + r.name + " " + r.secid + " " + r.isin, g: "Основные" },
     { id: "kind", n: "Тип акций", kind: "select", opts: [["ord", "Обыкновенные"], ["pref", "Привилегированные"]], get: r => r.pref ? "pref" : "ord", g: "Основные" },
+    { id: "idx", n: "Индекс", kind: "select", opts: [["bc", "Голубые фишки (MOEXBC)"], ["imx", "Индекс Мосбиржи (IMOEX)"], ["rest", "Вне индекса"]], get: r => r.bc ? "bc" : r.imx ? "imx" : "rest", test2: (r, v) => v === "imx" ? !!r.imx : v === "bc" ? !!r.bc : !r.imx, g: "Основные" },
     { id: "dy", n: "Див. доходность", unit: "%", kind: "range", get: r => r.dy, g: "Основные" },
     { id: "paid", n: "Лет с выплатами из 10", kind: "range", get: r => r.paid, g: "Основные" },
     { id: "g5", n: "Рост дивидендов за 5 лет", unit: "% в год", kind: "range", get: r => r.g5, g: "Расширенные" },
@@ -5384,7 +5612,7 @@ function render(){
   renderSwitcher();
   if (S.view === "reports") renderReports();
   const secs = { home: ["portfolio"], portfolio: ["portfolio"], analytics: S.anTab === "report" ? ["analytics"] : ["analytics", "taxes"], goal: ["goal"] }[S.view] || [S.view];
-  for (const v of ["portfolio", "analytics", "goal", "calendar", "taxes", "deals", "reports", "deposits", "bonds", "divs", "bondlab", "bondpick", "mmf", "taxopt", "cpncal", "stoplist", "salary"]){ $("#v-" + v).hidden = !secs.includes(v); }
+  for (const v of ["portfolio", "analytics", "goal", "calendar", "taxes", "deals", "reports", "deposits", "bonds", "divs", "bondlab", "bondpick", "mmf", "taxopt", "cpncal", "stoplist", "salary", "issuer"]){ $("#v-" + v).hidden = !secs.includes(v); }
   document.querySelectorAll("#tabs a").forEach(a => a.setAttribute("aria-current", a.getAttribute("href") === "#" + S.view ? "page" : "false"));
   const inPf = PF_VIEWS.includes(S.view); $("#navPfBtn").classList.toggle("on", inPf);
   $("#navPfBtn").firstChild.textContent = "Портфель";
@@ -5401,8 +5629,9 @@ function render(){
   if (S.view === "taxopt") renderTaxOpt(derive());
   if (S.view === "cpncal") renderCpnCal(D);
   if (S.view === "salary") renderSalary();
+  if (S.view === "issuer") renderIssuer(D);
   if (S.view === "stoplist") renderStopList(derive("all"));
-  const inTools = ["bonds", "divs", "bondlab", "bondpick", "mmf", "taxopt", "cpncal", "stoplist", "salary"].includes(S.view); $("#navToolsBtn").classList.toggle("on", inTools);
+  const inTools = ["bonds", "divs", "bondlab", "bondpick", "mmf", "taxopt", "cpncal", "stoplist", "salary", "issuer"].includes(S.view); $("#navToolsBtn").classList.toggle("on", inTools);
   $("#navToolsBtn").firstChild.textContent = "Инструменты"; 
   document.querySelectorAll("#toolsMenu a").forEach(a => a.setAttribute("aria-current", a.getAttribute("href") === "#" + S.view ? "page" : "false"));
   $("#btnRefresh").disabled = S.moexBusy || !derive("all").holdings.length; moexIndicator();
@@ -5839,7 +6068,7 @@ document.addEventListener("click", e => { if (e.target.closest("#dashCfg")) open
 
 const WORKER_SRC = "// Синхронизация «Аналитика инвестиций» — Cloudflare Worker.\n// Хранит зашифрованные данные приложения в Workers KV. Сервер не видит содержимое:\n// данные шифруются паролем в браузере (AES-GCM), сюда приходит только шифротекст.\n//\n// Привязка KV: переменная PF (Settings → Bindings → KV namespace → Variable name: PF).\n//\n// API:\n//   GET    /v1/<id>   -> зашифрованные данные, заголовки X-Rev и X-Updated (404, если пусто)\n//   PUT    /v1/<id>   -> сохранить; заголовки X-Write-Key (ключ записи) и X-Base-Rev (версия, от которой правили)\n//   DELETE /v1/<id>   -> удалить; заголовок X-Write-Key\n//   POST   /tinvest/<Service>/<Method> -> передаёт запрос в T-Invest API (только чтение: счета, операции, портфель, справочник бумаг)\n//   ANY    /finam/v1/...  -> передаёт запрос в Finam Trade API (только вход, счета, сделки, операции, справочник бумаг)\n//   POST   /an/v1/messages, /ds/chat/completions -> передаёт вопрос ИИ в API Anthropic (Claude) или DeepSeek; ключ приходит из браузера и нигде не хранится\n//   GET    /sl/q/<TICKER>/f/y/<MSFO|RSBU>/ -> страница фундаментальных показателей Smart-Lab (кэш 6 часов)\n\nconst CORS = {\n  \"Access-Control-Allow-Origin\": \"*\",\n  \"Access-Control-Allow-Methods\": \"GET, POST, PUT, DELETE, OPTIONS\",\n  \"Access-Control-Allow-Headers\": \"Content-Type, X-Write-Key, X-Base-Rev, Authorization, x-api-key, anthropic-version, anthropic-beta, anthropic-dangerous-direct-browser-access\",\n  \"Access-Control-Expose-Headers\": \"X-Rev, X-Updated\",\n  \"Access-Control-Max-Age\": \"86400\",\n};\nconst MAX_BYTES = 20 * 1024 * 1024;\n\nconst json = (data, status = 200) =>\n  new Response(JSON.stringify(data), { status, headers: { ...CORS, \"Content-Type\": \"application/json; charset=utf-8\" } });\n\nasync function sha256hex(text) {\n  const buf = await crypto.subtle.digest(\"SHA-256\", new TextEncoder().encode(text));\n  return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, \"0\")).join(\"\");\n}\n\nexport default {\n  async fetch(request, env) {\n    if (request.method === \"OPTIONS\") return new Response(null, { status: 204, headers: CORS });\n    const url = new URL(request.url);\n    const ti = url.pathname.match(/^\\/tinvest\\/(UsersService|OperationsService|InstrumentsService)\\/(GetAccounts|GetOperationsByCursor|GetPortfolio|GetPositions|GetInstrumentBy)$/);\n    if (ti && request.method === \"POST\") {\n      const r = await fetch(\"https://invest-public-api.tbank.ru/rest/tinkoff.public.invest.api.contract.v1.\" + ti[1] + \"/\" + ti[2], {\n        method: \"POST\", headers: { \"Authorization\": request.headers.get(\"Authorization\") || \"\", \"Content-Type\": \"application/json\", \"Accept\": \"application/json\" }, body: await request.text() });\n      return new Response(r.body, { status: r.status, headers: { ...CORS, \"Content-Type\": \"application/json; charset=utf-8\", \"Cache-Control\": \"no-store\" } });\n    }\n    const fp = url.pathname.match(/^\\/finam(\\/v1\\/(sessions(\\/details)?|accounts\\/[^/]+(\\/(trades|transactions))?|assets\\/[^/]+))$/);\n    if (fp) {\n      const isPost = /^\\/v1\\/sessions/.test(fp[1]);\n      if ((isPost && request.method !== \"POST\") || (!isPost && request.method !== \"GET\")) return json({ error: \"method not allowed\" }, 405);\n      const r = await fetch(\"https://api.finam.ru\" + fp[1] + url.search, {\n        method: request.method, headers: { \"Authorization\": request.headers.get(\"Authorization\") || \"\", \"Content-Type\": \"application/json\", \"Accept\": \"application/json\" }, body: isPost ? await request.text() : undefined });\n      return new Response(r.body, { status: r.status, headers: { ...CORS, \"Content-Type\": \"application/json; charset=utf-8\", \"Cache-Control\": \"no-store\" } });\n    }\n    const ai = url.pathname.match(/^\\/(an\\/v1\\/messages|ds\\/chat\\/completions)$/);\n    if (ai) {\n      if (request.method !== \"POST\") return json({ error: \"method not allowed\" }, 405);\n      const target = ai[1] === \"an/v1/messages\" ? \"https://api.anthropic.com/v1/messages\" : \"https://api.deepseek.com/chat/completions\";\n      const h = { \"Content-Type\": \"application/json\" };\n      for (const k of [\"x-api-key\", \"anthropic-version\", \"anthropic-beta\", \"authorization\"]) { const v = request.headers.get(k); if (v) h[k] = v; }\n      const r = await fetch(target, { method: \"POST\", headers: h, body: await request.text() });\n      return new Response(r.body, { status: r.status, headers: { ...CORS, \"Content-Type\": r.headers.get(\"Content-Type\") || \"application/json\", \"Cache-Control\": \"no-store\" } });\n    }\n    const sl = url.pathname.match(/^\\/sl(\\/q\\/[A-Za-z0-9._-]{1,20}\\/f\\/(y|q)\\/(MSFO|RSBU)\\/?)$/);\n    if (sl){\n      if (request.method !== \"GET\") return json({ error: \"method not allowed\" }, 405);\n      const r = await fetch(\"https://smart-lab.ru\" + sl[1], { headers: { \"User-Agent\": \"Mozilla/5.0 (compatible; pf-analytics)\", \"Accept\": \"text/html\" }, cf: { cacheTtl: 21600, cacheEverything: true } });\n      return new Response(r.body, { status: r.status, headers: { ...CORS, \"Content-Type\": \"text/html; charset=utf-8\", \"Cache-Control\": \"public, max-age=21600\" } });\n    }\n    if (!env.PF) return json({ error: \"KV не привязан: добавьте привязку KV с именем PF\" }, 500);\n\n    if (url.pathname === \"/\" || url.pathname === \"/v1\") return json({ ok: true, service: \"pf-sync\", tinvest: true, finam: true, smartlab: true, ai: true });\n    const m = url.pathname.match(/^\\/v1\\/([A-Za-z0-9_-]{16,64})$/);\n    if (!m) return json({ error: \"not found\" }, 404);\n    const key = \"pf:\" + m[1];\n\n    const { value, metadata } = await env.PF.getWithMetadata(key);\n    const meta = metadata || null; // { rev, updated, wk }\n\n    if (request.method === \"GET\") {\n      if (value === null) return json({ error: \"empty\" }, 404);\n      return new Response(value, {\n        headers: { ...CORS, \"Content-Type\": \"application/json; charset=utf-8\", \"Cache-Control\": \"no-store\", \"X-Rev\": String(meta.rev), \"X-Updated\": meta.updated },\n      });\n    }\n\n    const wk = request.headers.get(\"X-Write-Key\") || \"\";\n    if (wk.length < 32) return json({ error: \"no write key\" }, 401);\n    const wkHash = await sha256hex(wk);\n    if (meta && meta.wk !== wkHash) return json({ error: \"forbidden\" }, 403);\n\n    if (request.method === \"PUT\") {\n      const base = Number(request.headers.get(\"X-Base-Rev\") || 0);\n      if (meta && base !== meta.rev) return json({ error: \"conflict\", rev: meta.rev, updated: meta.updated }, 409);\n      const body = await request.text();\n      if (body.length > MAX_BYTES) return json({ error: \"too large\" }, 413);\n      try { const p = JSON.parse(body); if (!p || !p.ct || !p.iv) throw 0; } catch { return json({ error: \"bad body\" }, 400); }\n      const next = { rev: (meta ? meta.rev : 0) + 1, updated: new Date().toISOString(), wk: wkHash };\n      await env.PF.put(key, body, { metadata: next });\n      return json({ rev: next.rev, updated: next.updated });\n    }\n\n    if (request.method === \"DELETE\") {\n      await env.PF.delete(key);\n      return json({ ok: true });\n    }\n\n    return json({ error: \"method not allowed\" }, 405);\n  },\n};\n";
 /* ======================= sync between devices via your own Cloudflare Worker ======================= */
-const SYNC_KEYS = new Set(["pf.reports.v1", "pf.manual.v1", "pf.edits.v1", "pf.goals.v1", "pf.portfolios.v1", "pf.deposits.v1", "pf.settings.v1", "pf.rem.v1", "pf.dash.v1", "pf.stop.v1", "pf.sal.v1"]);
+const SYNC_KEYS = new Set(["pf.reports.v1", "pf.manual.v1", "pf.edits.v1", "pf.goals.v1", "pf.portfolios.v1", "pf.deposits.v1", "pf.settings.v1", "pf.rem.v1", "pf.dash.v1", "pf.stop.v1", "pf.sal.v1", "pf.iss.v1"]);
 S.sync = Object.assign({ url: "", id: "", pass: "", rev: 0, dirty: false, at: null, auto: true }, store.get("pf.sync.v1", {}));
 const SY = { busy: false, applying: false, timer: 0, status: "", err: "", lastPull: 0, key: null, keyFor: "" };
 const saveSync = () => { const { ...x } = S.sync; localStorage.setItem("pf.sync.v1", JSON.stringify(x)); };
@@ -6829,7 +7058,7 @@ const drop = $("#drop"), ov = $("#dropOverlay");
 document.addEventListener("drop", e => { if (e.dataTransfer && e.dataTransfer.files.length){ e.preventDefault(); handleFiles([...e.dataTransfer.files]); } });
 $("#btnRefresh").onclick = () => refreshMoex(true);
 function autoMoex(){ if (MOEX_VIEWS.includes(S.view) && document.visibilityState !== "hidden") refreshMoex(false); if (["analytics", "portfolio"].includes(S.view) && derive("all").holdings.some(h => (S.moex[h.isin] || {}).kind === "bond")) loadEmissions(false); }
-function route(){ const h = location.hash.replace("#", ""); S.view = h === "assets" ? "portfolio" : h === "taxes" ? "analytics" : ["home", "analytics", "portfolio", "calendar", "deals", "goal", "reports", "deposits", "bonds", "divs", "bondlab", "bondpick", "mmf", "taxopt", "cpncal", "stoplist", "salary"].includes(h) ? h : "home"; closeDrops(); render(); autoMoex(); }
+function route(){ const h = location.hash.replace("#", ""); S.view = h === "assets" ? "portfolio" : h === "taxes" ? "analytics" : ["home", "analytics", "portfolio", "calendar", "deals", "goal", "reports", "deposits", "bonds", "divs", "bondlab", "bondpick", "mmf", "taxopt", "cpncal", "stoplist", "salary", "issuer"].includes(h) ? h : "home"; closeDrops(); render(); autoMoex(); }
 addEventListener("hashchange", route);
 S.moexAt = store.get("pf.moexAt", 0);
 route();
@@ -6932,7 +7161,7 @@ function scFacts(c){
       kv("Рейтинги агентств", ratInfo(c.isin) && Object.keys(ratInfo(c.isin).ag).length ? ratAgHtml(c.isin) + (ratInfo(c.isin).ch ? " " + ratChHtml(c.isin) : "") : null), kv("Стоп-лист", stopReason(c.isin, c.name, c.price) ? `<span class="neg">${esc(stopReason(c.isin, c.name, c.price).t)}</span>` : null),
       kv("Дюрация", c.m.duration ? Math.round(c.m.duration) + " дн." : null), kv("Объём выпуска", c.issueSize && c.face ? scBig(c.issueSize * c.face * (fxRate(c.faceUnit) || 1)) : null));
   } else out.push(kv("Лот", c.s.lotsize ? scInt(c.s.lotsize) + " шт." : null), kv("Оборот сегодня", c.m.valtoday ? scBig(+c.m.valtoday) : null));
-  out.push(kv("Уровень листинга", c.list ? c.list : null), kv("Только для квалов", c.qual ? "да" : null), kv("Эмитент", c.issuer ? esc(c.issuer) : null), kv("ИНН", c.inn ? esc(c.inn) : null), kv("Тип", c.typeName ? esc(c.typeName) : null));
+  out.push(kv("Уровень листинга", c.list ? c.list : null), kv("Только для квалов", c.qual ? "да" : null), kv("Эмитент", c.issuer ? (c.inn ? `<button type="button" class="link" data-goiss="${esc(c.inn)}" data-tip="Все облигации эмитента, выплаты по месяцам, отчётность">${esc(c.issuer)} →</button>` : esc(c.issuer)) : null), kv("ИНН", c.inn ? esc(c.inn) : null), kv("Тип", c.typeName ? esc(c.typeName) : null));
   return `<div class="sc-facts">${out.join("")}</div>`;
 }
 function scMine(c){
@@ -6995,11 +7224,11 @@ async function slLoad(c, force){
     const ks = Object.keys(SC.fund); if (ks.length > 40) ks.sort((a, b) => SC.fund[a].at - SC.fund[b].at).slice(0, ks.length - 40).forEach(k => delete SC.fund[k]);
     store.set("pf.fund.v1", SC.fund); }
   catch (e){ SC.ferr = e.message || "fail"; }
-  SC.fbusy = ""; if (SC.cur === c) scPaintFund(c);
+  SC.fbusy = ""; if (SC.cur === c || c.host) scPaintFund(c);
 }
 function slFmt(v, p){ if (v == null) return "<span class='faint'>—</span>"; return p ? v.toLocaleString("ru-RU", { maximumFractionDigits: 1 }) + "%" : v.toLocaleString("ru-RU", { maximumFractionDigits: Math.abs(v) < 100 ? 2 : Math.abs(v) < 1000 ? 1 : 0 }); }
 function scPaintFund(c){
-  const host = document.getElementById("scFund"); if (!host) return;
+  const host = document.getElementById(c.host || "scFund"); if (!host) return;
   const tk = slTicker(c), key = tk + "|" + SC.std, f = SC.fund[key], url = `https://smart-lab.ru/q/${encodeURIComponent(tk)}/f/y/${SC.std}/`;
   const seg = `<div class="seg" role="group" aria-label="Стандарт отчётности">${["MSFO", "RSBU"].map(s => `<button type="button" data-sc-std="${s}" aria-pressed="${SC.std === s}">${s === "MSFO" ? "МСФО" : "РСБУ"}</button>`).join("")}</div>`;
   const head = `<div class="sc-fh"><h3>Показатели компании</h3>${seg}<a class="small" href="${url}" target="_blank" rel="noopener">Smart-Lab ↗</a></div>`;
@@ -7030,6 +7259,13 @@ function scPaintFund(c){
   }
   host.innerHTML = head + body;
 }
+/* jump to the issuer analytics: always for bonds, for shares when the company also has bonds */
+function scIssBtn(c){
+  if (!c.inn) return "";
+  const n = EMIS.map ? issIssues(c.inn).length : 0;
+  if (c.kind !== "bond" && !n) return "";
+  return `<button type="button" class="sc-iss" data-goiss="${esc(c.inn)}"><span class="sc-iss-i" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 13.5h11 M3.5 13.5V6.5l4.5-3 4.5 3v7 M6 13.5v-3h4v3"/></svg></span><span class="sc-iss-t"><b>${esc(c.issuer || "Эмитент")}</b><small>${n ? n + " " + plural(n, "выпуск облигаций", "выпуска облигаций", "выпусков облигаций") + " · " : ""}выплаты и оферты по месяцам, рейтинги, отчётность</small></span><span class="sc-iss-a" aria-hidden="true">→</span></button>`;
+}
 async function openSecCard(isin, secid){
   const dlg = dlgShell("Карточка бумаги", `<div class="sc-card" id="scBody"><p class="status-line"><i class="spin"></i>Загружаю данные Мосбиржи…</p></div>`, "Закрыть");
   dlg.querySelector(".dlg-foot [data-close]").remove();
@@ -7051,6 +7287,7 @@ function scPaint(dlg, c){
   dlg.querySelector("#pfDlgTitle").textContent = c.kind === "bond" ? "Облигация" : c.kind === "share" ? "Акция" : c.kind === "fund" ? "Фонд" : "Бумага";
   body.innerHTML = `<div class="sc-head"><span class="av" style="--ac:${kcol}">${esc(ini || "?")}</span><div class="sc-t"><b>${esc(c.name)}</b><small><span data-cp="${esc(c.secid)}" class="sc-tk">${esc(c.secid)}</span>${c.isin && c.isin !== c.secid ? " · " + esc(c.isin) : ""}</small></div>
       <div class="sc-p"><b>${scPriceTxt(c, c.price)}</b>${ch != null && isFinite(ch) ? `<small class="${ch >= 0 ? "pos" : "neg"}">${ch >= 0 ? "+" : "−"}${pct(Math.abs(ch), 2)} за день</small>` : ""}</div></div>
+    ${scIssBtn(c)}
     ${scMine(c)}
     ${c.idx.length ? `<div class="sc-idx">${c.idx.slice(0, 12).map(x => `<span data-tip="${esc(x.n || x.id)}">${esc(x.id)}</span>`).join("")}</div>` : ""}
     <div class="sc-per"><div class="seg" role="group" aria-label="Период графика">${SC_PER.map(p => `<button type="button" data-sc-per="${p[0]}" aria-pressed="${SC.per === p[0]}">${p[1]}</button>`).join("")}</div></div>
@@ -7072,7 +7309,7 @@ document.addEventListener("click", e => {
   if (e.target.closest("[data-sc-retry]")){ slLoad(c, true); return; }
   const row = e.target.closest("[data-sc-row]"); if (row){ SC.row = row.dataset.scRow; scPaintFund(c); return; }
 });
-document.addEventListener("change", e => { if (e.target.matches("[data-sc-all]")){ SC.all = e.target.checked; SC.cur && scPaintFund(SC.cur); } });
+document.addEventListener("change", e => { if (e.target.matches("[data-sc-all]")){ SC.all = e.target.checked; SC.cur && scPaintFund(SC.cur); if (typeof ISU !== "undefined" && ISU.fc) scPaintFund(ISU.fc); } });
 document.addEventListener("pointermove", e => {
   const svg = e.target.closest && e.target.closest("#scSvg"); if (!svg || !SC.pts) return;
   const { pts, X, Y, W, padL, padR } = SC.pts, r = svg.getBoundingClientRect(), x = (e.clientX - r.left) / r.width * W;
