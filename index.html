@@ -1231,12 +1231,33 @@ function parseSber(text, file){
     const iIsin = h.findIndex(v => v.startsWith("isin")), iCcy = h.findIndex(v => v.startsWith("валюта"));
     const pick = (key, n) => occ(key)[n] ?? -1;
     const iQty = pick("количество", 1), iFace = pick("номинал", 1), iPrice = pick("рыночная цена", 1), iVal = pick("рыночная стоимость", 1), iNkd = pick("нкд", 1);
+    /* trades of the last day settle the next day (T+1): «Количество» at the end is still without them, «Плановый исходящий остаток» already counts them —
+       the app counts trades on the trade date, so the planned balance is the one that matches */
+    const iPlan = h.findIndex(v => v.startsWith("плановый исходящий остаток"));
+    const byIsin = new Map();
     for (const row of t.rows.slice(hi + 1)){
       if (!ISIN_RE.test(row[iIsin] || "")) continue;
-      const isin = row[iIsin], qty = num(row[iQty]);
-      r.positions.push({ isin, name: row[0], qty, ccy: ccyNorm(row[iCcy]), price: num(row[iPrice]), face: num(row[iFace]), nkd: num(row[iNkd]), valueRub: num(row[iVal]) + num(row[iNkd]) });
+      const isin = row[iIsin], qEnd = num(row[iQty]), plan = iPlan >= 0 && String(row[iPlan] || "").trim() !== "" ? num(row[iPlan]) : null, qty = plan != null ? plan : qEnd;
+      const price = num(row[iPrice]), face = num(row[iFace]), nkd = num(row[iNkd]);
+      let val = num(row[iVal]) + nkd;
+      const isBond = (r.instruments[isin] || {}).kind === "bond" || kindFromText(row[0]) === "bond";
+      if (qty !== qEnd) val = qEnd > 0 ? val * qty / qEnd : price > 0 ? qty * (isBond && face > 0 ? price / 100 * face : price) : 0;
+      /* the same paper can appear on several venues (exchange and OTC): one position per ISIN */
+      const cur = byIsin.get(isin);
+      if (cur){ if (!val && qty > 0 && cur.price) val = qty * (isBond && cur.face > 0 ? cur.price / 100 * cur.face : cur.price);
+        cur.qty += qty; cur.valueRub += val; if (!cur.price && price) cur.price = price; }
+      else { const pos = { isin, name: row[0], qty, ccy: ccyNorm(row[iCcy]), price, face, nkd, valueRub: val }; byIsin.set(isin, pos); r.positions.push(pos); }
       if (!r.instruments[isin]) r.instruments[isin] = { name: row[0], kind: kindFromText(row[0]) };
     }
+  }
+  /* cash: also use the planned balance (after the pending trades settle) */
+  for (const t of tables.filter(t => t.title.startsWith("денежные средства"))){
+    const hi = t.rows.findIndex(rw => rw.some(c => /плановый исходящий остаток/i.test(c)) && rw.some(c => /^валюта$/i.test(String(c).trim()))); if (hi < 0) continue;
+    const h = t.rows[hi].map(norm), iC = h.findIndex(v => v === "валюта"), iP = h.findIndex(v => v.startsWith("плановый исходящий остаток")), iA = h.findIndex(v => v.startsWith("торговая площадка"));
+    const plan = {};
+    for (const row of t.rows.slice(hi + 1)){ if (/^итого/i.test(String(row[iA >= 0 ? iA : 0] || "").trim()) || !row[iC] || !/^[A-Z]{3}$/.test(String(row[iC]).trim())) continue;
+      const c = ccyNorm(row[iC]); plan[c] = (plan[c] || 0) + num(row[iP]); }
+    if (Object.keys(plan).length){ const had = new Set(r.balances.map(b => b.ccy)); r.balances = Object.entries(plan).filter(([c, v]) => v || had.has(c)).map(([ccy, amount]) => ({ ccy, amount })); }
   }
   for (const t of tables.filter(t => t.title.startsWith("движение денежных средств"))){
     const hi = t.rows.findIndex(rw => norm(rw[0]) === "дата"); if (hi < 0) continue;
