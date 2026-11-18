@@ -271,7 +271,8 @@ tfoot td{font-weight:600;border-top:1px solid var(--line);border-bottom:0}
 .ev.past{opacity:.62}
 @media (max-width:640px){.cal .day{min-height:58px;padding:3px}.ev{font-size:0;padding:0;height:6px;border-left-width:0;background:var(--evc)}.cal .dow{padding:4px}}
 .evlist{display:grid;gap:0}
-.evrow{display:grid;grid-template-columns:88px 1fr auto;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.evrow{display:grid;grid-template-columns:88px minmax(0,1fr) auto;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);align-items:baseline}
+@media (max-width:480px){.evrow{grid-template-columns:72px minmax(0,1fr) auto;gap:8px}.evrow .what b{overflow-wrap:anywhere}}
 .evrow:last-child{border-bottom:0}
 .evrow .dt{font:500 13px var(--f-mono)}
 .evrow .what b{font-weight:600}
@@ -681,6 +682,16 @@ th.sortable button:hover{color:var(--fg)}
 .sc-iss-t b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .sc-iss-t small{color:var(--muted);font-size:12px}
 .sc-iss-a{color:var(--accent);font-size:18px;flex:none}
+.panel-head{flex-wrap:wrap}
+.panel-head .legend{flex-wrap:wrap;min-width:0;row-gap:4px}
+.iis-row{display:grid;gap:8px;padding:10px 0;border-top:1px solid var(--line)}
+.iis-row:first-of-type{border-top:0}
+.iis-h{display:flex;gap:8px 12px;align-items:center;flex-wrap:wrap}
+.iis-h b{flex:1;min-width:140px}
+.iis-h select,.iis-d input{padding:5px 8px;border:1px solid var(--line);border-radius:8px;background:var(--surface-2);color:var(--fg);font:inherit;font-size:13px}
+.iis-d{display:flex;gap:6px;align-items:center}
+.iis-d small{color:var(--muted)}
+.iis-tag{font-size:12px;font-weight:600;color:var(--accent);background:var(--accent-soft);border-radius:999px;padding:2px 8px;vertical-align:2px}
 .iss-q{position:relative}
 .iss-q input{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:var(--surface-2);color:var(--fg);font:inherit;font-size:15px}
 .iss-sug{position:absolute;left:0;right:0;top:calc(100% + 4px);z-index:20;background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.14);max-height:320px;overflow:auto}
@@ -2055,15 +2066,19 @@ function mLabel(key, withYear){ const m = +key.slice(5) - 1; return MON_SHORT[m]
 function futurePanel(D){
   const ev = buildEvents(D), today = todayIso(), y1 = addDays(today, 365);
   const fut = ev.filter(e => e.future && (e.type === "coupon" || e.type === "dividend" || e.type === "interest") && e.date < y1);
-  const total = fut.reduce((s, e) => s + (e.amount || 0), 0);
+  const total = fut.reduce((s, e) => s + (e.amount || 0), 0), roll = depRollover(D, 12), wr = depAvgRate(D), rollSum = roll.reduce((s, e) => s + e.amount, 0);
   const now = new Date(), groups = [];
   for (let i = 0; i < 12; i++){ const d = new Date(now.getFullYear(), now.getMonth() + i, 1), key = d.getFullYear() + "-" + pad(d.getMonth() + 1);
     const list = fut.filter(e => monthKey(e.date) === key), v = list.reduce((s, e) => s + (e.amount || 0), 0);
-    groups.push({ label: mLabel(key, false), full: MONTHS[d.getMonth()] + " " + d.getFullYear(), bars: [{ v, c: "var(--c-coupon)", tip: payTip(list.map(e => ({ kind: e.type, name: e.name, amount: e.amount || 0 }))) }] }); }
+    const fl = roll.filter(e => monthKey(e.date) === key), fv = fl.reduce((s, e) => s + e.amount, 0);
+    const bars = [{ v, c: "var(--c-coupon)", tip: payTip(list.map(e => ({ kind: e.type, name: e.name, amount: e.amount || 0 }))) }];
+    if (roll.length) bars.push({ v: fv, c: "var(--k-cash)", tip: fv > 0.5 ? `Прогноз по вкладам после окончания (под ${pct(wr, 2)}): ${money(fv, 2)}\n` + fl.map(e => `· ${e.name.replace(" — после окончания", "")}: ${money(e.amount, 2)}`).join("\n") : "" });
+    groups.push({ label: mLabel(key, false), full: MONTHS[d.getMonth()] + " " + d.getFullYear(), bars }); }
   const undeclared = fut.filter(e => !e.amount).length;
   return `<div class="panel w-panel"><div class="w-head"><h2>Будущие выплаты <span class="info" tabindex="0" data-tip="Купоны и дивиденды по бумагам на счетах сейчас (по данным Мосбиржи) и проценты по вкладам на 12 месяцев вперёд. До налога, если ставка налога не задана.${undeclared ? "\nЕщё не объявленные купоны (" + undeclared + ") не учтены." : ""}">?</span></h2><a class="w-link" href="#calendar">Календарь →</a></div>
-    <div class="w-stats"><div style="--sc:var(--c-coupon)"><span>След. 12 мес.</span><b>${money(total, 2)}</b></div><div style="--sc:var(--c-div)"><span>В месяц</span><b>${money(total / 12, 2)}</b></div></div>
-    ${total > 0 ? barChart(groups) : `<div class="empty w-empty"><b>${D.holdings.some(h => S.moex[h.isin]) ? "Выплат не ожидается" : "Нет данных Мосбиржи"}</b><span>${D.holdings.some(h => S.moex[h.isin]) ? "У бумаг на счетах нет купонов и объявленных дивидендов на год вперёд." : "Нажмите «Мосбиржа» вверху, чтобы загрузить купоны и дивиденды."}</span></div>`}</div>`;
+    <div class="w-stats"><div style="--sc:var(--c-coupon)"><span>След. 12 мес.</span><b>${money(total + rollSum, 2)}</b></div><div style="--sc:var(--c-div)"><span>В месяц</span><b>${money((total + rollSum) / 12, 2)}</b></div>${rollSum > 0.5 ? `<div style="--sc:var(--k-cash)" data-tip="Когда вклад заканчивается, деньги с процентами считаются снова положенными под среднюю ставку ваших открытых вкладов (${pct(wr, 2)}). «В месяц» — с учётом прогноза."><span>из них прогноз вкладов</span><b>${money(rollSum, 2)}</b></div>` : ""}</div>
+    ${rollSum > 0.5 ? `<div class="legend small" style="margin:-4px 0 4px"><span><i class="dot" style="background:var(--c-coupon)"></i>купоны, дивиденды, проценты</span><span><i class="dot" style="background:var(--k-cash)"></i>прогноз по вкладам после окончания</span></div>` : ""}
+    ${total + rollSum > 0 ? barChart(groups) : `<div class="empty w-empty"><b>${D.holdings.some(h => S.moex[h.isin]) ? "Выплат не ожидается" : "Нет данных Мосбиржи"}</b><span>${D.holdings.some(h => S.moex[h.isin]) ? "У бумаг на счетах нет купонов и объявленных дивидендов на год вперёд." : "Нажмите «Мосбиржа» вверху, чтобы загрузить купоны и дивиденды."}</span></div>`}</div>`;
 }
 function payName(D, c){ const ins = (D.instruments && D.instruments[c.isin]) || {}; return (c.isin && S.moex[c.isin] && S.moex[c.isin].shortname) || ins.short || ins.name || shortComment(c) || "без названия"; }
 function receivedPanel(D){
@@ -2492,12 +2507,13 @@ function buildEvents(D){
 function shortComment(c){ const m = String(c.comment || c.type).match(/облигациям\s+(.+?)\s+ISIN/i) || String(c.comment).match(/Наименование:\s*([^,]+)/); return m ? m[1].replace(/&quot;|"/g, "") : (CASH_NAMES[c.kind] || c.type); }
 function evLabel(e){ const ot = e.type === "offer" && e.offerType ? String(e.offerType).replace(/оферта/i, "").replace(/[()]/g, "").trim() : ""; return EVT[e.type].name + (ot ? " (" + ot + ")" : ""); }
 
-function monthBars(ev){
+function monthBars(ev, roll = []){
   const now = new Date(), months = [];
-  for (let i = -11; i <= 12; i++){ const d = new Date(now.getFullYear(), now.getMonth() + i, 1); months.push({ key: d.getFullYear() + "-" + pad(d.getMonth() + 1), label: MON_SHORT[d.getMonth()], y: d.getFullYear(), past: i < 0, cur: i === 0, got: 0, exp: 0 }); }
+  for (let i = -11; i <= 12; i++){ const d = new Date(now.getFullYear(), now.getMonth() + i, 1); months.push({ key: d.getFullYear() + "-" + pad(d.getMonth() + 1), label: MON_SHORT[d.getMonth()], y: d.getFullYear(), past: i < 0, cur: i === 0, got: 0, exp: 0, fc: 0 }); }
   const idx = Object.fromEntries(months.map((m, i) => [m.key, i]));
   for (const e of ev){ const i = idx[e.date.slice(0, 7)]; if (i == null || !e.amount || e.type === "depclose") continue; if (e.future) months[i].exp += e.amount; else months[i].got += e.amount; }
-  const max = Math.max(1, ...months.map(m => m.got + m.exp));
+  for (const e of roll){ const i = idx[e.date.slice(0, 7)]; if (i != null) months[i].fc += e.amount; }
+  const max = Math.max(1, ...months.map(m => m.got + m.exp + m.fc));
   const W = 760, Hh = 170, padL = 54, padB = 34, padT = 10, bw = (W - padL - 8) / months.length;
   const step = niceStep(max / 3), ticks = []; for (let v = 0; v <= max * 1.001 + step; v += step){ ticks.push(v); if (v >= max) break; }
   const top = ticks[ticks.length - 1] || max, y = v => padT + (Hh - padT - padB) * (1 - v / top);
@@ -2506,8 +2522,9 @@ function monthBars(ev){
     const x = padL + i * bw + 3, w = Math.max(4, bw - 6);
     if (m.got){ const h1 = y(0) - y(m.got); g += `<path d="${roundTop(x, y(m.got), w, h1)}" fill="var(--accent)" data-tip="${MONTHS[+m.key.slice(5) - 1]} ${m.y}\nполучено ${money(m.got)}"/>`; }
     if (m.exp){ const base = m.got ? y(m.got) - 2 : y(0), h2 = y(0) - y(m.exp); g += `<path d="${roundTop(x, base - h2, w, h2)}" fill="var(--c-coupon)" data-tip="${MONTHS[+m.key.slice(5) - 1]} ${m.y}\nожидается ${money(m.exp)}"/>`; }
-    if (!m.got && !m.exp) g += `<rect x="${x}" y="${y(0) - 2}" width="${w}" height="2" fill="var(--line)"/>`;
-    g += `<rect x="${padL + i * bw}" y="${padT}" width="${bw}" height="${Hh - padT - padB}" fill="transparent" data-tip="${MONTHS[+m.key.slice(5) - 1]} ${m.y}\n${m.got ? "получено " + money(m.got) : ""}${m.got && m.exp ? "\n" : ""}${m.exp ? "ожидается " + money(m.exp) : ""}${!m.got && !m.exp ? "выплат нет" : ""}"/>`;
+    if (m.fc > 0.5){ const base = (m.got || m.exp) ? y(m.got + m.exp) - 2 : y(0), h3 = y(0) - y(m.fc); g += `<path d="${roundTop(x, base - h3, w, h3)}" fill="var(--k-cash)" opacity=".75"/>`; }
+    if (!m.got && !m.exp && !(m.fc > 0.5)) g += `<rect x="${x}" y="${y(0) - 2}" width="${w}" height="2" fill="var(--line)"/>`;
+    g += `<rect x="${padL + i * bw}" y="${padT}" width="${bw}" height="${Hh - padT - padB}" fill="transparent" data-tip="${MONTHS[+m.key.slice(5) - 1]} ${m.y}\n${m.got ? "получено " + money(m.got) : ""}${m.got && m.exp ? "\n" : ""}${m.exp ? "ожидается " + money(m.exp) : ""}${m.fc > 0.5 ? "\nпрогноз по вкладам " + money(m.fc) : ""}${!m.got && !m.exp && !(m.fc > 0.5) ? "выплат нет" : ""}"/>`;
     g += `<text x="${padL + i * bw + bw / 2}" y="${Hh - padB + 14}" text-anchor="middle" style="${m.cur ? "fill:var(--fg);font-weight:600" : ""}">${m.label}</text>`;
     if (m.label === "янв" || i === 0) g += `<text x="${padL + i * bw + bw / 2}" y="${Hh - padB + 28}" text-anchor="middle" class="faint">${m.y}</text>`;
   });
@@ -2521,7 +2538,7 @@ function shortMoney(v){ return v >= 1e6 ? (v / 1e6).toLocaleString("ru-RU", { ma
 function renderCalendar(D){
   const el = $("#v-calendar");
   if (!hasData(D)){ el.innerHTML = anyData() ? emptyPortfolio() : emptyBlock("Календарь выплат", "После загрузки отчётов здесь будут купоны, дивиденды, оферты, амортизации и погашения по вашим бумагам."); return; }
-  const ev = buildEvents(D), today = todayIso();
+  const ev = buildEvents(D), today = todayIso(), roll = depRollover(D, 13);
   if (!S.calMonth) S.calMonth = today.slice(0, 7);
   const [Y, M] = S.calMonth.split("-").map(Number);
   const first = new Date(Y, M - 1, 1), startDow = (first.getDay() + 6) % 7, start = new Date(Y, M - 1, 1 - startDow);
@@ -2539,7 +2556,8 @@ function renderCalendar(D){
   const next12 = ev.filter(e => e.future && e.date < isoOf(new Date(new Date().getFullYear() + 1, new Date().getMonth(), new Date().getDate())));
   const exp12 = next12.reduce((s, e) => s + (e.amount && e.type !== "offer" && e.type !== "depclose" ? e.amount : 0), 0);
   const y12 = isoOf(new Date(new Date().getFullYear() - 1, new Date().getMonth(), new Date().getDate()));
-  const got12 = ev.filter(e => !e.future && e.date >= y12).reduce((s, e) => s + e.amount, 0);
+  /* a closed deposit returns your own money (and repeats its interest): not income, same as in «Ожидается» */
+  const got12 = ev.filter(e => !e.future && e.date >= y12 && e.type !== "depclose" && e.type !== "offer").reduce((s, e) => s + (e.amount || 0), 0);
   const offers = ev.filter(e => e.future && e.type === "offer");
   const hasMoex = D.holdings.some(h => S.moex[h.isin]);
   const evRow = e => `<div class="evrow"><span class="dt">${fmtD(e.date)}</span><span class="what"><span class="chip"><i class="dot" style="background:${EVT[e.type].c}"></i>${esc(evLabel(e))}</span> <b${e.isin ? cpA(e.isin) : ""}>${esc(e.name)}</b><small>${e.brokers.map(b => BROKERS[b].name).join(", ")}${e.qty ? " · " + qtyFmt(e.qty) + " шт." : ""}${e.rate ? " · ставка " + pct(e.rate, 2) : ""}${e.type === "offer" ? (e.start && e.end ? " · приём заявок " + fmtD(e.start).slice(0, 5) + "–" + fmtD(e.end) : " · решите заранее, предъявлять ли бумаги к выкупу") : ""}</small></span><span class="amt ${e.future ? "" : "pos"}">${e.amount ? (e.future ? "" : "+") + money(e.amount, 2) : e.type === "coupon" ? "<span class='faint'>не объявлен</span>" : ""}</span></div>`;
@@ -2547,14 +2565,14 @@ function renderCalendar(D){
   el.innerHTML = `
   <div class="tiles">
     <div class="tile"><span class="k">Ожидается за 12 месяцев</span><span class="v">${money(exp12)}</span><span class="d">купоны, дивиденды, амортизации, погашения и проценты по вкладам</span></div>
-    <div class="tile"><span class="k">Получено за 12 месяцев</span><span class="v pos">+${money(got12)}</span><span class="d">по данным отчётов, до налога</span></div>
+    <div class="tile"><span class="k">Получено за 12 месяцев</span><span class="v pos">+${money(got12)}</span><span class="d">купоны, дивиденды, погашения и проценты по вкладам, до налога</span></div>
     <div class="tile"><span class="k">Оферты впереди</span><span class="v">${offers.length}</span><span class="d">${offers[0] ? "ближайшая " + fmtD(offers[0].date) + " · " + esc(offers[0].name) : "по текущим бумагам нет"}</span></div>
   </div>
   ${soonPanel(ev)}
   ${remindersPanel(ev)}
   <div class="panel"><div class="panel-head"><h2>Выплаты по месяцам</h2><span class="sub">12 месяцев назад и 12 вперёд</span>
-    <span class="spacer legend"><span><i class="dot" style="background:var(--accent)"></i>получено</span><span><i class="dot" style="background:var(--c-coupon)"></i>ожидается</span></span></div>
-    ${monthBars(ev)}</div>
+    <span class="spacer legend"><span><i class="dot" style="background:var(--accent)"></i>получено</span><span><i class="dot" style="background:var(--c-coupon)"></i>ожидается</span>${roll.length ? `<span data-tip="Когда вклад заканчивается, деньги с процентами считаются снова положенными под среднюю ставку открытых вкладов (${pct(depAvgRate(D), 2)})"><i class="dot" style="background:var(--k-cash)"></i>прогноз по вкладам</span>` : ""}</span></div>
+    ${monthBars(ev, roll)}</div>
   <div class="panel">
     <div class="cal-head"><button class="btn ghost" id="calPrev" aria-label="Предыдущий месяц">‹</button><h2>${MONTHS[M - 1][0].toUpperCase() + MONTHS[M - 1].slice(1)} ${Y}</h2><button class="btn ghost" id="calNext" aria-label="Следующий месяц">›</button>
       <button class="btn" id="calToday">Сегодня</button>
@@ -3333,6 +3351,18 @@ function totalValue(D, H){ return H.reduce((s, h) => s + (h.value || 0), 0) + D.
 const hasData = D => D.reports.length > 0 || (D.deposits || []).length > 0;
 const anyData = () => allReports().length > 0 || S.deposits.length > 0;
 /* interest received so far, in the same shape as cash records, for income charts */
+/* forecast: when a deposit ends, its money (with interest) is put again at today's average rate of the open deposits; interest accrues month by month */
+function depAvgRate(D){ const open = (D.deposits || []).filter(x => !x.sim.closed && x.sim.balance > 0); const tot = open.reduce((s, x) => s + x.sim.balance, 0);
+  return tot ? open.reduce((s, x) => s + x.sim.balance * (x.sim.rateNow ? x.sim.rateNow.rate : 0), 0) / tot : 0; }
+function depRollover(D, months = 12){
+  const t = todayIso(), now = new Date(), end = isoOf(new Date(now.getFullYear(), now.getMonth() + months, 1)), wr = depAvgRate(D), out = [];
+  if (!(wr > 0)) return out;
+  for (const x of D.deposits || []){ const c = x.sim.close; if (!c || c.date < t || c.date >= end || !(c.amount > 0)) continue;
+    let d = c.date;
+    while (d < end){ const nm = new Date(+d.slice(0, 4), +d.slice(5, 7), 1), next = isoOf(nm) < end ? isoOf(nm) : end, days = (Date.parse(next) - Date.parse(d)) / 864e5;
+      out.push({ date: d, type: "interest", name: x.dep.name + " — после окончания", amount: c.amount * wr / 100 * days / 365, forecast: true }); d = next; } }
+  return out;
+}
 function depIncome(D){ const t = todayIso(), out = []; for (const x of D.deposits || []) for (const c of x.sim.credits) if (c.date <= t) out.push({ date: c.date, kind: "interest", amount: c.amount, ccy: "RUB", rub: c.amount, isin: "", name: x.dep.name }); return out; }
 
 /* ---- page ---- */
@@ -3376,6 +3406,7 @@ function renderDeposits(D){
   const t = todayIso(), y1 = addDays(t, 365);
   const fwd = list.reduce((s, x) => s + x.sim.credits.filter(c => c.date > t && c.date <= y1).reduce((a, c) => a + c.amount, 0), 0);
   const wr = total ? list.reduce((s, x) => s + x.sim.balance * (x.sim.rateNow ? x.sim.rateNow.rate : 0), 0) / total : 0;
+  const rollF = depRollover({ deposits: list }, 12).filter(e => e.date <= y1).reduce((s, e) => s + e.amount, 0);
   const card = x => { const d = x.dep, s = x.sim, rn = s.rateNow;
     const termPct = d.type === "deposit" && d.closes ? Math.min(1, Math.max(0, (msOf(t) - msOf(d.opened)) / (msOf(d.closes) - msOf(d.opened)))) : null;
     const nextRate = d.rates.filter(r => r.from > t).sort((a, b) => a.from.localeCompare(b.from))[0];
@@ -3402,7 +3433,8 @@ function renderDeposits(D){
   ${list.length ? `<div class="tiles">
     <div class="tile"><span class="k">На вкладах и счетах</span><span class="v">${money(total, 2)}</span><span class="d">${pend > 0.005 ? "+" + money(pend, 2) + " начислено, ещё не выплачено" : "все проценты выплачены"}</span></div>
     <div class="tile"><span class="k">Средняя ставка</span><span class="v">${pct(wr, 2)}</span><span class="d">взвешенная по остаткам</span></div>
-    <div class="tile"><span class="k">Проценты за 12 месяцев</span><span class="v pos">+${money(fwd, 2)}</span><span class="d">прогноз при заданных ставках</span></div>
+    <div class="tile"><span class="k">Проценты за 12 месяцев</span><span class="v pos">+${money(fwd + rollF, 2)}</span><span class="d">${rollF > 0.5 ? `по ставкам вкладов, а после окончания — под среднюю ${pct(wr, 2)} (из них прогноз ${money(rollF)})` : "прогноз при заданных ставках"}</span></div>
+    <div class="tile"><span class="k">Доход в месяц</span><span class="v pos">+${money(total * wr / 100 / 12, 2)}</span><span class="d">при средней ставке ${pct(wr, 2)} на ${money(total)}, до налога</span></div>
     <div class="tile"><span class="k">Получено процентов</span><span class="v">${money(got, 2)}</span><span class="d">за всё время, до налога</span></div>
   </div>
   ${nClosed ? `<label class="chk dep-sc"><input type="checkbox" id="depShowClosed" ${S.depShowClosed ? "checked" : ""}> Показывать закрытые (${nClosed})</label>` : ""}
@@ -3588,6 +3620,11 @@ function bondAnalytics(D, H, total){
   });
   const byI = new Map(info.map(x => [x.r, x]));
   const annual = info.reduce((s, x) => s + x.annual, 0);
+  /* coupons on ИИС-3 and ИИС type Б are not taxed: tax only the part of each issue held on ordinary accounts */
+  const exemptQ = new Map(), allQ = new Map();
+  for (const h of H){ if (!(h.qty > 0)) continue; allQ.set(h.isin, (allQ.get(h.isin) || 0) + h.qty); const ix = typeof iisOf === "function" ? iisOf(h.broker, h.account) : null; if (ix && iisExempt(ix)) exemptQ.set(h.isin, (exemptQ.get(h.isin) || 0) + h.qty); }
+  const annualIis = info.reduce((s, x) => s + x.annual * ((exemptQ.get(x.r.isin) || 0) / (allQ.get(x.r.isin) || 1)), 0);
+  const netMonth = ((annual - annualIis) * (1 - S0.ndfl / 100) + annualIis) / 12;
   const ytm = wavg(r => r.mx && r.mx.yield ? r.mx.yield : null), cy = wavg(r => byI.get(r).cy), cpn = wavg(r => byI.get(r).cpn), dur = wavg(r => r.mx && r.mx.duration ? r.mx.duration : null);
   const group = (key, names, order) => { const m = {}; for (const x of info){ const k = key(x); m[k] = (m[k] || 0) + x.r.clean; } return (order || Object.keys(m)).filter(k => m[k] > 0).map(k => ({ k, label: names(k).n || names(k), c: names(k).c, v: m[k] })); };
   const byRating = group(x => x.rg, k => RGROUPS[k], Object.keys(RGROUPS));
@@ -3618,7 +3655,7 @@ function bondAnalytics(D, H, total){
       ${kv("Дюрация", dur != null ? Math.round(dur) + " дн." : "—", dur != null ? "≈ " + (dur / 365.25).toLocaleString("ru-RU", { maximumFractionDigits: 1 }) + " г." : "")}
       ${kv("Купонный доход в год", money(annual), "до НДФЛ")}
       ${kv("В месяц до НДФЛ", money(annual / 12), "")}
-      ${kv("В месяц после НДФЛ", money(annual / 12 * (1 - S0.ndfl / 100)), "НДФЛ " + pct(S0.ndfl, 0), "pos")}
+      ${kv("В месяц после НДФЛ", money(netMonth), annualIis > 0.5 ? `НДФЛ ${pct(S0.ndfl, 0)}; ${money(annualIis / 12)} в месяц — на ИИС, без налога` : "НДФЛ " + pct(S0.ndfl, 0), "pos")}
       ${kv("Ближайшая оферта или погашение", nearest ? fmtD(nearest.near) : "—", nearest ? esc(nearest.r.short) + (nearest.nearIsOffer ? " · оферта" : " · погашение") : "")}
     </div>
     <div class="ba-flags">
@@ -4224,6 +4261,54 @@ document.addEventListener("keydown", e => { if (e.key === "Enter" && e.target.ma
 /* ======================= tools: tax optimisation before year end ======================= */
 S.tx = Object.assign({ rate: 13, incl: "all" }, store.get("pf.tx.v1", {}));
 const saveTx = () => store.set("pf.tx.v1", S.tx);
+/* ======================= ИИС: account types and their tax benefits ======================= */
+S.iis = store.get("pf.iis.v1", {});
+const saveIis = () => store.set("pf.iis.v1", S.iis);
+const IIS_T = { iis3: "ИИС-3", a: "ИИС тип А", b: "ИИС тип Б" };
+const iisOf = (b, a) => { const x = S.iis[b + "|" + a]; return x && IIS_T[x.type] ? x : null; };
+/* minimum term: old types — 3 years; ИИС-3 opened in 2024–2026 — 5 years, then +1 year for each later year up to 10 */
+const iisTerm = x => x.type === "iis3" ? Math.min(10, 5 + Math.max(0, +String(x.opened || "2024").slice(0, 4) - 2026)) : 3;
+const iisDeduct = x => x.type === "a" || x.type === "iis3", iisExempt = x => x.type === "b" || x.type === "iis3";
+function iisPanel(D, rate){
+  const t = todayIso(), Y = t.slice(0, 4), accs = new Map();
+  for (const c of D.cash) if (c.broker && c.broker !== "bank" && c.broker !== "other") accs.set(c.broker + "|" + c.account, { b: c.broker, a: c.account });
+  for (const x of D.trades) if (x.broker && x.broker !== "other") accs.set(x.broker + "|" + x.account, { b: x.broker, a: x.account });
+  if (!accs.size) return "";
+  const rub = c => c.amount * (fxRate(c.ccy) || 1), LIM = 400000;
+  let sumDed = 0, sumSaved = 0, room = 0, nIis = 0;
+  const rows = [...accs.values()].map(({ b, a }) => {
+    const k = b + "|" + a, x = iisOf(b, a), al = acctLabel({ broker: b, account: a }), bn = BROKERS[b] ? BROKERS[b].name : b, label = esc(al.startsWith(bn) ? al : bn + " · " + al);
+    const first = [...D.cash.filter(c => c.broker === b && c.account === a).map(c => c.date), ...D.trades.filter(z => z.broker === b && z.account === a).map(z => z.date)].sort()[0] || t;
+    const sel = `<select data-iis-type="${esc(k)}"><option value="">Обычный брокерский</option>${Object.entries(IIS_T).map(([v, n]) => `<option value="${v}" ${x && x.type === v ? "selected" : ""}>${n}</option>`).join("")}</select>`;
+    if (!x) return `<div class="iis-row"><div class="iis-h"><b>${label}</b>${sel}</div></div>`;
+    nIis++;
+    const opened = x.opened || first, term = iisTerm({ ...x, opened }), until = addDays(opened, Math.round(term * 365.25)), left = Math.max(0, (Date.parse(until) - Date.parse(t)) / 864e5);
+    const inY = D.cash.filter(c => c.broker === b && c.account === a && c.date.startsWith(Y) && (c.kind === "deposit" || c.kind === "withdrawal")).reduce((s, c) => s + rub(c), 0);
+    const contrib = Math.max(0, inY), ded = iisDeduct(x) ? Math.min(contrib, LIM) * rate : 0, more = iisDeduct(x) ? Math.max(0, LIM - contrib) : 0;
+    if (iisDeduct(x)){ sumDed += ded; room += more; }
+    /* what would have been taxed on a normal account: sale result and coupons; dividends are taxed anyway */
+    const gain = D.realized.filter(z => z.trade.broker === b && z.trade.account === a).reduce((s, z) => s + z.pnl * (fxRate(z.trade.ccy) || 1), 0);
+    const cpn = D.cash.filter(c => c.broker === b && c.account === a && c.kind === "coupon" && c.amount > 0).reduce((s, c) => s + rub(c), 0);
+    const saved = iisExempt(x) ? (Math.max(0, gain) + cpn) * rate : 0; if (iisExempt(x)) sumSaved += saved;
+    const closeEarly = x.type === "iis3" ? "все полученные вычеты вернуть, а с дохода заплатить налог" : x.type === "a" ? "вернуть полученные вычеты" : "заплатить налог с дохода";
+    return `<div class="iis-row on"><div class="iis-h"><b>${label}</b>${sel}<label class="iis-d"><small>открыт</small><input type="date" data-iis-open="${esc(k)}" value="${esc(opened)}"></label></div>
+      ${!x.opened ? `<p class="small muted" style="margin:0">Дата открытия взята по первой операции в загруженных отчётах — поправьте, если счёт открыт раньше: от неё зависит срок.</p>` : ""}${x.type !== "iis3" && opened >= "2024-01-01" ? `<p class="small warn-t" style="margin:0">ИИС типа А и Б открывали только до конца 2023 года. Если счёт открыт позже — это ИИС-3.</p>` : ""}
+      <div class="lab-kpi">
+        ${iisDeduct(x) ? `<div><span>Вычет за ${Y}</span><b class="pos">+${money(ded)}</b><small>${pct(rate * 100, 0)} от ${money(Math.min(contrib, LIM))} внесённых${contrib > LIM ? " (лимит 400 000 ₽)" : ""}; вернут после декларации или через ЛК налоговой</small></div>
+          <div><span>Можно ещё внести до 31.12</span><b>${more > 0 ? money(more) : "лимит выбран"}</b><small>${more > 0 ? `это ещё +${money(more * rate)} вычета` : "больше 400 000 ₽ в год вычет не даёт"}</small></div>` : ""}
+        ${iisExempt(x) ? `<div><span>Не платите налог</span><b class="pos">≈ ${money(saved)}</b><small>${pct(rate * 100, 0)} с ${gain > 0 ? `прибыли от продаж ${money(gain)}` : "прибыли от продаж (пока её нет)"}${cpn ? ` и купонов ${money(cpn)}` : ""} — при закрытии после срока${x.type === "iis3" ? " (до 30 млн ₽)" : ""}</small></div>` : ""}
+        ${x.type === "a" ? `<div><span>Налог с дохода</span><b>при закрытии</b><small>на ИИС-А налог с продаж и купонов не освобождается, а удерживается при закрытии счёта</small></div>` : ""}
+        <div><span>Льготы сохраняются, если не закрывать до</span><b class="${left > 0 ? "" : "pos"}">${fmtD(until)}</b><small>${left > 0 ? `ещё ${(Math.ceil(left / 365.25 * 10) / 10).toLocaleString("ru-RU")} г. · срок ${term} ${plural(term, "год", "года", "лет")}; закроете раньше — придётся ${closeEarly}` : "минимальный срок пройден"}</small></div>
+      </div></div>`;
+  }).join("");
+  return `<div class="panel lab-p iis-p"><div class="panel-head"><h2>ИИС</h2>${nIis ? `<span class="sub">${sumDed ? `вычет за ${Y}: <b class="pos">+${money(sumDed)}</b>` : ""}${sumDed && sumSaved ? " · " : ""}${sumSaved ? `не платите налог: <b class="pos">≈ ${money(sumSaved)}</b>` : ""}</span>` : `<span class="sub">укажите, какие счета — ИИС, чтобы учесть льготы</span>`}</div>
+    ${rows}
+    <p class="note">ИИС-3 (с 2024 года): вычет ${pct(rate * 100, 0)} со взносов до 400 000 ₽ в год и освобождение дохода от продаж и купонов до 30 млн ₽ — если не закрывать счёт 5 лет (для открытых в 2027-м и позже — дольше, до 10 лет). Старые ИИС: тип А — только вычет на взносы, тип Б — только освобождение дохода, срок 3 года. Дивиденды на любом ИИС облагаются налогом как обычно. Вычет нельзя получить больше, чем вы заплатили НДФЛ за год (например, с зарплаты).${room > 0 ? ` До конца года на ИИС можно внести ещё ${money(room)} с вычетом.` : ""}</p></div>`;
+}
+document.addEventListener("change", e => { const t = e.target;
+  if (t.matches("[data-iis-type]")){ const k = t.dataset.iisType; if (t.value) S.iis[k] = { ...(S.iis[k] || {}), type: t.value }; else delete S.iis[k]; saveIis(); render(); }
+  if (t.matches("[data-iis-open]")){ const k = t.dataset.iisOpen; if (S.iis[k]){ S.iis[k].opened = t.value || ""; saveIis(); render(); } } });
+
 function renderTaxOpt(D){
   const el = $("#v-taxopt"), H = valueHoldings(D), t = todayIso(), Y = t.slice(0, 4), rate = (+S.tx.rate || 13) / 100;
   const y3 = addDays(t, -3 * 365 - 1), soon = addDays(t, 183);
@@ -4242,7 +4327,13 @@ function renderTaxOpt(D){
   const list = Object.values(acc).filter(k => Math.abs(k.real) > 0.5 || k.hold.length);
   let totSave = 0, totTax = 0, totFree = 0;
   const cards = list.map(k => {
-    const gain = k.real, tax = Math.max(0, gain) * rate; totTax += tax;
+    const ix = iisOf(k.b, k.a), free0 = ix && iisExempt(ix), defer = ix && ix.type === "a";
+    const gain = k.real, tax = free0 ? 0 : Math.max(0, gain) * rate; if (!ix) totTax += tax;
+    if (ix){ const al = acctLabel({ broker: k.b, account: k.a }), bn = BROKERS[k.b] ? BROKERS[k.b].name : k.b, label = esc(al.startsWith(bn) ? al : bn + " · " + al);
+      return `<div class="panel lab-p tx-acc"><div class="panel-head"><h2><span class="acc-tag"><i class="dot" style="background:${(BROKERS[k.b] || BROKERS.other).c}"></i>${label}</span> <span class="iis-tag">${IIS_T[ix.type]}</span></h2></div>
+        <div class="lab-kpi"><div><span>Финрезультат за ${Y}</span><b class="${gain >= 0 ? "pos" : "neg"}">${sgn(gain)}</b><small>по продажам и погашениям</small></div>
+          <div><span>Налог в этом году</span><b class="pos">0 ₽</b><small>${free0 ? "доход на ИИС освобождён от налога при закрытии после срока" : "на ИИС-А налог считается при закрытии счёта, не в конце года"}</small></div></div>
+        <p class="note">${defer ? "Продавать бумаги в убытке до 31.12 ради налога на этом счёте не нужно: результат считается за весь срок ИИС." : "Продавать бумаги в убытке ради налога на этом счёте не нужно — налога с продаж нет."}</p></div>`; }
     const losers = k.hold.filter(x => x.pnl < -1 && x.ldvShare < 0.999).sort((a, b) => a.pnl - b.pnl), winners = k.hold.filter(x => x.pnl > 1 && x.ldvShare < 0.999).sort((a, b) => b.pnl - a.pnl);
     let plan = [], save = 0, free = 0;
     if (gain > 1){ let need = gain; for (const x of losers){ if (need <= 0) break; const use = Math.min(need, -x.pnl); plan.push({ x, use }); need -= use; } save = (gain - Math.max(0, gain - losers.reduce((s, x) => s - x.pnl, 0))) * rate; }
@@ -4266,12 +4357,14 @@ function renderTaxOpt(D){
   });
   el.innerHTML = `<div class="view-bar"><div><h1>Налоги до конца года</h1><span class="sub">${Y} · что можно сделать до 31 декабря, чтобы заплатить меньше НДФЛ</span></div></div>
   <div class="panel lab-p"><div class="lab-kpi">
-      <div><span>Налог с продаж за ${Y}</span><b>${money(totTax)}</b><small>оценка по всем счетам</small></div>
+      <div><span>Налог с продаж за ${Y}</span><b>${money(totTax)}</b><small>оценка по всем счетам${Object.keys(S.iis).length ? ", кроме ИИС" : ""}</small></div>
       <div><span>Можно сэкономить</span><b class="${totSave > 0 ? "pos" : ""}">${money(totSave)}</b><small>продав бумаги в убытке на тех же счетах</small></div>
       <div><span>Можно зафиксировать без налога</span><b class="${totFree > 0 ? "pos" : ""}">${money(totFree)}</b><small>прибыли на счетах с убытком за год</small></div>
       <div><span>Ставка</span><label class="lab-in"><input type="text" inputmode="decimal" data-tx-rate value="${String(S.tx.rate).replace(".", ",")}"> %</label><small>15% — с дохода свыше 2,4 млн ₽ в год</small></div>
     </div>
+    </div>
     <p class="note">Как это работает: брокер в конце года считает налог по каждому счёту отдельно — прибыль от продаж минус убытки. Если продать бумагу с бумажным убытком до конца года, убыток уменьшит налог; бумагу можно сразу купить обратно (кроме ИИС — там налог считается при закрытии счёта). Сделки должны пройти расчёты в этом году: продавайте не позже <b>${lastSettleDay(Y)}</b>. Учтите комиссию брокера и разницу цен покупки и продажи. Убыток у одного брокера можно зачесть против прибыли у другого только через декларацию 3-НДФЛ. Купоны, дивиденды и ИИС здесь не учитываются.</p></div>
+  ${iisPanel(D, rate)}
   ${cards.length ? cards.join("") : `<div class="panel"><div class="empty"><b>Нет данных за ${Y}</b><span>Загрузите отчёты брокеров за этот год.</span></div></div>`}
   <p class="note">Это оценка по загруженным отчётам, а не налоговая консультация. Точный расчёт — у брокера и в личном кабинете налогоплательщика.</p>`;
 }
@@ -6089,7 +6182,7 @@ document.addEventListener("click", e => { if (e.target.closest("#dashCfg")) open
 
 const WORKER_SRC = "// Синхронизация «Аналитика инвестиций» — Cloudflare Worker.\n// Хранит зашифрованные данные приложения в Workers KV. Сервер не видит содержимое:\n// данные шифруются паролем в браузере (AES-GCM), сюда приходит только шифротекст.\n//\n// Привязка KV: переменная PF (Settings → Bindings → KV namespace → Variable name: PF).\n//\n// API:\n//   GET    /v1/<id>   -> зашифрованные данные, заголовки X-Rev и X-Updated (404, если пусто)\n//   PUT    /v1/<id>   -> сохранить; заголовки X-Write-Key (ключ записи) и X-Base-Rev (версия, от которой правили)\n//   DELETE /v1/<id>   -> удалить; заголовок X-Write-Key\n//   POST   /tinvest/<Service>/<Method> -> передаёт запрос в T-Invest API (только чтение: счета, операции, портфель, справочник бумаг)\n//   ANY    /finam/v1/...  -> передаёт запрос в Finam Trade API (только вход, счета, сделки, операции, справочник бумаг)\n//   POST   /an/v1/messages, /ds/chat/completions -> передаёт вопрос ИИ в API Anthropic (Claude) или DeepSeek; ключ приходит из браузера и нигде не хранится\n//   GET    /sl/q/<TICKER>/f/y/<MSFO|RSBU>/ -> страница фундаментальных показателей Smart-Lab (кэш 6 часов)\n\nconst CORS = {\n  \"Access-Control-Allow-Origin\": \"*\",\n  \"Access-Control-Allow-Methods\": \"GET, POST, PUT, DELETE, OPTIONS\",\n  \"Access-Control-Allow-Headers\": \"Content-Type, X-Write-Key, X-Base-Rev, Authorization, x-api-key, anthropic-version, anthropic-beta, anthropic-dangerous-direct-browser-access\",\n  \"Access-Control-Expose-Headers\": \"X-Rev, X-Updated\",\n  \"Access-Control-Max-Age\": \"86400\",\n};\nconst MAX_BYTES = 20 * 1024 * 1024;\n\nconst json = (data, status = 200) =>\n  new Response(JSON.stringify(data), { status, headers: { ...CORS, \"Content-Type\": \"application/json; charset=utf-8\" } });\n\nasync function sha256hex(text) {\n  const buf = await crypto.subtle.digest(\"SHA-256\", new TextEncoder().encode(text));\n  return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, \"0\")).join(\"\");\n}\n\nexport default {\n  async fetch(request, env) {\n    if (request.method === \"OPTIONS\") return new Response(null, { status: 204, headers: CORS });\n    const url = new URL(request.url);\n    const ti = url.pathname.match(/^\\/tinvest\\/(UsersService|OperationsService|InstrumentsService)\\/(GetAccounts|GetOperationsByCursor|GetPortfolio|GetPositions|GetInstrumentBy)$/);\n    if (ti && request.method === \"POST\") {\n      const r = await fetch(\"https://invest-public-api.tbank.ru/rest/tinkoff.public.invest.api.contract.v1.\" + ti[1] + \"/\" + ti[2], {\n        method: \"POST\", headers: { \"Authorization\": request.headers.get(\"Authorization\") || \"\", \"Content-Type\": \"application/json\", \"Accept\": \"application/json\" }, body: await request.text() });\n      return new Response(r.body, { status: r.status, headers: { ...CORS, \"Content-Type\": \"application/json; charset=utf-8\", \"Cache-Control\": \"no-store\" } });\n    }\n    const fp = url.pathname.match(/^\\/finam(\\/v1\\/(sessions(\\/details)?|accounts\\/[^/]+(\\/(trades|transactions))?|assets\\/[^/]+))$/);\n    if (fp) {\n      const isPost = /^\\/v1\\/sessions/.test(fp[1]);\n      if ((isPost && request.method !== \"POST\") || (!isPost && request.method !== \"GET\")) return json({ error: \"method not allowed\" }, 405);\n      const r = await fetch(\"https://api.finam.ru\" + fp[1] + url.search, {\n        method: request.method, headers: { \"Authorization\": request.headers.get(\"Authorization\") || \"\", \"Content-Type\": \"application/json\", \"Accept\": \"application/json\" }, body: isPost ? await request.text() : undefined });\n      return new Response(r.body, { status: r.status, headers: { ...CORS, \"Content-Type\": \"application/json; charset=utf-8\", \"Cache-Control\": \"no-store\" } });\n    }\n    const ai = url.pathname.match(/^\\/(an\\/v1\\/messages|ds\\/chat\\/completions)$/);\n    if (ai) {\n      if (request.method !== \"POST\") return json({ error: \"method not allowed\" }, 405);\n      const target = ai[1] === \"an/v1/messages\" ? \"https://api.anthropic.com/v1/messages\" : \"https://api.deepseek.com/chat/completions\";\n      const h = { \"Content-Type\": \"application/json\" };\n      for (const k of [\"x-api-key\", \"anthropic-version\", \"anthropic-beta\", \"authorization\"]) { const v = request.headers.get(k); if (v) h[k] = v; }\n      const r = await fetch(target, { method: \"POST\", headers: h, body: await request.text() });\n      return new Response(r.body, { status: r.status, headers: { ...CORS, \"Content-Type\": r.headers.get(\"Content-Type\") || \"application/json\", \"Cache-Control\": \"no-store\" } });\n    }\n    const sl = url.pathname.match(/^\\/sl(\\/q\\/[A-Za-z0-9._-]{1,20}\\/f\\/(y|q)\\/(MSFO|RSBU)\\/?)$/);\n    if (sl){\n      if (request.method !== \"GET\") return json({ error: \"method not allowed\" }, 405);\n      const r = await fetch(\"https://smart-lab.ru\" + sl[1], { headers: { \"User-Agent\": \"Mozilla/5.0 (compatible; pf-analytics)\", \"Accept\": \"text/html\" }, cf: { cacheTtl: 21600, cacheEverything: true } });\n      return new Response(r.body, { status: r.status, headers: { ...CORS, \"Content-Type\": \"text/html; charset=utf-8\", \"Cache-Control\": \"public, max-age=21600\" } });\n    }\n    if (!env.PF) return json({ error: \"KV не привязан: добавьте привязку KV с именем PF\" }, 500);\n\n    if (url.pathname === \"/\" || url.pathname === \"/v1\") return json({ ok: true, service: \"pf-sync\", tinvest: true, finam: true, smartlab: true, ai: true });\n    const m = url.pathname.match(/^\\/v1\\/([A-Za-z0-9_-]{16,64})$/);\n    if (!m) return json({ error: \"not found\" }, 404);\n    const key = \"pf:\" + m[1];\n\n    const { value, metadata } = await env.PF.getWithMetadata(key);\n    const meta = metadata || null; // { rev, updated, wk }\n\n    if (request.method === \"GET\") {\n      if (value === null) return json({ error: \"empty\" }, 404);\n      return new Response(value, {\n        headers: { ...CORS, \"Content-Type\": \"application/json; charset=utf-8\", \"Cache-Control\": \"no-store\", \"X-Rev\": String(meta.rev), \"X-Updated\": meta.updated },\n      });\n    }\n\n    const wk = request.headers.get(\"X-Write-Key\") || \"\";\n    if (wk.length < 32) return json({ error: \"no write key\" }, 401);\n    const wkHash = await sha256hex(wk);\n    if (meta && meta.wk !== wkHash) return json({ error: \"forbidden\" }, 403);\n\n    if (request.method === \"PUT\") {\n      const base = Number(request.headers.get(\"X-Base-Rev\") || 0);\n      if (meta && base !== meta.rev) return json({ error: \"conflict\", rev: meta.rev, updated: meta.updated }, 409);\n      const body = await request.text();\n      if (body.length > MAX_BYTES) return json({ error: \"too large\" }, 413);\n      try { const p = JSON.parse(body); if (!p || !p.ct || !p.iv) throw 0; } catch { return json({ error: \"bad body\" }, 400); }\n      const next = { rev: (meta ? meta.rev : 0) + 1, updated: new Date().toISOString(), wk: wkHash };\n      await env.PF.put(key, body, { metadata: next });\n      return json({ rev: next.rev, updated: next.updated });\n    }\n\n    if (request.method === \"DELETE\") {\n      await env.PF.delete(key);\n      return json({ ok: true });\n    }\n\n    return json({ error: \"method not allowed\" }, 405);\n  },\n};\n";
 /* ======================= sync between devices via your own Cloudflare Worker ======================= */
-const SYNC_KEYS = new Set(["pf.reports.v1", "pf.manual.v1", "pf.edits.v1", "pf.goals.v1", "pf.portfolios.v1", "pf.deposits.v1", "pf.settings.v1", "pf.rem.v1", "pf.dash.v1", "pf.stop.v1", "pf.sal.v1", "pf.iss.v1"]);
+const SYNC_KEYS = new Set(["pf.reports.v1", "pf.manual.v1", "pf.edits.v1", "pf.goals.v1", "pf.portfolios.v1", "pf.deposits.v1", "pf.settings.v1", "pf.rem.v1", "pf.dash.v1", "pf.stop.v1", "pf.sal.v1", "pf.iss.v1", "pf.iis.v1"]);
 S.sync = Object.assign({ url: "", id: "", pass: "", rev: 0, dirty: false, at: null, auto: true }, store.get("pf.sync.v1", {}));
 const SY = { busy: false, applying: false, timer: 0, status: "", err: "", lastPull: 0, key: null, keyFor: "" };
 const saveSync = () => { const { ...x } = S.sync; localStorage.setItem("pf.sync.v1", JSON.stringify(x)); };
@@ -6097,7 +6190,7 @@ const prov = () => S.sync.prov || "cf";
 const syncOn = () => !!S.sync.pass && (prov() === "cf" ? !!(S.sync.url && S.sync.id) : prov() === "gs" ? !!(S.gas && S.gas.url && S.sync.id) : prov() === "yd" ? !!S.sync.ytoken : !!S.sync.gclient);
 { const set0 = store.set; store.set = (k, v) => { const track = SYNC_KEYS.has(k) && !SY.applying && syncOn(); let prev = null; if (track) try { prev = localStorage.getItem(k); } catch {} const ok = set0(k, v); if (track){ let now = null; try { now = localStorage.getItem(k); } catch {} if (now !== prev) markDirty(); } return ok; }; }
 function markDirty(){ if (!S.sync.dirty){ S.sync.dirty = true; saveSync(); } paintSync(); if (S.sync.auto){ clearTimeout(SY.timer); SY.timer = setTimeout(() => syncPush(false), 15000); } }
-function backupData(){ return { app: "portfel", v: 1, at: new Date().toISOString(), reports: S.reports, manual: S.manual, edits: S.edits, deposits: S.deposits, settings: S.settings, portfolios: S.portfolios, goals: S.goals, rem: S.rem, active: S.active, dash: S.dash, stop: S.stop, sal: S.sal }; }
+function backupData(){ return { app: "portfel", v: 1, at: new Date().toISOString(), reports: S.reports, manual: S.manual, edits: S.edits, deposits: S.deposits, settings: S.settings, portfolios: S.portfolios, goals: S.goals, rem: S.rem, active: S.active, dash: S.dash, stop: S.stop, sal: S.sal, iis: S.iis }; }
 function applyBackup(d){
   if (!d || d.app !== "portfel" || !Array.isArray(d.reports)) throw new Error("bad");
   S.reports = d.reports; S.deposits = d.deposits || []; saveDeposits(); if (d.settings){ S.settings = Object.assign(S.settings, d.settings); saveSettings(); }
@@ -6105,6 +6198,7 @@ function applyBackup(d){
   S.portfolios = d.portfolios || []; S.goals = d.goals || {}; if (d.rem) S.rem = d.rem; if (d.dash){ S.dash = d.dash; saveDash(); }
   if (!S.portfolios.some(p => p.id === S.active)) S.active = d.active && (d.active === "all" || S.portfolios.some(p => p.id === d.active)) ? d.active : "all";
   S.pfSeen = accountList().map(a => a.key);
+  if (d.iis && typeof d.iis === "object"){ S.iis = d.iis; saveIis(); }
   if (d.sal && typeof d.sal === "object"){ S.sal = Object.assign({}, SAL_DEF, d.sal); saveSal(); }
   if (d.stop && Array.isArray(d.stop.list)){ S.stop = Object.assign({ list: [], excl: true }, d.stop); saveStop(); }
   saveReports(); saveManual(); savePortfolios(); saveGoals(); store.set("pf.rem.v1", S.rem);
